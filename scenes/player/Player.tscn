@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2kvb4kiqg340"]
+
+[ext_resource type="Script" path="res://scenes/player/Player.gd" id="1_ka5a7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u04fh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euf6m"]
+albedo_color = Color(0, 0.47451, 0.329412, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_dkbm3"]
+material = SubResource("StandardMaterial3D_euf6m")
+radial_segments = 16
+rings = 6
+
+[node name="Player" type="RigidBody3D"]
+lock_rotation = true
+script = ExtResource("1_ka5a7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_u04fh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_dkbm3")
+
+[node name="TwistPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="PitchPivot" type="Node3D" parent="TwistPivot"]
+
+[node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.16722, 2.89211)
