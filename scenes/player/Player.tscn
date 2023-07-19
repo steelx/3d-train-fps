@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://d2kvb4kiqg340"]
+[gd_scene load_steps=15 format=3 uid="uid://d2kvb4kiqg340"]
 
 [ext_resource type="Script" path="res://scenes/player/Player.gd" id="1_ka5a7"]
 [ext_resource type="PackedScene" uid="uid://b8nh6cyc5emw8" path="res://resources/Character.glb" id="2_iwhi1"]
+[ext_resource type="PackedScene" uid="uid://bsk64cnglx6w4" path="res://scenes/components/HealthManager.tscn" id="3_7sjyc"]
+[ext_resource type="PackedScene" uid="uid://dn3ptli7s757c" path="res://scenes/components/WeaponManager.tscn" id="4_udfso"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u04fh"]
 
@@ -38,6 +40,11 @@ states/Run/position = Vector2(488, 117.648)
 states/Start/position = Vector2(182.4, 99.68)
 transitions = ["Start", "Run", SubResource("AnimationNodeStateMachineTransition_1m81y"), "Run", "Jump", SubResource("AnimationNodeStateMachineTransition_nd274"), "Jump", "Run", SubResource("AnimationNodeStateMachineTransition_w6x0b")]
 
+[sub_resource type="LabelSettings" id="LabelSettings_k7w2h"]
+font_size = 22
+font_color = Color(0, 0.192157, 0.172549, 1)
+shadow_color = Color(0.439216, 0.305882, 0.203922, 0)
+
 [node name="Player" type="RigidBody3D"]
 lock_rotation = true
 linear_damp = 2.0
@@ -55,15 +62,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
 transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.16722, 2.89211)
 
+[node name="WeaponManager" parent="TwistPivot/PitchPivot" instance=ExtResource("4_udfso")]
+
 [node name="Character" parent="." instance=ExtResource("2_iwhi1")]
 
 [node name="Skeleton3D" parent="Character/KayKit Animated Character2" index="0"]
-bones/2/rotation = Quaternion(-0.685863, -0.172023, 0.685863, -0.172022)
+bones/0/rotation = Quaternion(-0.00982376, -4.02477e-28, 3.79846e-18, 0.999952)
+bones/1/rotation = Quaternion(0.0587414, 5.1605e-26, -1.5372e-17, 0.998273)
+bones/2/rotation = Quaternion(-0.682174, -0.187989, 0.681069, -0.188266)
 bones/3/rotation = Quaternion(0.606617, -0.606617, 0.36334, 0.36334)
-bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(-0.685863, 0.172023, 0.685863, 0.172023)
-bones/5/rotation = Quaternion(0.36334, -0.36334, 0.606617, 0.606617)
-bones/5/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(-0.700444, 0.296409, 0.64622, 0.0626117)
+bones/5/rotation = Quaternion(0.300506, -0.376591, 0.679877, 0.55285)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_syggq")
@@ -73,5 +82,18 @@ parameters/Run/blend_position = 0.0
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="HealthManager" parent="." instance=ExtResource("3_7sjyc")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Health: 000"
+label_settings = SubResource("LabelSettings_k7w2h")
 
 [editable path="Character"]

@@ -2,26 +2,28 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpncdebsfugii"
-path="res://.godot/imported/grass_lowres.png-66e749c387d8b3266f5bf9dd83ccef0c.ctex"
+uid="uid://cunqr6now2pba"
+path.s3tc="res://.godot/imported/machete_blackmetal.png-d2b47e5c78a0a6390736394c2ca9fded.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
+generator_parameters={}
 
 [deps]
 
-source_file="res://resources/grass_lowres.png"
-dest_files=["res://.godot/imported/grass_lowres.png-66e749c387d8b3266f5bf9dd83ccef0c.ctex"]
+source_file="res://resources/weapons/machete_blackmetal.png"
+dest_files=["res://.godot/imported/machete_blackmetal.png-d2b47e5c78a0a6390736394c2ca9fded.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +33,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

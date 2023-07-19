@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://blsxu8whdorw6"
-path="res://.godot/imported/Plateau.glb-d1fd8b092cefc7784302c3c8cc9759e9.scn"
+uid="uid://bg2tkmjk016dq"
+path="res://.godot/imported/rocketlauncher.glb-7828681d837bea1c62f17c04d0ed5fd4.scn"
 
 [deps]
 
-source_file="res://resources/Plateau.glb"
-dest_files=["res://.godot/imported/Plateau.glb-d1fd8b092cefc7784302c3c8cc9759e9.scn"]
+source_file="res://resources/weapons/rocketlauncher.glb"
+dest_files=["res://.godot/imported/rocketlauncher.glb-7828681d837bea1c62f17c04d0ed5fd4.scn"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://0yb145kccipq"
-path.s3tc="res://.godot/imported/shed_roof.png-6638e0274d97764d0d375b14bad0e1ef.s3tc.ctex"
+uid="uid://ddev24hhf8bqe"
+path.s3tc="res://.godot/imported/Plateau_grass_lowres.png-2a5db0195b0974a4c73708a3174286b4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://resources/shed_roof.png"
-dest_files=["res://.godot/imported/shed_roof.png-6638e0274d97764d0d375b14bad0e1ef.s3tc.ctex"]
+source_file="res://resources/environment/Plateau_grass_lowres.png"
+dest_files=["res://.godot/imported/Plateau_grass_lowres.png-2a5db0195b0974a4c73708a3174286b4.s3tc.ctex"]
 
 [params]
 

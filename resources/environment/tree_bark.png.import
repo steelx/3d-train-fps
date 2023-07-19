@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bx3jkdhbjffb1"
-path.s3tc="res://.godot/imported/shed_low_res_wood.png-a4ec8841ed4bb8d17d0fbb698d033765.s3tc.ctex"
+uid="uid://p120u1eqdcbq"
+path.s3tc="res://.godot/imported/tree_bark.png-c2496dc367895941034aca4ef061db62.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://resources/shed_low_res_wood.png"
-dest_files=["res://.godot/imported/shed_low_res_wood.png-a4ec8841ed4bb8d17d0fbb698d033765.s3tc.ctex"]
+source_file="res://resources/environment/tree_bark.png"
+dest_files=["res://.godot/imported/tree_bark.png-c2496dc367895941034aca4ef061db62.s3tc.ctex"]
 
 [params]
 

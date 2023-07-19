@@ -10,6 +10,14 @@ const CANCEL = "ui_cancel"
 const SPEED = 1200.0
 const JUMP_FORCE = 8.0
 
+const hotkeys := {
+	KEY_0: 0,
+	KEY_1: 0,
+	KEY_2: 1,
+	KEY_3: 2,
+	KEY_4: 3,
+}
+
 const mouse_sensitivity := 0.0025
 var twist_input := 0.0
 var pitch_input := 0.0
@@ -21,14 +29,25 @@ var pitch_input := 0.0
 @onready var animator := $AnimationTree
 @onready var playback = animator["parameters/playback"]
 var blend_path := "parameters/Run/blend_position"
+@onready var health_label := $CanvasLayer/Label
+
+@onready var weapon_manager: WeaponManager = $TwistPivot/PitchPivot/WeaponManager
+@onready var health_manager: HealthManager = $HealthManager
+var is_dead := false
 
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	health_manager.setup()
+	health_manager.e_dead.connect(self.kill)
+	health_manager.e_critical.connect(self.at_critical)
+	health_manager.e_health_changed.connect(self.health_changed)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	if is_dead:
+		return
 	var input := Vector3.ZERO
 	input.x = Input.get_axis(MOVE_LEFT, MOVE_RIGHT)
 	input.z = Input.get_axis(MOVE_FORWARD, MOVE_BACKWARD)
@@ -50,6 +69,12 @@ func _unhandled_input(event: InputEvent) -> void:
 		if raycast.is_colliding():
 			apply_central_impulse(Vector3.UP * JUMP_FORCE)
 			handle_jump_animation()
+	if event is InputEventKey and event.is_pressed():
+		if event.keycode in hotkeys:
+			weapon_manager.switch_to_weapon_slot(hotkeys[event.keycode])
+	if event is InputEventMouseButton and event.is_pressed():
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			weapon_manager.switch_to_next_weapon()
 
 
 func handle_camera_rotation() -> void:
@@ -79,3 +104,24 @@ func handle_animation(direction: Vector3, delta: float) -> void:
 
 func handle_jump_animation() -> void:
 	playback.start("Jump")
+
+
+func hurt(dmg: int, dir: Vector3) -> void:
+	health_manager.hurt(dmg, dir)
+
+
+func heal(amt: int) -> void:
+	health_manager.heal(amt)
+
+
+func kill() -> void:
+	is_dead = true
+	self.freeze = true
+
+
+func at_critical() -> void:
+	print_debug("Player at critical health")
+
+
+func health_changed(health: int) -> void:
+	health_label.text = "Health: " + str(health)

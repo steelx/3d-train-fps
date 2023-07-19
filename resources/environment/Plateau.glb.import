@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bys8f5nvl4513"
-path="res://.godot/imported/tree.glb-8d3234f470791808dfee0165e9f8825a.scn"
+uid="uid://blsxu8whdorw6"
+path="res://.godot/imported/Plateau.glb-1068b0090584b686b73fdd8b76f95170.scn"
 
 [deps]
 
-source_file="res://resources/tree.glb"
-dest_files=["res://.godot/imported/tree.glb-8d3234f470791808dfee0165e9f8825a.scn"]
+source_file="res://resources/environment/Plateau.glb"
+dest_files=["res://.godot/imported/Plateau.glb-1068b0090584b686b73fdd8b76f95170.scn"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d30uyaikfs3fd"
-path.s3tc="res://.godot/imported/brickwall_brick_ivy.png-fda18607cb59be8e621a7f8f992dd6cf.s3tc.ctex"
+uid="uid://cop8hwhil7oaf"
+path.s3tc="res://.godot/imported/shotgun_blackmetal.png-6a63f7a10d7eb28979662135241c259b.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://resources/brickwall_brick_ivy.png"
-dest_files=["res://.godot/imported/brickwall_brick_ivy.png-fda18607cb59be8e621a7f8f992dd6cf.s3tc.ctex"]
+source_file="res://resources/weapons/shotgun_blackmetal.png"
+dest_files=["res://.godot/imported/shotgun_blackmetal.png-6a63f7a10d7eb28979662135241c259b.s3tc.ctex"]
 
 [params]
 

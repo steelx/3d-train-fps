@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dblxmxg0fmecu"
-path.s3tc="res://.godot/imported/Plateau_stone_lowres.png-f5c22056c089295ba43776878e5ced96.s3tc.ctex"
+uid="uid://b3q1avt5oueh7"
+path.s3tc="res://.godot/imported/machete_shinymetal.png-a067416288e6ef23b33287b9460264e1.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://resources/Plateau_stone_lowres.png"
-dest_files=["res://.godot/imported/Plateau_stone_lowres.png-f5c22056c089295ba43776878e5ced96.s3tc.ctex"]
+source_file="res://resources/weapons/machete_shinymetal.png"
+dest_files=["res://.godot/imported/machete_shinymetal.png-a067416288e6ef23b33287b9460264e1.s3tc.ctex"]
 
 [params]
 

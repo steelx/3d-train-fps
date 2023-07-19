@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cdrwgpcn1go5d"
-path="res://.godot/imported/shed.glb-870b848678732b322a116c6a2698839d.scn"
+uid="uid://bys8f5nvl4513"
+path="res://.godot/imported/tree.glb-7690069e75a0b237588280fbaee54512.scn"
 
 [deps]
 
-source_file="res://resources/shed.glb"
-dest_files=["res://.godot/imported/shed.glb-870b848678732b322a116c6a2698839d.scn"]
+source_file="res://resources/environment/tree.glb"
+dest_files=["res://.godot/imported/tree.glb-7690069e75a0b237588280fbaee54512.scn"]
 
 [params]
 

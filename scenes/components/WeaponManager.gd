@@ -1,0 +1,59 @@
+extends Node
+class_name WeaponManager
+
+enum WeaponSlots { MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER }
+var slots_available := {
+	WeaponSlots.MACHETE: true,
+	WeaponSlots.MACHINE_GUN: true,
+	WeaponSlots.SHOTGUN: true,
+	WeaponSlots.ROCKET_LAUNCHER: true
+}
+
+@onready var weapons := $Weapons.get_children()
+var current_weapon: Node3D = null
+var current_slot := WeaponSlots.MACHETE
+
+
+func _ready() -> void:
+	# Set the machete as the current weapon
+	current_weapon = $Weapons/Machete
+	current_weapon.show()
+
+
+func switch_to_next_weapon() -> void:
+	# Get the next weapon slot
+	var next_slot := current_slot + 1
+	if next_slot > WeaponSlots.ROCKET_LAUNCHER:
+		next_slot = WeaponSlots.MACHETE
+
+	# If the next slot is available, switch to it
+	if slots_available[next_slot]:
+		switch_to_weapon_slot(next_slot)
+
+
+func switch_to_weapon_slot(slot_index: WeaponSlots) -> void:
+	if (
+		slot_index == current_slot
+		or slot_index < WeaponSlots.MACHETE
+		or slot_index > WeaponSlots.ROCKET_LAUNCHER
+		or not slots_available[slot_index]
+	):
+		return
+	# Hide the current weapon
+	disable_all_weapons()
+
+	# Show the new weapon
+	current_slot = slot_index
+	current_weapon = weapons[slot_index]
+	if current_weapon.has_method("set_active"):
+		current_weapon.set_active()
+	else:
+		current_weapon.show()
+
+
+func disable_all_weapons() -> void:
+	for weapon in weapons:
+		if weapon.has_method("set_inactive"):
+			weapon.set_inactive()
+		else:
+			weapon.hide()
