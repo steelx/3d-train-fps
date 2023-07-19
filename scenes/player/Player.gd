@@ -8,6 +8,7 @@ const MOVE_LEFT = "move_left"
 const MOVE_RIGHT = "move_right"
 const CANCEL = "ui_cancel"
 const SPEED = 900
+const JUMP_FORCE = 8.0
 
 const mouse_sensitivity := 0.0025
 var twist_input := 0.0
@@ -15,6 +16,11 @@ var pitch_input := 0.0
 
 @onready var twist_pivot := $TwistPivot
 @onready var pitch_pivot := $TwistPivot/PitchPivot
+@onready var raycast := $RayCast3D
+@onready var character := $Character
+@onready var animator := $AnimationTree
+@onready var playback = animator["parameters/playback"]
+var blend_path := "parameters/Run/blend_position"
 
 
 func _ready() -> void:
@@ -27,6 +33,8 @@ func _process(delta: float) -> void:
 	input.x = Input.get_axis(MOVE_LEFT, MOVE_RIGHT)
 	input.z = Input.get_axis(MOVE_FORWARD, MOVE_BACKWARD)
 	handle_movement(input, delta)
+	handle_character_rotation(input, delta)
+	handle_animation(input, delta)
 	handle_camera_rotation()
 
 
@@ -37,6 +45,11 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if Input.is_action_just_pressed(CANCEL):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+	if event.is_action_pressed(JUMP):
+		if raycast.is_colliding():
+			apply_central_impulse(Vector3.UP * JUMP_FORCE)
+			handle_jump_animation()
 
 
 func handle_camera_rotation() -> void:
@@ -49,3 +62,19 @@ func handle_camera_rotation() -> void:
 
 func handle_movement(input: Vector3, delta: float) -> void:
 	apply_central_force(twist_pivot.basis * input * SPEED * delta)
+
+
+func handle_character_rotation(input: Vector3, delta: float) -> void:
+	if not input.is_zero_approx():
+		var move_direction = twist_pivot.basis * input
+		var align = character.transform.looking_at(character.transform.origin - move_direction)
+		character.transform = character.transform.interpolate_with(align, delta * 20.0)
+
+
+func handle_animation(direction: Vector3, delta: float) -> void:
+	# Idle, Run blend
+	animator[blend_path] = lerp(animator[blend_path], direction.length(), delta * 5.0)
+
+
+func handle_jump_animation() -> void:
+	playback.start("Jump")
