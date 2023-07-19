@@ -7,7 +7,7 @@ const MOVE_BACKWARD = "move_backward"
 const MOVE_LEFT = "move_left"
 const MOVE_RIGHT = "move_right"
 const CANCEL = "ui_cancel"
-const SPEED = 900
+const SPEED = 1200.0
 const JUMP_FORCE = 8.0
 
 const mouse_sensitivity := 0.0025
@@ -61,12 +61,13 @@ func handle_camera_rotation() -> void:
 
 
 func handle_movement(input: Vector3, delta: float) -> void:
-	apply_central_force(twist_pivot.basis * input * SPEED * delta)
+	var move_direction: Vector3 = twist_pivot.basis * input
+	apply_central_force(move_direction * SPEED * delta)
 
 
 func handle_character_rotation(input: Vector3, delta: float) -> void:
 	if not input.is_zero_approx():
-		var move_direction = twist_pivot.basis * input
+		var move_direction: Vector3 = twist_pivot.basis * input
 		var align = character.transform.looking_at(character.transform.origin - move_direction)
 		character.transform = character.transform.interpolate_with(align, delta * 20.0)
 

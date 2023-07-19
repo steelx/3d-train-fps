@@ -40,6 +40,7 @@ transitions = ["Start", "Run", SubResource("AnimationNodeStateMachineTransition_
 
 [node name="Player" type="RigidBody3D"]
 lock_rotation = true
+linear_damp = 2.0
 script = ExtResource("1_ka5a7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
