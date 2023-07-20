@@ -4,22 +4,29 @@ class_name WeaponManager
 signal e_machete_body_entered(body: Node3D)
 
 enum WeaponSlots { MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER }
-var slots_available := {
+@export var slots_available := {
 	WeaponSlots.MACHETE: true,
 	WeaponSlots.MACHINE_GUN: true,
 	WeaponSlots.SHOTGUN: true,
 	WeaponSlots.ROCKET_LAUNCHER: true
 }
 
-@onready var weapons := $Weapons.get_children()
-var current_weapon: Node3D = null
+@onready var weapons = $Weapons.get_children()
+var current_weapon: Node3D = null:
+	set(value):
+		current_weapon = value
+		if current_weapon != null:
+			if current_weapon.has_method("set_active"):
+				current_weapon.set_active()
+			else:
+				current_weapon.show()
+
 var current_slot := WeaponSlots.MACHETE
 
 
 func _ready() -> void:
 	# Set the machete as the current weapon
 	current_weapon = $Weapons/Machete
-	current_weapon.show()
 
 
 func switch_to_next_weapon() -> void:
@@ -47,10 +54,6 @@ func switch_to_weapon_slot(slot_index: WeaponSlots) -> void:
 	# Show the new weapon
 	current_slot = slot_index
 	current_weapon = weapons[slot_index]
-	if current_weapon.has_method("set_active"):
-		current_weapon.set_active()
-	else:
-		current_weapon.show()
 
 
 func disable_all_weapons() -> void:

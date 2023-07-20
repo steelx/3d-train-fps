@@ -164,10 +164,10 @@ tracks/0/path = NodePath("Model:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -0.699344, 0.0635767), Vector3(0, -0.699344, 0.0635767)]
+"values": [Vector3(0, 0.386667, 0.0635767)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -176,10 +176,10 @@ tracks/1/path = NodePath("Model:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-1.71702, 0, 0), Vector3(-1.71702, 0, 0)]
+"values": [Vector3(-1.71702, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s85jj"]
@@ -226,10 +226,10 @@ tracks/0/path = NodePath("Model:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.0635767, 0.0874181), Vector3(0, -0.0635767, 0.0715237), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0.490719, 0), Vector3(0, 0.490719, 0), Vector3(0, 0.490719, 0.0512345)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -238,10 +238,10 @@ tracks/1/path = NodePath("Model:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.3, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.0298975, 0, 0), Vector3(-0.00466003, 0, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0.0326726, 0, 0), Vector3(0.0326726, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_4lig5"]
@@ -257,7 +257,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, -0.19073, 0.00794744), Vector3(0, -0.19073, 0.00794744)]
+"values": [Vector3(0, 0.313876, -0.125467), Vector3(0, 0.313876, -0.125467)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -269,7 +269,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-1.19337, 0, 0), Vector3(-1.19337, 0, 0)]
+"values": [Vector3(-0.629192, 0, 0), Vector3(-0.642614, 0.0180642, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gbpse"]
@@ -315,10 +315,10 @@ tracks/0/path = NodePath("Model:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -1.48611, -0.349673), Vector3(0, -0.92981, -0.937757), Vector3(0, -1.29538, -0.532456), Vector3(0, -0.92981, -0.937757)]
+"values": [Vector3(0, 0.279595, 0), Vector3(0, 0.726222, -0.408154), Vector3(0, 0.695962, -0.350534)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -327,10 +327,10 @@ tracks/1/path = NodePath("Model:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(-0.991696, 0, 0), Vector3(0.804195, 0, 0), Vector3(0.804195, 0, 0), Vector3(0.804195, 0, 0)]
+"values": [Vector3(-0.991696, 0, 0), Vector3(0.836798, 0, 0), Vector3(0.871373, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_nmjil"]
@@ -343,10 +343,10 @@ tracks/0/path = NodePath("Model:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, -1.48611, -0.349673), Vector3(0, -1.48611, -0.349673), Vector3(0, -1.48611, -0.349673)]
+"values": [Vector3(0, 0.280166, -0.25556)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -355,10 +355,10 @@ tracks/1/path = NodePath("Model:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-0.982638, 0, 0), Vector3(-0.991696, 0, 0), Vector3(-0.982638, 0, 0)]
+"values": [Vector3(-0.982638, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_db0hl"]
@@ -374,6 +374,7 @@ script = ExtResource("1_upckl")
 [node name="Weapons" type="Node3D" parent="."]
 
 [node name="Machete" type="Node3D" parent="Weapons"]
+visible = false
 
 [node name="Model" parent="Weapons/Machete" instance=ExtResource("2_lfm1g")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)

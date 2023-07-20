@@ -66,11 +66,11 @@ transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.16722
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.137715, 0)
 
 [node name="Skeleton3D" parent="Character/KayKit Animated Character2" index="0"]
-bones/0/rotation = Quaternion(-0.000735123, 0, 2.68692e-18, 1)
-bones/1/rotation = Quaternion(0.0454681, 1.4519e-26, -1.5371e-17, 0.998966)
-bones/2/rotation = Quaternion(-0.685668, -0.172914, 0.685606, -0.172929)
+bones/0/rotation = Quaternion(-0.000567963, 0, 2.07594e-18, 1)
+bones/1/rotation = Quaternion(0.0451494, 8.27546e-27, -1.5371e-17, 0.99898)
+bones/2/rotation = Quaternion(-0.685723, -0.172662, 0.685679, -0.172673)
 bones/3/rotation = Quaternion(0.606617, -0.606617, 0.36334, 0.36334)
-bones/4/rotation = Quaternion(-0.70481, 0.2866, 0.646695, 0.0537512)
+bones/4/rotation = Quaternion(-0.704913, 0.286364, 0.646705, 0.0535384)
 bones/5/rotation = Quaternion(0.300506, -0.376591, 0.679877, 0.55285)
 
 [node name="Hand" type="Marker3D" parent="Character"]
