@@ -31,7 +31,7 @@ var pitch_input := 0.0
 var blend_path := "parameters/Run/blend_position"
 @onready var health_label := $CanvasLayer/Label
 
-@onready var weapon_manager: WeaponManager = $TwistPivot/PitchPivot/WeaponManager
+@onready var weapon_manager: WeaponManager = $Character/Hand/WeaponManager
 @onready var health_manager: HealthManager = $HealthManager
 var is_dead := false
 
@@ -42,6 +42,7 @@ func _ready() -> void:
 	health_manager.e_dead.connect(self.kill)
 	health_manager.e_critical.connect(self.at_critical)
 	health_manager.e_health_changed.connect(self.health_changed)
+	weapon_manager.e_machete_body_entered.connect(self.on_machete_body_entered)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -125,3 +126,9 @@ func at_critical() -> void:
 
 func health_changed(health: int) -> void:
 	health_label.text = "Health: " + str(health)
+
+
+func on_machete_body_entered(_body: Node) -> void:
+	# if body is Enemy:
+	# 	body.hurt(100, Vector3.ZERO)
+	print_debug("Player hit enemy")

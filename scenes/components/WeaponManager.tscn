@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dn3ptli7s757c"]
+[gd_scene load_steps=23 format=3 uid="uid://dn3ptli7s757c"]
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
@@ -6,33 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://c717epq3iwgb4" path="res://resources/weapons/shotgun.glb" id="4_cufb5"]
 [ext_resource type="PackedScene" uid="uid://bg2tkmjk016dq" path="res://resources/weapons/rocketlauncher.glb" id="5_dukq6"]
 
-[sub_resource type="Animation" id="Animation_u0t5k"]
-resource_name = "idle"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Model:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.0476826, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Model:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.0387812, 0, 0), Vector3(0, 0, 0)]
-}
+[sub_resource type="BoxShape3D" id="BoxShape3D_e4smr"]
+size = Vector3(0.125, 2, 0.375)
 
 [sub_resource type="Animation" id="Animation_lpjc4"]
 length = 0.001
@@ -89,27 +64,20 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-1.22124, 1.74799, -1.73748), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_bofu2"]
-_data = {
-"RESET": SubResource("Animation_lpjc4"),
-"attack": SubResource("Animation_8qqab"),
-"idle": SubResource("Animation_u0t5k")
-}
-
-[sub_resource type="Animation" id="Animation_71sd2"]
+[sub_resource type="Animation" id="Animation_u0t5k"]
 resource_name = "idle"
-length = 0.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("Model:position")
-tracks/0/interp = 1
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0, -0.699344, 0.0635767), Vector3(0, -0.699344, 0.0635767)]
+"values": [Vector3(0, 0, 0), Vector3(0, 0.0476826, 0), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -118,10 +86,17 @@ tracks/1/path = NodePath("Model:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(-1.71702, 0, 0), Vector3(-1.71702, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(-0.0387812, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bofu2"]
+_data = {
+"RESET": SubResource("Animation_lpjc4"),
+"attack": SubResource("Animation_8qqab"),
+"idle": SubResource("Animation_u0t5k")
 }
 
 [sub_resource type="Animation" id="Animation_v4u05"]
@@ -179,16 +154,9 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0.0173835, 0, 0), Vector3(0, 0, 0), Vector3(0.0173835, 0, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_s85jj"]
-_data = {
-"RESET": SubResource("Animation_v4u05"),
-"attack": SubResource("Animation_gtwtg"),
-"idle": SubResource("Animation_71sd2")
-}
-
-[sub_resource type="Animation" id="Animation_4lig5"]
+[sub_resource type="Animation" id="Animation_71sd2"]
 resource_name = "idle"
-loop_mode = 1
+length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -196,10 +164,10 @@ tracks/0/path = NodePath("Model:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, -0.19073, 0.00794744), Vector3(0, -0.19073, 0.00794744)]
+"values": [Vector3(0, -0.699344, 0.0635767), Vector3(0, -0.699344, 0.0635767)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -208,10 +176,17 @@ tracks/1/path = NodePath("Model:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-1.19337, 0, 0), Vector3(-1.19337, 0, 0)]
+"values": [Vector3(-1.71702, 0, 0), Vector3(-1.71702, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s85jj"]
+_data = {
+"RESET": SubResource("Animation_v4u05"),
+"attack": SubResource("Animation_gtwtg"),
+"idle": SubResource("Animation_71sd2")
 }
 
 [sub_resource type="Animation" id="Animation_gwd4n"]
@@ -269,14 +244,7 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0.0298975, 0, 0), Vector3(-0.00466003, 0, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_gbpse"]
-_data = {
-"RESET": SubResource("Animation_gwd4n"),
-"attack": SubResource("Animation_npl2y"),
-"idle": SubResource("Animation_4lig5")
-}
-
-[sub_resource type="Animation" id="Animation_nmjil"]
+[sub_resource type="Animation" id="Animation_4lig5"]
 resource_name = "idle"
 loop_mode = 1
 tracks/0/type = "value"
@@ -286,10 +254,10 @@ tracks/0/path = NodePath("Model:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, -1.48611, -0.349673), Vector3(0, -1.48611, -0.349673), Vector3(0, -1.48611, -0.349673)]
+"values": [Vector3(0, -0.19073, 0.00794744), Vector3(0, -0.19073, 0.00794744)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -298,10 +266,17 @@ tracks/1/path = NodePath("Model:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(-0.982638, 0, 0), Vector3(-0.991696, 0, 0), Vector3(-0.982638, 0, 0)]
+"values": [Vector3(-1.19337, 0, 0), Vector3(-1.19337, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gbpse"]
+_data = {
+"RESET": SubResource("Animation_gwd4n"),
+"attack": SubResource("Animation_npl2y"),
+"idle": SubResource("Animation_4lig5")
 }
 
 [sub_resource type="Animation" id="Animation_p31lq"]
@@ -358,6 +333,34 @@ tracks/1/keys = {
 "values": [Vector3(-0.991696, 0, 0), Vector3(0.804195, 0, 0), Vector3(0.804195, 0, 0), Vector3(0.804195, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_nmjil"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Model:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.48611, -0.349673), Vector3(0, -1.48611, -0.349673), Vector3(0, -1.48611, -0.349673)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Model:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(-0.982638, 0, 0), Vector3(-0.991696, 0, 0), Vector3(-0.982638, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_db0hl"]
 _data = {
 "RESET": SubResource("Animation_p31lq"),
@@ -371,10 +374,15 @@ script = ExtResource("1_upckl")
 [node name="Weapons" type="Node3D" parent="."]
 
 [node name="Machete" type="Node3D" parent="Weapons"]
-visible = false
 
 [node name="Model" parent="Weapons/Machete" instance=ExtResource("2_lfm1g")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="Weapons/Machete/Model"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Weapons/Machete/Model/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21269, -0.0518234)
+shape = SubResource("BoxShape3D_e4smr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Weapons/Machete"]
 autoplay = "idle"
@@ -417,3 +425,5 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_db0hl")
 }
+
+[connection signal="body_entered" from="Weapons/Machete/Model/Area3D" to="." method="_on_machete_body_entered"]
