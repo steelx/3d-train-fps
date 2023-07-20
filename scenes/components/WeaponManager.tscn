@@ -36,9 +36,9 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_8qqab"]
+[sub_resource type="Animation" id="Animation_gk87e"]
 resource_name = "attack"
-length = 0.5
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -46,10 +46,10 @@ tracks/0/path = NodePath("Model:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.0556296, -0.230466), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, -0.0885733, -0.0613198), Vector3(0, -0.0136267, -0.0136271), Vector3(0, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -58,10 +58,10 @@ tracks/1/path = NodePath("Model:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-1.22124, 1.74799, -1.73748), Vector3(0, 0, 0)]
+"values": [Vector3(0, 0, 0), Vector3(-1.78788, 0, 0), Vector3(-1.40143, 0, 0), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_u0t5k"]
@@ -95,7 +95,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bofu2"]
 _data = {
 "RESET": SubResource("Animation_lpjc4"),
-"attack": SubResource("Animation_8qqab"),
+"attack": SubResource("Animation_gk87e"),
 "idle": SubResource("Animation_u0t5k")
 }
 
@@ -374,7 +374,6 @@ script = ExtResource("1_upckl")
 [node name="Weapons" type="Node3D" parent="."]
 
 [node name="Machete" type="Node3D" parent="Weapons"]
-visible = false
 
 [node name="Model" parent="Weapons/Machete" instance=ExtResource("2_lfm1g")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -426,5 +425,16 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_db0hl")
 }
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Weapons"]
+
+[node name="Label" type="Label" parent="Weapons/CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [connection signal="body_entered" from="Weapons/Machete/Model/Area3D" to="." method="_on_machete_body_entered"]

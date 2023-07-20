@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://dl2jmutwglasj"]
+
+[ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="1_0nrfc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6brm"]
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_0nrfc")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_5ftmo"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wlm5i"]
+gradient = SubResource("Gradient_5ftmo")
+
+[sub_resource type="Curve" id="Curve_cudi2"]
+_data = [Vector2(0, 1), -2.69896, 0.0, 0, 0, Vector2(1, 0), -3.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_xcpt4"]
+curve = SubResource("Curve_cudi2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_eaf8a"]
+emission_shape = 1
+emission_sphere_radius = 0.1
+initial_velocity_min = 5.0
+initial_velocity_max = 6.0
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_xcpt4")
+color_ramp = SubResource("GradientTexture1D_wlm5i")
+
+[sub_resource type="QuadMesh" id="QuadMesh_lu4wj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_452lc"]
+transparency = 1
+albedo_color = Color(0.172549, 0.0823529, 0.00784314, 1)
+albedo_texture = ExtResource("1_0nrfc")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7l2fy"]
+material = SubResource("StandardMaterial3D_452lc")
+size = Vector2(0.1, 0.1)
+
+[node name="BulletHitEffect" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_v6brm")
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.94
+process_material = SubResource("ParticleProcessMaterial_eaf8a")
+draw_pass_1 = SubResource("QuadMesh_lu4wj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.00794709, 0)
+mesh = SubResource("QuadMesh_7l2fy")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="GPUParticles3D" method="set_emitting" binds= [true]]

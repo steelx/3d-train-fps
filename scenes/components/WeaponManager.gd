@@ -11,11 +11,13 @@ enum WeaponSlots { MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER }
 	WeaponSlots.ROCKET_LAUNCHER: true
 }
 
+@onready var weapon_label := $Weapons/CanvasLayer/Label
 @onready var weapons = $Weapons.get_children()
 var current_weapon: Node3D = null:
 	set(value):
 		current_weapon = value
 		if current_weapon != null:
+			weapon_label.text = "Weapon: " + current_weapon.name
 			if current_weapon.has_method("set_active"):
 				current_weapon.set_active()
 			else:
@@ -27,6 +29,10 @@ var current_slot := WeaponSlots.MACHETE
 func _ready() -> void:
 	# Set the machete as the current weapon
 	current_weapon = $Weapons/Machete
+
+
+func _process(_delta: float) -> void:
+	pass
 
 
 func switch_to_next_weapon() -> void:
@@ -81,3 +87,7 @@ func get_direction() -> Vector3:
 
 func _on_machete_body_entered(body: Node3D) -> void:
 	e_machete_body_entered.emit(body)
+
+
+func attack() -> void:
+	current_weapon.get_node("AnimationPlayer").play("attack")

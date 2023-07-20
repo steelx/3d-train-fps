@@ -1,6 +1,8 @@
 extends RigidBody3D
 class_name Player
 
+const FIRE = "fire"
+const RELOAD = "reload"
 const JUMP = "jump"
 const MOVE_FORWARD = "move_forward"
 const MOVE_BACKWARD = "move_backward"
@@ -66,6 +68,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(CANCEL):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+	if event.is_action_pressed(FIRE):
+		weapon_manager.attack()
+
 	if event.is_action_pressed(JUMP):
 		if raycast.is_colliding():
 			apply_central_impulse(Vector3.UP * JUMP_FORCE)
@@ -108,6 +113,7 @@ func handle_jump_animation() -> void:
 
 
 func hurt(dmg: int, dir: Vector3) -> void:
+	print_debug("Player hurt")
 	health_manager.hurt(dmg, dir)
 
 
