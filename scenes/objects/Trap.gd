@@ -7,5 +7,6 @@ func _ready() -> void:
 
 
 func _on_body_entered(body: Node3D) -> void:
+	print_debug("body entered", body)
 	if body is Player:
 		body.hurt(30, Vector3.ZERO)

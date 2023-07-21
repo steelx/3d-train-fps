@@ -396,6 +396,7 @@ libraries = {
 visible = false
 script = ExtResource("3_wcgjg")
 automatic = true
+ammo = 999
 attack_rate = 0.1
 
 [node name="Model" parent="Weapons/MachineGun" instance=ExtResource("3_v72q0")]
