@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c82gloipj7xqo"]
+
+[ext_resource type="PackedScene" uid="uid://cso5038pk3fk7" path="res://resources/weapons/muzzleflash1.glb" id="1_lhfjt"]
+[ext_resource type="Script" path="res://scenes/effects/MuzzleFlash.gd" id="1_wi0c5"]
+
+[node name="MuzzleFlash" type="Node3D"]
+script = ExtResource("1_wi0c5")
+
+[node name="muzzleflash1" parent="." instance=ExtResource("1_lhfjt")]
+transform = Transform3D(-0.5, 0, -7.54979e-08, 0, 0.5, 0, 7.54979e-08, 0, -0.5, 0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 1, 0.690196, 1)
+omni_range = 3.0

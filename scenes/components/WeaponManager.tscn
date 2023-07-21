@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dn3ptli7s757c"]
+[gd_scene load_steps=26 format=3 uid="uid://dn3ptli7s757c"]
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c717epq3iwgb4" path="res://resources/weapons/shotgun.glb" id="4_cufb5"]
 [ext_resource type="PackedScene" uid="uid://cp0r2j35f78js" path="res://scenes/effects/HitScanBulletEmitter.tscn" id="5_dl15m"]
 [ext_resource type="PackedScene" uid="uid://bg2tkmjk016dq" path="res://resources/weapons/rocketlauncher.glb" id="5_dukq6"]
+[ext_resource type="PackedScene" uid="uid://c82gloipj7xqo" path="res://scenes/effects/MuzzleFlash.tscn" id="6_vjvj2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e4smr"]
 size = Vector3(0.125, 2, 0.375)
@@ -376,6 +377,7 @@ script = ExtResource("1_upckl")
 [node name="Weapons" type="Node3D" parent="."]
 
 [node name="Machete" type="Node3D" parent="Weapons"]
+visible = false
 
 [node name="Model" parent="Weapons/Machete" instance=ExtResource("2_lfm1g")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -412,6 +414,9 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.356446, -0.917065)
 
 [node name="HitScanBullterEmitter" parent="Weapons/MachineGun/BulletEmitters" instance=ExtResource("5_dl15m")]
+
+[node name="MuzzleFlash" parent="Weapons/MachineGun" instance=ExtResource("6_vjvj2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.16062, -0.887132)
 
 [node name="Shotgun" type="Node3D" parent="Weapons"]
 visible = false
@@ -459,3 +464,4 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [connection signal="body_entered" from="Weapons/Machete/Model/Area3D" to="." method="_on_machete_body_entered"]
+[connection signal="e_fired" from="Weapons/MachineGun" to="Weapons/MachineGun/MuzzleFlash" method="_on_machine_gun_e_fired"]
