@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cldf3m78csky6"]
+
+[ext_resource type="Script" path="res://scenes/components/weapons/MeleeDamagePoint.gd" id="1_o1aqj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rl68m"]
+
+[node name="MeleeDamagePoint" type="Area3D"]
+script = ExtResource("1_o1aqj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_rl68m")

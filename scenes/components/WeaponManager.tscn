@@ -2,15 +2,13 @@
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
+[ext_resource type="PackedScene" uid="uid://cldf3m78csky6" path="res://scenes/components/weapons/MeleeDamagePoint.tscn" id="3_5jwjw"]
 [ext_resource type="PackedScene" uid="uid://cym06qd5ysqve" path="res://resources/weapons/machinegun.glb" id="3_v72q0"]
 [ext_resource type="Script" path="res://scenes/components/weapons/Weapon.gd" id="3_wcgjg"]
 [ext_resource type="PackedScene" uid="uid://c717epq3iwgb4" path="res://resources/weapons/shotgun.glb" id="4_cufb5"]
 [ext_resource type="PackedScene" uid="uid://cp0r2j35f78js" path="res://scenes/effects/HitScanBulletEmitter.tscn" id="5_dl15m"]
 [ext_resource type="PackedScene" uid="uid://bg2tkmjk016dq" path="res://resources/weapons/rocketlauncher.glb" id="5_dukq6"]
 [ext_resource type="PackedScene" uid="uid://c82gloipj7xqo" path="res://scenes/effects/MuzzleFlash.tscn" id="6_vjvj2"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_e4smr"]
-size = Vector3(0.125, 2, 0.375)
 
 [sub_resource type="Animation" id="Animation_lpjc4"]
 length = 0.001
@@ -379,21 +377,22 @@ script = ExtResource("1_upckl")
 
 [node name="Machete" type="Node3D" parent="Weapons"]
 visible = false
+script = ExtResource("3_wcgjg")
 
 [node name="Model" parent="Weapons/Machete" instance=ExtResource("2_lfm1g")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
-
-[node name="Area3D" type="Area3D" parent="Weapons/Machete/Model"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Weapons/Machete/Model/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.21269, -0.0518234)
-shape = SubResource("BoxShape3D_e4smr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Weapons/Machete"]
 autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_bofu2")
 }
+
+[node name="BulletEmitters" type="Marker3D" parent="Weapons/Machete"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.921714, -0.140452)
+
+[node name="MeleeDamagePoint" parent="Weapons/Machete/BulletEmitters" instance=ExtResource("3_5jwjw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.289994, 0)
 
 [node name="MachineGun" type="Node3D" parent="Weapons"]
 visible = false
@@ -485,7 +484,6 @@ offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[connection signal="body_entered" from="Weapons/Machete/Model/Area3D" to="." method="_on_machete_body_entered"]
 [connection signal="e_fired" from="Weapons/MachineGun" to="Weapons/MachineGun/MuzzleFlash" method="_on_machine_gun_e_fired"]
 [connection signal="e_fired" from="Weapons/Shotgun" to="Weapons/Shotgun/MuzzleFlash" method="_on_shotgun_e_fired"]
 [connection signal="e_fired" from="Weapons/RocketLauncher" to="Weapons/RocketLauncher/MuzzleFlash" method="_on_rocket_launcher_e_fired"]
