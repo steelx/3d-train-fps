@@ -62,27 +62,29 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="PitchPivot" type="Node3D" parent="TwistPivot"]
 
 [node name="Camera3D" type="Camera3D" parent="TwistPivot/PitchPivot"]
-transform = Transform3D(-1, 4.37114e-08, -7.57103e-08, 0, 0.866025, 0.5, 8.74228e-08, 0.5, -0.866025, 0, 1.75825, -1.92898)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.8)
+
+[node name="FirePoint" type="Marker3D" parent="TwistPivot/PitchPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+
+[node name="Hand" type="Marker3D" parent="TwistPivot/PitchPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -0.3)
+
+[node name="WeaponManager" parent="TwistPivot/PitchPivot/Camera3D/Hand" instance=ExtResource("4_udfso")]
 
 [node name="Character" parent="." instance=ExtResource("2_iwhi1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.137715, 0)
 
-[node name="Skeleton3D" parent="Character/KayKit Animated Character2" index="0"]
-bones/0/rotation = Quaternion(-0.0147106, 0, 3.79839e-18, 0.999892)
-bones/1/rotation = Quaternion(0.0658083, 0, -1.53714e-17, 0.997832)
-bones/2/rotation = Quaternion(-0.680195, -0.195905, 0.678539, -0.19632)
-bones/3/rotation = Quaternion(0.606617, -0.606617, 0.36334, 0.36334)
-bones/4/rotation = Quaternion(-0.698063, 0.301611, 0.645915, 0.0673269)
-bones/5/rotation = Quaternion(0.300506, -0.376591, 0.679877, 0.55285)
-
-[node name="Hand" type="Marker3D" parent="Character"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.671, 0.36)
-
-[node name="WeaponManager" parent="Character/Hand" instance=ExtResource("4_udfso")]
+[node name="KayKit Animated Character2" parent="Character" index="0"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="FirePoint" type="Marker3D" parent="Character"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.306989, 1.10873, 0.550576)
+[node name="Skeleton3D" parent="Character/KayKit Animated Character2" index="0"]
+bones/0/rotation = Quaternion(-0.0127598, 0, 0, 0.999919)
+bones/1/rotation = Quaternion(0.0629576, -4.09095e-26, -9.89221e-18, 0.998016)
+bones/2/rotation = Quaternion(-0.681005, -0.192714, 0.679571, -0.193074)
+bones/3/rotation = Quaternion(0.606617, -0.606617, 0.36334, 0.36334)
+bones/4/rotation = Quaternion(-0.699028, 0.299514, 0.646042, 0.065425)
+bones/5/rotation = Quaternion(0.300506, -0.376591, 0.679877, 0.55285)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeStateMachine_syggq")

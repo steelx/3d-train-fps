@@ -169,7 +169,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.386667, 0.0635767)]
+"values": [Vector3(0, 0.269458, -0.0145626)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -181,7 +181,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-1.71702, 0, 0)]
+"values": [Vector3(-0.0381006, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s85jj"]
@@ -348,7 +348,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0.280166, -0.25556)]
+"values": [Vector3(0, 0.0674535, -0.459591)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -360,7 +360,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(-0.982638, 0, 0)]
+"values": [Vector3(0.389889, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_db0hl"]
@@ -395,6 +395,7 @@ libraries = {
 [node name="MachineGun" type="Node3D" parent="Weapons"]
 visible = false
 script = ExtResource("3_wcgjg")
+attack_rate = 0.1
 
 [node name="Model" parent="Weapons/MachineGun" instance=ExtResource("3_v72q0")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -406,13 +407,12 @@ libraries = {
 }
 
 [node name="BulletEmitters" type="Marker3D" parent="Weapons/MachineGun"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.161098, -0.873654)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.356446, -0.917065)
 
 [node name="HitScanBullterEmitter" parent="Weapons/MachineGun/BulletEmitters" instance=ExtResource("5_dl15m")]
 
 [node name="Shotgun" type="Node3D" parent="Weapons"]
 visible = false
-script = ExtResource("3_wcgjg")
 
 [node name="Model" parent="Weapons/Shotgun" instance=ExtResource("4_cufb5")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -430,7 +430,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0709423, -0.982846)
 
 [node name="RocketLauncher" type="Node3D" parent="Weapons"]
 visible = false
-script = ExtResource("3_wcgjg")
 
 [node name="Model" parent="Weapons/RocketLauncher" instance=ExtResource("5_dukq6")]
 transform = Transform3D(0.5, 0, 0, 0, 0.277415, 0.415982, 0, -0.415982, 0.277415, 0, -1.48611, -0.349673)
@@ -448,7 +447,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.238759)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Weapons"]
 
-[node name="Label" type="Label" parent="Weapons/CanvasLayer"]
+[node name="WeaponLabel" type="Label" parent="Weapons/CanvasLayer"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0

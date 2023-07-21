@@ -1,8 +1,6 @@
 extends Node3D
 class_name WeaponManager
 
-signal e_machete_body_entered(body: Node3D)
-
 enum WeaponSlots { MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER }
 @export var slots_available := {
 	WeaponSlots.MACHETE: true,
@@ -11,7 +9,7 @@ enum WeaponSlots { MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER }
 	WeaponSlots.ROCKET_LAUNCHER: true
 }
 
-@onready var weapon_label := $Weapons/CanvasLayer/Label
+@onready var weapon_label := $Weapons/CanvasLayer/WeaponLabel
 @onready var weapons = $Weapons.get_children()
 var current_weapon: Node3D = null:
 	set(value):
@@ -39,12 +37,11 @@ func setup(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
 
 func _ready() -> void:
 	# Set the machete as the current weapon
-	# current_weapon = $Weapons/Machete
-	pass
+	current_weapon = $Weapons/Machete
 
 
 func _process(_delta: float) -> void:
-	pass
+	current_weapon.force_update_transform()
 
 
 func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
@@ -105,7 +102,3 @@ func get_direction() -> Vector3:
 		return global_position.direction_to(collision.position)
 	else:
 		return global_position.direction_to(to)
-
-
-func _on_machete_body_entered(body: Node3D) -> void:
-	e_machete_body_entered.emit(body)

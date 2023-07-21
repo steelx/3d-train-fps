@@ -33,7 +33,7 @@ var pitch_input := 0.0
 var blend_path := "parameters/Run/blend_position"
 @onready var health_label := $CanvasLayer/Label
 
-@onready var weapon_manager: WeaponManager = $Character/Hand/WeaponManager
+@onready var weapon_manager: WeaponManager = $TwistPivot/PitchPivot/Camera3D/Hand/WeaponManager
 @onready var health_manager: HealthManager = $HealthManager
 var is_dead := false
 
@@ -44,7 +44,7 @@ func _ready() -> void:
 	health_manager.e_dead.connect(self.kill)
 	health_manager.e_critical.connect(self.at_critical)
 	health_manager.e_health_changed.connect(self.health_changed)
-	var fire_point = $Character/FirePoint
+	var fire_point = $TwistPivot/PitchPivot/Camera3D/FirePoint
 	weapon_manager.setup(fire_point, [self])
 
 
@@ -54,7 +54,7 @@ func _process(delta: float) -> void:
 		return
 	var input := Vector3.ZERO
 	input.x = Input.get_axis(MOVE_LEFT, MOVE_RIGHT)
-	input.z = Input.get_axis(MOVE_BACKWARD, MOVE_FORWARD)
+	input.z = Input.get_axis(MOVE_FORWARD, MOVE_BACKWARD)
 	handle_movement(input, delta)
 	handle_character_rotation(input, delta)
 	handle_animation(input, delta)
@@ -116,7 +116,6 @@ func handle_jump_animation() -> void:
 
 
 func hurt(dmg: int, dir: Vector3) -> void:
-	print_debug("Player hurt")
 	health_manager.hurt(dmg, dir)
 
 

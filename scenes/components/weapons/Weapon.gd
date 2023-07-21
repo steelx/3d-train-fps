@@ -47,13 +47,11 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 		return
 	if automatic and !attack_input_held:
 		return
-	elif !automatic and !attack_input_just_pressed:
+	elif !automatic and attack_input_just_pressed:
 		return
 	if ammo <= 0:
-		if attack_input_just_pressed:
-			e_out_of_ammo.emit()
-		else:
-			return
+		e_out_of_ammo.emit()
+		return
 
 	if ammo > 0:
 		ammo -= 1
@@ -74,7 +72,6 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 # Finish attack
 func _on_attack_timer_timeout() -> void:
 	can_attack = true
-	self.set_to_attack_idle()
 
 
 func set_active() -> void:

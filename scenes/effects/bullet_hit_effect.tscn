@@ -3,6 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="1_0nrfc"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v6brm"]
+transparency = 1
+shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("1_0nrfc")
 billboard_mode = 3
@@ -18,8 +20,8 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1)
 gradient = SubResource("Gradient_5ftmo")
 
 [sub_resource type="Curve" id="Curve_cudi2"]
-_data = [Vector2(0, 1), -2.69896, 0.0, 0, 0, Vector2(1, 0), -3.0, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0, 0.273486), -2.69896, 0.0, 0, 0, Vector2(0.580446, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CurveTexture" id="CurveTexture_xcpt4"]
 curve = SubResource("Curve_cudi2")
@@ -29,8 +31,8 @@ emission_shape = 1
 emission_sphere_radius = 0.1
 initial_velocity_min = 5.0
 initial_velocity_max = 6.0
-scale_min = 0.05
-scale_max = 0.1
+scale_min = 0.01
+scale_max = 0.05
 scale_curve = SubResource("CurveTexture_xcpt4")
 color_ramp = SubResource("GradientTexture1D_wlm5i")
 
@@ -43,7 +45,7 @@ albedo_texture = ExtResource("1_0nrfc")
 
 [sub_resource type="QuadMesh" id="QuadMesh_7l2fy"]
 material = SubResource("StandardMaterial3D_452lc")
-size = Vector2(0.1, 0.1)
+size = Vector2(0.05, 0.05)
 
 [node name="BulletHitEffect" type="Node3D"]
 
