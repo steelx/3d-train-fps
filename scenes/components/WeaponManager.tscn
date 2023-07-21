@@ -395,6 +395,7 @@ libraries = {
 [node name="MachineGun" type="Node3D" parent="Weapons"]
 visible = false
 script = ExtResource("3_wcgjg")
+automatic = true
 attack_rate = 0.1
 
 [node name="Model" parent="Weapons/MachineGun" instance=ExtResource("3_v72q0")]

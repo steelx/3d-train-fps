@@ -47,7 +47,7 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 		return
 	if automatic and !attack_input_held:
 		return
-	elif !automatic and attack_input_just_pressed:
+	elif !automatic and !attack_input_just_pressed:
 		return
 	if ammo <= 0:
 		e_out_of_ammo.emit()
