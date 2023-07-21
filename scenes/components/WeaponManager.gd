@@ -24,15 +24,37 @@ var current_weapon: Node3D = null:
 				current_weapon.show()
 
 var current_slot := WeaponSlots.MACHETE
+var fire_point: Node3D
+var bodies_to_exclude: Array = []
+
+
+func setup(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
+	self.fire_point = _fire_point
+	self.bodies_to_exclude = _bodies_to_exclude
+	for weapon in weapons:
+		if weapon.has_method("setup"):
+			weapon.setup(_fire_point, _bodies_to_exclude)
+	switch_to_weapon_slot(WeaponSlots.MACHETE)
 
 
 func _ready() -> void:
 	# Set the machete as the current weapon
-	current_weapon = $Weapons/Machete
+	# current_weapon = $Weapons/Machete
+	pass
 
 
 func _process(_delta: float) -> void:
 	pass
+
+
+func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
+	if current_weapon == null:
+		return
+	if !current_weapon.has_method("attack"):
+		print_debug("WeaponManager: current_weapon does not have Weapon class linked")
+		return
+	# Call the attack method of the current weapon
+	current_weapon.attack(attack_input_just_pressed, attack_input_held)
 
 
 func switch_to_next_weapon() -> void:
@@ -87,7 +109,3 @@ func get_direction() -> Vector3:
 
 func _on_machete_body_entered(body: Node3D) -> void:
 	e_machete_body_entered.emit(body)
-
-
-func attack() -> void:
-	current_weapon.get_node("AnimationPlayer").play("attack")

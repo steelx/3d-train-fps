@@ -1,4 +1,5 @@
 extends Node3D
+class_name HitScanBullterEmitter
 
 var hit_effect := preload("res://scenes/effects/bullet_hit_effect.tscn")
 
@@ -35,7 +36,6 @@ func fire() -> void:
 			# effect.rotate_object_local(Vector3.RIGHT, PI)
 			effect.rotate(Vector3.RIGHT, PI)
 			return
-		print_debug("fire: " + str(result.normal))
 		var y: Vector3 = result.normal
 		var x: Vector3 = y.cross(Vector3.UP)
 		var z: Vector3 = x.cross(y)

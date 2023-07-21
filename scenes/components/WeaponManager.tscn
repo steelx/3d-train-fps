@@ -1,9 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://dn3ptli7s757c"]
+[gd_scene load_steps=25 format=3 uid="uid://dn3ptli7s757c"]
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
 [ext_resource type="PackedScene" uid="uid://cym06qd5ysqve" path="res://resources/weapons/machinegun.glb" id="3_v72q0"]
+[ext_resource type="Script" path="res://scenes/components/weapons/Weapon.gd" id="3_wcgjg"]
 [ext_resource type="PackedScene" uid="uid://c717epq3iwgb4" path="res://resources/weapons/shotgun.glb" id="4_cufb5"]
+[ext_resource type="PackedScene" uid="uid://cp0r2j35f78js" path="res://scenes/effects/HitScanBulletEmitter.tscn" id="5_dl15m"]
 [ext_resource type="PackedScene" uid="uid://bg2tkmjk016dq" path="res://resources/weapons/rocketlauncher.glb" id="5_dukq6"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_e4smr"]
@@ -392,6 +394,7 @@ libraries = {
 
 [node name="MachineGun" type="Node3D" parent="Weapons"]
 visible = false
+script = ExtResource("3_wcgjg")
 
 [node name="Model" parent="Weapons/MachineGun" instance=ExtResource("3_v72q0")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -402,8 +405,14 @@ libraries = {
 "": SubResource("AnimationLibrary_s85jj")
 }
 
+[node name="BulletEmitters" type="Marker3D" parent="Weapons/MachineGun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.161098, -0.873654)
+
+[node name="HitScanBullterEmitter" parent="Weapons/MachineGun/BulletEmitters" instance=ExtResource("5_dl15m")]
+
 [node name="Shotgun" type="Node3D" parent="Weapons"]
 visible = false
+script = ExtResource("3_wcgjg")
 
 [node name="Model" parent="Weapons/Shotgun" instance=ExtResource("4_cufb5")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -414,8 +423,14 @@ libraries = {
 "": SubResource("AnimationLibrary_gbpse")
 }
 
+[node name="BulletEmitters" type="Marker3D" parent="Weapons/Shotgun"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0709423, -0.982846)
+
+[node name="HitScanBullterEmitter" parent="Weapons/Shotgun/BulletEmitters" instance=ExtResource("5_dl15m")]
+
 [node name="RocketLauncher" type="Node3D" parent="Weapons"]
 visible = false
+script = ExtResource("3_wcgjg")
 
 [node name="Model" parent="Weapons/RocketLauncher" instance=ExtResource("5_dukq6")]
 transform = Transform3D(0.5, 0, 0, 0, 0.277415, 0.415982, 0, -0.415982, 0.277415, 0, -1.48611, -0.349673)
@@ -425,6 +440,11 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_db0hl")
 }
+
+[node name="BulletEmitters" type="Marker3D" parent="Weapons/RocketLauncher"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.238759)
+
+[node name="HitScanBullterEmitter" parent="Weapons/RocketLauncher/BulletEmitters" instance=ExtResource("5_dl15m")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Weapons"]
 

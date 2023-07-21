@@ -44,7 +44,8 @@ func _ready() -> void:
 	health_manager.e_dead.connect(self.kill)
 	health_manager.e_critical.connect(self.at_critical)
 	health_manager.e_health_changed.connect(self.health_changed)
-	weapon_manager.e_machete_body_entered.connect(self.on_machete_body_entered)
+	var fire_point = $Character/FirePoint
+	weapon_manager.setup(fire_point, [self])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,7 +54,7 @@ func _process(delta: float) -> void:
 		return
 	var input := Vector3.ZERO
 	input.x = Input.get_axis(MOVE_LEFT, MOVE_RIGHT)
-	input.z = Input.get_axis(MOVE_FORWARD, MOVE_BACKWARD)
+	input.z = Input.get_axis(MOVE_BACKWARD, MOVE_FORWARD)
 	handle_movement(input, delta)
 	handle_character_rotation(input, delta)
 	handle_animation(input, delta)
@@ -68,8 +69,10 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(CANCEL):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-	if event.is_action_pressed(FIRE):
-		weapon_manager.attack()
+	if Input.is_action_just_pressed(FIRE):
+		weapon_manager.attack(true, false)
+	elif Input.is_action_pressed(FIRE):
+		weapon_manager.attack(false, true)
 
 	if event.is_action_pressed(JUMP):
 		if raycast.is_colliding():
@@ -132,9 +135,3 @@ func at_critical() -> void:
 
 func health_changed(health: int) -> void:
 	health_label.text = "Health: " + str(health)
-
-
-func on_machete_body_entered(_body: Node) -> void:
-	# if body is Enemy:
-	# 	body.hurt(100, Vector3.ZERO)
-	print_debug("Player hit enemy")
