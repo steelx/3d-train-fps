@@ -4,6 +4,7 @@ class_name Weapon
 @onready var anim_player: AnimationPlayer = $AnimationPlayer
 @onready var bullet_emitters_marker: Marker3D = $BulletEmitters
 @onready var bullet_emitters: Array = $BulletEmitters.get_children()
+@onready var crosshair := $Crosshair
 
 @export var automatic := false
 @export var damage := 10
@@ -40,6 +41,10 @@ func setup(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
 
 # to be called from the WeaponManager
 func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
+	if !attack_input_just_pressed and !attack_input_held:
+		if automatic:
+			anim_player.stop()
+		return
 	if fire_point == null:
 		print_debug("Weapon: fire_point is null")
 		return
@@ -49,7 +54,7 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 		return
 	elif !automatic and !attack_input_just_pressed:
 		return
-	if ammo <= 0:
+	if ammo == 0:
 		e_out_of_ammo.emit()
 		return
 
@@ -76,12 +81,13 @@ func _on_attack_timer_timeout() -> void:
 
 func set_active() -> void:
 	self.show()
+	crosshair.show()
 
 
 func set_inactive() -> void:
-	anim_player.stop()
-	anim_player.play("idle")
+	set_to_attack_idle()
 	self.hide()
+	crosshair.hide()
 
 
 func set_to_attack_idle() -> void:

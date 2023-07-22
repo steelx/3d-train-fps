@@ -38,6 +38,7 @@ func setup(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
 func _ready() -> void:
 	# Set the machete as the current weapon
 	current_weapon = $Weapons/Machete
+	switch_to_weapon_slot(WeaponSlots.MACHETE)
 
 
 func _process(_delta: float) -> void:

@@ -73,6 +73,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		weapon_manager.attack(true, false)
 	elif Input.is_action_pressed(FIRE):
 		weapon_manager.attack(false, true)
+	else:
+		weapon_manager.attack(false, false)
 
 	if event.is_action_pressed(JUMP):
 		if raycast.is_colliding():
