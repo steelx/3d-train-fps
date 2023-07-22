@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dn3ptli7s757c"]
+[gd_scene load_steps=27 format=3 uid="uid://dn3ptli7s757c"]
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://cp0r2j35f78js" path="res://scenes/effects/HitScanBulletEmitter.tscn" id="5_dl15m"]
 [ext_resource type="PackedScene" uid="uid://bg2tkmjk016dq" path="res://resources/weapons/rocketlauncher.glb" id="5_dukq6"]
 [ext_resource type="PackedScene" uid="uid://c82gloipj7xqo" path="res://scenes/effects/MuzzleFlash.tscn" id="6_vjvj2"]
+[ext_resource type="PackedScene" uid="uid://cbp22ospyq0lq" path="res://scenes/components/RocketSpawner.tscn" id="10_7i5bi"]
 
 [sub_resource type="Animation" id="Animation_lpjc4"]
 length = 0.001
@@ -453,7 +454,7 @@ muzzle_variant = 2
 visible = false
 script = ExtResource("3_wcgjg")
 damage = 40
-ammo = 5
+ammo = 10
 attack_rate = 1.5
 
 [node name="Model" parent="Weapons/RocketLauncher" instance=ExtResource("5_dukq6")]
@@ -467,10 +468,10 @@ libraries = {
 [node name="BulletEmitters" type="Marker3D" parent="Weapons/RocketLauncher"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.294044, -2.10365)
 
-[node name="HitScanBullterEmitter" parent="Weapons/RocketLauncher/BulletEmitters" instance=ExtResource("5_dl15m")]
+[node name="RocketSpawner" parent="Weapons/RocketLauncher/BulletEmitters" instance=ExtResource("10_7i5bi")]
 
 [node name="MuzzleFlash" parent="Weapons/RocketLauncher" instance=ExtResource("6_vjvj2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.289682, -2.098)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0355501, -2.098)
 muzzle_variant = 3
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Weapons"]

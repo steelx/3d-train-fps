@@ -1,0 +1,76 @@
+[gd_scene load_steps=11 format=3 uid="uid://c6ish8bm20e1n"]
+
+[ext_resource type="PackedScene" uid="uid://bvqub2gvffih3" path="res://resources/weapons/rocket.glb" id="1_61cob"]
+[ext_resource type="Script" path="res://scenes/components/weapons/Rocket.gd" id="1_pkbb4"]
+[ext_resource type="PackedScene" uid="uid://sd0usn70m285" path="res://resources/weapons/muzzleflash3.glb" id="2_0xj4f"]
+[ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="3_wybta"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hnq47"]
+radius = 0.3
+height = 0.804834
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lvolk"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_wybta")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_wt7b1"]
+offsets = PackedFloat32Array(0, 0.868493)
+colors = PackedColorArray(0.664922, 0.664922, 0.664922, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dqvec"]
+gradient = SubResource("Gradient_wt7b1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1ilk2"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.4
+scale_max = 0.5
+color_ramp = SubResource("GradientTexture1D_dqvec")
+
+[sub_resource type="QuadMesh" id="QuadMesh_jqhfk"]
+
+[node name="Rocket" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 3
+gravity_scale = 0.1
+contact_monitor = true
+script = ExtResource("1_pkbb4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.709711)
+shape = SubResource("CapsuleShape3D_hnq47")
+
+[node name="Model" parent="." instance=ExtResource("1_61cob")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+
+[node name="muzzleflash3" parent="Model" instance=ExtResource("2_0xj4f")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+
+[node name="SmokeTrail" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_lvolk")
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_1ilk2")
+draw_pass_1 = SubResource("QuadMesh_jqhfk")
+
+[node name="ExplodeTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="ShowTimer" type="Timer" parent="."]
+wait_time = 0.08
+one_shot = true
+autostart = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.147541)
+light_color = Color(1, 1, 0.647059, 1)
+
+[connection signal="timeout" from="ExplodeTimer" to="." method="explode"]
+[connection signal="timeout" from="ShowTimer" to="." method="show"]

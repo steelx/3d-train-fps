@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
+window/size/initial_position_type=2
 
 [input]
 
@@ -60,6 +61,7 @@ reload={
 
 [layer_names]
 
+3d_physics/layer_1="environment"
 3d_physics/layer_2="characters"
 3d_physics/layer_3="hitboxes"
 

@@ -9,7 +9,7 @@ const MOVE_BACKWARD = "move_backward"
 const MOVE_LEFT = "move_left"
 const MOVE_RIGHT = "move_right"
 const CANCEL = "ui_cancel"
-const SPEED = 1200.0
+const SPEED = 10.0
 const JUMP_FORCE = 8.0
 
 const hotkeys := {
@@ -96,7 +96,7 @@ func handle_camera_rotation() -> void:
 
 func handle_movement(input: Vector3, delta: float) -> void:
 	var move_direction: Vector3 = twist_pivot.basis * input
-	apply_central_force(move_direction * SPEED * delta)
+	apply_central_force(move_direction * SPEED * delta * 100)
 
 
 func handle_character_rotation(input: Vector3, delta: float) -> void:

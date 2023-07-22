@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c6e0m27wmiy7n"]
+[gd_scene load_steps=16 format=3 uid="uid://c6e0m27wmiy7n"]
 
 [ext_resource type="Script" path="res://scenes/Tracks.gd" id="1_2shtd"]
 [ext_resource type="Material" uid="uid://csfdcdo2s8jaw" path="res://addons/kenney_prototype_tools/materials/orange/material_04.tres" id="2_51qy6"]
@@ -8,7 +8,6 @@
 [ext_resource type="MeshLibrary" uid="uid://cfua4mrwermjk" path="res://mesh/PrototypeTiles_1.tres" id="7_41n26"]
 [ext_resource type="PackedScene" uid="uid://0fbmfl64jbyp" path="res://scenes/objects/Tree.tscn" id="7_agh6p"]
 [ext_resource type="PackedScene" uid="uid://4sp1gdr38cuw" path="res://scenes/objects/Trap.tscn" id="8_vxx1d"]
-[ext_resource type="PackedScene" uid="uid://bi0maqw4hdffa" path="res://scenes/effects/Explosion.tscn" id="9_x8od7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bw55b"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -51,7 +50,7 @@ shadow_enabled = true
 environment = SubResource("Environment_612hj")
 
 [node name="Player" parent="." instance=ExtResource("2_glj7y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.568227, 3.15649, -20.7462)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.922659, 1.78102, -20.144)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_f2bfl")
@@ -115,13 +114,4 @@ metadata/_editor_floor_ = Vector3(0, -1, 0)
 [node name="Trap" parent="." instance=ExtResource("8_vxx1d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="Explosion" parent="." instance=ExtResource("9_x8od7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0392876, 0.681928, -24.8714)
-
-[node name="Timer2" type="Timer" parent="Explosion"]
-wait_time = 2.0
-one_shot = true
-autostart = true
-
 [connection signal="curve_changed" from="NavigationRegion3D/Environment/Tracks" to="NavigationRegion3D/Environment/Tracks" method="_on_curve_changed"]
-[connection signal="timeout" from="Explosion/Timer2" to="Explosion" method="explode"]
