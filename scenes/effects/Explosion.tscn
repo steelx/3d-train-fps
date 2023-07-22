@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://bi0maqw4hdffa"]
+
+[ext_resource type="Script" path="res://scenes/effects/Explosion.gd" id="1_iw65g"]
+[ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="1_pp4lp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ds2h5"]
+radius = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vmdko"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_pp4lp")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_nglft"]
+offsets = PackedFloat32Array(0, 0.115068, 0.230137, 0.454795, 0.635616, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.886365, 0.605, 0, 1, 1, 0.356863, 0.235294, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.330986, 0.330986, 0.330986, 0.669014, 0.466181, 0.466181, 0.466181, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kk1sp"]
+gradient = SubResource("Gradient_nglft")
+width = 1024
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_bc6af"]
+emission_shape = 1
+emission_sphere_radius = 2.0
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+color_ramp = SubResource("GradientTexture1D_kk1sp")
+
+[sub_resource type="QuadMesh" id="QuadMesh_8667b"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dkbla"]
+emission_shape = 1
+emission_sphere_radius = 3.0
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+color_ramp = SubResource("GradientTexture1D_kk1sp")
+
+[node name="Explosion" type="Area3D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_iw65g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ds2h5")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_vmdko")
+emitting = false
+amount = 64
+one_shot = true
+speed_scale = 0.8
+explosiveness = 0.9
+visibility_aabb = AABB(-50, -50, -50, 100, 100, 100)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_bc6af")
+draw_pass_1 = SubResource("QuadMesh_8667b")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_vmdko")
+emitting = false
+amount = 64
+one_shot = true
+speed_scale = 0.7
+explosiveness = 0.9
+visibility_aabb = AABB(-50, -50, -50, 100, 100, 100)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_dkbla")
+draw_pass_1 = SubResource("QuadMesh_8667b")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="queue_free"]
