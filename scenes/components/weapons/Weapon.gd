@@ -93,3 +93,7 @@ func set_inactive() -> void:
 func set_to_attack_idle() -> void:
 	anim_player.stop()
 	anim_player.play("idle")
+
+
+func is_idle() -> bool:
+	return !anim_player.is_playing() or anim_player.current_animation == "idle"

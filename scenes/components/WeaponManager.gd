@@ -9,6 +9,7 @@ enum WeaponSlots { MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER }
 	WeaponSlots.ROCKET_LAUNCHER: true
 }
 
+@onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 @onready var weapon_label := $Weapons/CanvasLayer/WeaponLabel
 @onready var weapons = $Weapons.get_children()
 var current_weapon: Node3D = null:
@@ -103,3 +104,12 @@ func get_direction() -> Vector3:
 		return global_position.direction_to(collision.position)
 	else:
 		return global_position.direction_to(to)
+
+
+func update_animation(velocity: Vector3, is_on_ground: bool) -> void:
+	if current_weapon == null:
+		return
+	if current_weapon and !current_weapon.has_method("is_idle"):
+		return
+	if is_on_ground and velocity.length() > 0.5 and current_weapon.is_idle():
+		animationPlayer.play("moving")

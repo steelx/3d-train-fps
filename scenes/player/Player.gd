@@ -59,6 +59,7 @@ func _process(delta: float) -> void:
 	handle_character_rotation(input, delta)
 	handle_animation(input, delta)
 	handle_camera_rotation()
+	weapon_manager.update_animation(linear_velocity, is_on_ground())
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -77,7 +78,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		weapon_manager.attack(false, false)
 
 	if event.is_action_pressed(JUMP):
-		if raycast.is_colliding():
+		if is_on_ground():
 			apply_central_impulse(Vector3.UP * JUMP_FORCE)
 			handle_jump_animation()
 	if event is InputEventKey and event.is_pressed():
@@ -136,3 +137,7 @@ func at_critical() -> void:
 
 func health_changed(health: int) -> void:
 	health_label.text = "Health: " + str(health)
+
+
+func is_on_ground() -> bool:
+	return raycast.is_colliding()
