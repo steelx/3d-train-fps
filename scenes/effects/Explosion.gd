@@ -17,15 +17,6 @@ func explode() -> void:
 	for result in results:
 		if result.collider.has_method("hurt"):
 			result.collider.hurt(
-				damage, global_transform.origin.direction_to(result.collider.global_transform)
+				damage,
+				global_transform.origin.direction_to(result.collider.global_transform.origin)
 			)
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass  # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

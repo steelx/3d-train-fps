@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="1_pp4lp"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ds2h5"]
-radius = 2.0
+radius = 3.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vmdko"]
 transparency = 1
@@ -37,11 +37,12 @@ color_ramp = SubResource("GradientTexture1D_kk1sp")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dkbla"]
 emission_shape = 1
-emission_sphere_radius = 3.0
+emission_sphere_radius = 2.0
 spread = 180.0
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 1.0
 initial_velocity_max = 2.0
+color = Color(0.482353, 0.207843, 0.0470588, 0.482353)
 color_ramp = SubResource("GradientTexture1D_kk1sp")
 
 [node name="Explosion" type="Area3D"]
@@ -68,6 +69,7 @@ draw_pass_1 = SubResource("QuadMesh_8667b")
 material_override = SubResource("StandardMaterial3D_vmdko")
 emitting = false
 amount = 64
+lifetime = 2.0
 one_shot = true
 speed_scale = 0.7
 explosiveness = 0.9
