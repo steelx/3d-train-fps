@@ -12,4 +12,4 @@ func _ready() -> void:
 
 
 func _on_Hitbox_hurt(damage: int, dir: Vector3, critical: bool) -> void:
-	print_debug("monster got hit: ", damage, dir, critical)
+	print_debug("monster got hit: ", damage)

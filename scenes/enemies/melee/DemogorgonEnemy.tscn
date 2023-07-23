@@ -4,9 +4,8 @@
 [ext_resource type="Script" path="res://scenes/enemies/melee/MonsterEnemy.gd" id="1_tixsm"]
 [ext_resource type="PackedScene" uid="uid://bdho2y5dmldub" path="res://scenes/enemies/Hitbox.tscn" id="2_71ybh"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_na6j8"]
-radius = 0.4
-height = 1.8
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m053w"]
+radius = 0.3
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pjfvb"]
 radius = 0.08
@@ -46,12 +45,10 @@ collision_mask = 3
 script = ExtResource("1_tixsm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-visible = false
-shape = SubResource("CapsuleShape3D_na6j8")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_m053w")
 
 [node name="Model" parent="." instance=ExtResource("1_f15wt")]
-transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
 
 [node name="ArmUpperL" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="1"]
 transform = Transform3D(-0.762323, 0.647196, 8.20133e-07, -0.52914, -0.623267, 0.575803, 0.372658, 0.438947, 0.817589, 0.176714, 1.48577, -0.135291)

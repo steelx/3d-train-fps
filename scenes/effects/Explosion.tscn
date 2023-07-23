@@ -47,7 +47,7 @@ color_ramp = SubResource("GradientTexture1D_kk1sp")
 
 [node name="Explosion" type="Area3D"]
 collision_layer = 0
-collision_mask = 3
+collision_mask = 7
 script = ExtResource("1_iw65g")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
