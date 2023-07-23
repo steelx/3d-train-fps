@@ -17,6 +17,7 @@ func _physics_process(delta: float) -> void:
 	var collision := move_and_collide(motion_vector)
 	if collision:
 		if collision.has_method("hurt"):
+			print_debug("Hit " + collision.collider.name)
 			collision.hurt(impact_damage, direction)
 		explode()
 

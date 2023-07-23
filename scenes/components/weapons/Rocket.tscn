@@ -36,8 +36,7 @@ color_ramp = SubResource("GradientTexture1D_dqvec")
 [sub_resource type="QuadMesh" id="QuadMesh_jqhfk"]
 
 [node name="Rocket" type="RigidBody3D"]
-collision_layer = 0
-collision_mask = 3
+collision_mask = 7
 gravity_scale = 0.1
 contact_monitor = true
 script = ExtResource("1_pkbb4")

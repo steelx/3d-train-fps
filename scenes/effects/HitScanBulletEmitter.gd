@@ -20,9 +20,11 @@ func set_bodies_to_exclude(bodies: Array) -> void:
 func fire() -> void:
 	var from := global_transform.origin
 	var to := from - global_transform.basis.z * distance
-	# Player is on Layer value 2 & 4 & 1 value for WorldEnvironment
-	var query := PhysicsRayQueryParameters3D.create(from, to, 1 + 2 + 4, bodies_to_exclude)
+	# Collision Layer WorldEnvironment 1, Characters 2, Hitbox 4 (these are bit values)
+	var query := PhysicsRayQueryParameters3D.create(from, to, 1 + 4, bodies_to_exclude)
+	query.collide_with_areas = true
 	var result := get_world_3d().direct_space_state.intersect_ray(query)
+
 	if result and result.collider.has_method("hurt"):
 		result.collider.hurt(damage, result.normal)
 	elif result:

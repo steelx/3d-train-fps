@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://drm75x25k4rtr" path="res://scenes/objects/Shed.tscn" id="6_88aai"]
 [ext_resource type="MeshLibrary" uid="uid://cfua4mrwermjk" path="res://mesh/PrototypeTiles_1.tres" id="7_41n26"]
 [ext_resource type="PackedScene" uid="uid://0fbmfl64jbyp" path="res://scenes/objects/Tree.tscn" id="7_agh6p"]
-[ext_resource type="PackedScene" uid="uid://4sp1gdr38cuw" path="res://scenes/objects/Trap.tscn" id="8_vxx1d"]
+[ext_resource type="PackedScene" uid="uid://cccv8irl2q7ib" path="res://scenes/enemies/melee/DemogorgonEnemy.tscn" id="8_nvdra"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bw55b"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -114,7 +114,7 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, -1, 0)
 
-[node name="Trap" parent="." instance=ExtResource("8_vxx1d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="DemogorgonEnemy" parent="." instance=ExtResource("8_nvdra")]
+transform = Transform3D(-0.977239, 0, -0.212144, 0, 1, 0, 0.212144, 0, -0.977239, 3.60409, 0.45, -16.0856)
 
 [connection signal="curve_changed" from="NavigationRegion3D/Environment/Tracks" to="NavigationRegion3D/Environment/Tracks" method="_on_curve_changed"]
