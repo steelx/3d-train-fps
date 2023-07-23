@@ -45,7 +45,7 @@ font_size = 22
 font_color = Color(0, 0.192157, 0.172549, 1)
 shadow_color = Color(0.439216, 0.305882, 0.203922, 0)
 
-[node name="Player" type="RigidBody3D"]
+[node name="Player" type="RigidBody3D" groups=["player"]]
 collision_layer = 6
 collision_mask = 3
 lock_rotation = true
@@ -79,11 +79,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.137715, 0)
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Character/KayKit Animated Character2" index="0"]
-bones/0/rotation = Quaternion(-0.00219099, 0, 0, 0.999998)
-bones/1/rotation = Quaternion(0.0476446, -1.06118e-26, -9.89197e-18, 0.998864)
-bones/2/rotation = Quaternion(-0.685091, -0.175513, 0.68485, -0.175573)
+bones/0/rotation = Quaternion(-0.0169328, 0, 3.16455e-18, 0.999857)
+bones/1/rotation = Quaternion(0.0688808, 0, -1.05758e-17, 0.997625)
+bones/2/rotation = Quaternion(-0.679255, -0.199529, 0.677346, -0.200008)
 bones/3/rotation = Quaternion(0.606617, -0.606617, 0.36334, 0.36334)
-bones/4/rotation = Quaternion(-0.704104, 0.288212, 0.646626, 0.0552044)
+bones/4/rotation = Quaternion(-0.697015, 0.303868, 0.645772, 0.0693765)
 bones/5/rotation = Quaternion(0.300506, -0.376591, 0.679877, 0.55285)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
