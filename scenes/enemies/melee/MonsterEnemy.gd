@@ -9,6 +9,8 @@ var current_state := STATES.IDLE
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 
 @export var sight_angle: float = 45.0
+@export var turn_speed: float = deg_to_rad(360.0)
+var goal_angle: float = 0.0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -66,7 +68,8 @@ func set_state_attack():
 
 
 func process_state_idle(delta: float) -> void:
-	pass
+	if can_see_player():
+		set_state_chase()
 
 
 func process_state_walk(delta: float) -> void:
@@ -74,7 +77,8 @@ func process_state_walk(delta: float) -> void:
 
 
 func process_state_chase(delta: float) -> void:
-	pass
+	var dir_to_player := global_transform.origin.direction_to(player.global_transform.origin)
+	face_to_direction(dir_to_player, delta)
 
 
 func process_state_attack(delta: float) -> void:
@@ -111,4 +115,13 @@ func alert(player_pos: Vector3, has_los: bool = true) -> void:
 		# that means enemy is alerted but player is not in sight
 		return
 	set_state_chase()
-	print_debug("alerted")
+
+
+func face_to_direction(dir: Vector3, delta: float) -> void:
+	var angle_diff := global_transform.basis.z.angle_to(dir)
+	var turn_right: int = sign(global_transform.basis.x.dot(dir))
+
+	if abs(angle_diff) < turn_speed * delta:
+		rotation.y = atan2(dir.x, dir.z)
+	else:
+		rotation.y += turn_right * turn_speed * delta
