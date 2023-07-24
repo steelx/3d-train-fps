@@ -14,10 +14,10 @@ var current_health: int = 1
 
 
 func _ready() -> void:
-	self.setup()
+	self.init()
 
 
-func setup() -> void:
+func init() -> void:
 	current_health = max_health
 	e_health_changed.emit(current_health)
 

@@ -8,6 +8,10 @@ enum WeaponSlots { MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER }
 	WeaponSlots.SHOTGUN: true,
 	WeaponSlots.ROCKET_LAUNCHER: true
 }
+@export var is_player: bool = true
+
+@onready var alert_area_los: Area3D = $AlertAreaLos
+@onready var alert_area_sound: Area3D = $AlertAreaHearing
 
 @onready var animationPlayer: AnimationPlayer = $AnimationPlayer
 @onready var weapon_label := $Weapons/CanvasLayer/WeaponLabel
@@ -27,23 +31,17 @@ var fire_point: Node3D
 var bodies_to_exclude: Array = []
 
 
-func setup(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
+func init(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
 	self.fire_point = _fire_point
 	self.bodies_to_exclude = _bodies_to_exclude
 	for weapon in weapons:
-		if weapon.has_method("setup"):
-			weapon.setup(_fire_point, _bodies_to_exclude)
+		if weapon.has_method("init"):
+			weapon.init(_fire_point, _bodies_to_exclude)
+	# weapons[WeaponSlots.MACHINE_GUN].e_fired.connect(self.alert_nearby_enemies)
+	# weapons[WeaponSlots.SHOTGUN].e_fired.connect(self.alert_nearby_enemies)
+	# weapons[WeaponSlots.ROCKET_LAUNCHER].e_fired.connect(self.alert_nearby_enemies)
 	switch_to_weapon_slot(WeaponSlots.MACHETE)
-
-
-func _ready() -> void:
-	# Set the machete as the current weapon
-	current_weapon = $Weapons/Machete
-	switch_to_weapon_slot(WeaponSlots.MACHETE)
-
-
-func _process(_delta: float) -> void:
-	current_weapon.force_update_transform()
+	print_debug("WeaponManager: setup complete")
 
 
 func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
@@ -69,8 +67,7 @@ func switch_to_next_weapon() -> void:
 
 func switch_to_weapon_slot(slot_index: WeaponSlots) -> void:
 	if (
-		slot_index == current_slot
-		or slot_index < WeaponSlots.MACHETE
+		slot_index < WeaponSlots.MACHETE
 		or slot_index > WeaponSlots.ROCKET_LAUNCHER
 		or not slots_available[slot_index]
 	):
@@ -113,3 +110,17 @@ func update_animation(velocity: Vector3, is_on_ground: bool) -> void:
 		return
 	if is_on_ground and velocity.length() > 0.5 and current_weapon.is_idle():
 		animationPlayer.play("moving")
+
+
+func alert_nearby_enemies() -> void:
+	# Connecting from Weapon e_fired signal
+	if !is_player:
+		return
+	var enemies_los := alert_area_los.get_overlapping_bodies()
+	for enemy in enemies_los:
+		if enemy.has_method("alert"):
+			enemy.alert(global_position)
+	var enemies_hearing := alert_area_sound.get_overlapping_bodies()
+	for enemy in enemies_hearing:
+		if enemy.has_method("alert"):
+			enemy.alert(global_position, false)

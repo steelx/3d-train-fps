@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dn3ptli7s757c"]
+[gd_scene load_steps=36 format=3 uid="uid://dn3ptli7s757c"]
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
@@ -411,6 +411,12 @@ _data = {
 "moving": SubResource("Animation_c3ypr")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_31yu4"]
+radius = 30.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pqbue"]
+radius = 20.0
+
 [node name="WeaponManager" type="Node3D"]
 script = ExtResource("1_upckl")
 
@@ -592,6 +598,23 @@ libraries = {
 "": SubResource("AnimationLibrary_v6atx")
 }
 
-[connection signal="e_fired" from="Weapons/MachineGun" to="Weapons/MachineGun/MuzzleFlash" method="_on_machine_gun_e_fired"]
-[connection signal="e_fired" from="Weapons/Shotgun" to="Weapons/Shotgun/MuzzleFlash" method="_on_shotgun_e_fired"]
-[connection signal="e_fired" from="Weapons/RocketLauncher" to="Weapons/RocketLauncher/MuzzleFlash" method="_on_rocket_launcher_e_fired"]
+[node name="AlertAreaLos" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AlertAreaLos"]
+shape = SubResource("SphereShape3D_31yu4")
+
+[node name="AlertAreaHearing" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AlertAreaHearing"]
+shape = SubResource("SphereShape3D_pqbue")
+
+[connection signal="e_fired" from="Weapons/MachineGun" to="." method="alert_nearby_enemies"]
+[connection signal="e_fired" from="Weapons/MachineGun" to="Weapons/MachineGun/MuzzleFlash" method="flash"]
+[connection signal="e_fired" from="Weapons/Shotgun" to="." method="alert_nearby_enemies"]
+[connection signal="e_fired" from="Weapons/Shotgun" to="Weapons/Shotgun/MuzzleFlash" method="flash"]
+[connection signal="e_fired" from="Weapons/RocketLauncher" to="." method="alert_nearby_enemies"]
+[connection signal="e_fired" from="Weapons/RocketLauncher" to="Weapons/RocketLauncher/MuzzleFlash" method="flash"]

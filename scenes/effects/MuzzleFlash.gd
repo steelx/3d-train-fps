@@ -44,15 +44,3 @@ func flash() -> void:
 
 func on_flash_timeout() -> void:
 	hide()
-
-
-func _on_machine_gun_e_fired(_bullet_emitter: Node3D) -> void:
-	self.flash()
-
-
-func _on_shotgun_e_fired(_bullet_emitter: Node3D) -> void:
-	self.flash()
-
-
-func _on_rocket_launcher_e_fired(_bullet_emitter: Node3D) -> void:
-	self.flash()

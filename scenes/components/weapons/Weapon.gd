@@ -12,7 +12,7 @@ class_name Weapon
 @export var attack_rate := 0.2
 var attack_timer: Timer
 
-signal e_fired(bullet_emitter: Node3D)
+signal e_fired
 signal e_out_of_ammo
 
 var can_attack := true
@@ -30,7 +30,7 @@ func _ready() -> void:
 
 
 # to be initialized from the WeaponManager
-func setup(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
+func init(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
 	self.fire_point = _fire_point
 	self.bodies_to_exclude = _bodies_to_exclude
 	# bullet_emitter is a Typeof HitScanBullterEmitter
@@ -69,7 +69,7 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 	bullet_emitters_marker.global_transform = marker_transform
 	anim_player.stop()
 	anim_player.play("attack")
-	e_fired.emit(fire_point)
+	e_fired.emit()
 	can_attack = false
 	attack_timer.start()
 

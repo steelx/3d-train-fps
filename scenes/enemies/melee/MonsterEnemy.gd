@@ -16,18 +16,20 @@ func _ready() -> void:
 	for bone in bone_attachments.get_children():
 		for child in bone.get_children():
 			if child is Hitbox:
-				child.e_hurt.connect(self._on_Hitbox_hurt)
+				child.e_hurt.connect(self.hurt)
 	set_state_idle()
-	health_manager.setup()
+	health_manager.init()
 	health_manager.e_dead.connect(self.set_state_dead)
 
 
-func _on_Hitbox_hurt(damage: int, dir: Vector3, critical: bool) -> void:
+func hurt(damage: int, dir: Vector3, critical: bool) -> void:
+	if current_state == STATES.IDLE:
+		set_state_chase()
 	health_manager.hurt(damage, dir)
 
 
 func _process(delta: float) -> void:
-	print_debug(can_see_player())
+	# print_debug(can_see_player())
 	match current_state:
 		STATES.IDLE:
 			process_state_idle(delta)
@@ -99,3 +101,14 @@ func has_line_of_sight_player() -> bool:
 	var query := PhysicsRayQueryParameters3D.create(from, to, self.collision_mask)
 	var raycast := get_world_3d().direct_space_state.intersect_ray(query)
 	return raycast.has("collider") and raycast.collider is Player
+
+
+func alert(player_pos: Vector3, has_los: bool = true) -> void:
+	if current_state != STATES.IDLE or current_state == STATES.DEAD:
+		# that means enemy is already alerted
+		return
+	if has_los and !has_line_of_sight_player():
+		# that means enemy is alerted but player is not in sight
+		return
+	set_state_chase()
+	print_debug("alerted")

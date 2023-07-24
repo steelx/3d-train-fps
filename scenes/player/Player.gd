@@ -40,12 +40,12 @@ var is_dead := false
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	health_manager.setup()
+	health_manager.init()
 	health_manager.e_dead.connect(self.kill)
 	health_manager.e_critical.connect(self.at_critical)
 	health_manager.e_health_changed.connect(self.health_changed)
 	var fire_point = $TwistPivot/PitchPivot/Camera3D/FirePoint
-	weapon_manager.setup(fire_point, [self])
+	weapon_manager.init(fire_point, [self])
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -70,12 +70,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed(CANCEL):
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-	if Input.is_action_just_pressed(FIRE):
-		weapon_manager.attack(true, false)
-	elif Input.is_action_pressed(FIRE):
-		weapon_manager.attack(false, true)
-	else:
-		weapon_manager.attack(false, false)
+	weapon_manager.attack(Input.is_action_just_pressed(FIRE), Input.is_action_pressed(FIRE))
 
 	if event.is_action_pressed(JUMP):
 		if is_on_ground():
