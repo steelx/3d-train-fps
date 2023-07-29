@@ -9,7 +9,7 @@ const MOVE_BACKWARD = "move_backward"
 const MOVE_LEFT = "move_left"
 const MOVE_RIGHT = "move_right"
 const CANCEL = "ui_cancel"
-const SPEED = 10.0
+const SPEED = 12.0
 const JUMP_FORCE = 8.0
 
 const hotkeys := {

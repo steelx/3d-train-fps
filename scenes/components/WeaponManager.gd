@@ -119,8 +119,8 @@ func alert_nearby_enemies() -> void:
 	var enemies_los := alert_area_los.get_overlapping_bodies()
 	for enemy in enemies_los:
 		if enemy.has_method("alert"):
-			enemy.alert(global_position)
+			enemy.alert()
 	var enemies_hearing := alert_area_sound.get_overlapping_bodies()
 	for enemy in enemies_hearing:
 		if enemy.has_method("alert"):
-			enemy.alert(global_position, false)
+			enemy.alert(false)
