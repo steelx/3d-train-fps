@@ -14,6 +14,7 @@ var attack_timer: Timer
 
 signal e_fired
 signal e_out_of_ammo
+signal e_weapon_info(weapon: String, ammo: int)
 
 var can_attack := true
 var fire_point: Node3D
@@ -70,6 +71,7 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 	anim_player.stop()
 	anim_player.play("attack")
 	e_fired.emit()
+	e_weapon_info.emit(name, ammo)
 	can_attack = false
 	attack_timer.start()
 

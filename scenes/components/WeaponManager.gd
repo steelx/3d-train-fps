@@ -12,15 +12,16 @@ enum WeaponSlots { MACHETE, MACHINE_GUN, SHOTGUN, ROCKET_LAUNCHER }
 
 @onready var alert_area_los: Area3D = $AlertAreaLos
 @onready var alert_area_sound: Area3D = $AlertAreaHearing
-
 @onready var animationPlayer: AnimationPlayer = $AnimationPlayer
-@onready var weapon_label := $Weapons/CanvasLayer/WeaponLabel
 @onready var weapons = $Weapons.get_children()
+
+signal e_current_weapon(name: String, ammo: int)
+
 var current_weapon: Node3D = null:
 	set(value):
 		current_weapon = value
 		if current_weapon != null:
-			weapon_label.text = "Weapon: " + current_weapon.name
+			e_current_weapon.emit(current_weapon.name, current_weapon.ammo)
 			if current_weapon.has_method("set_active"):
 				current_weapon.set_active()
 			else:
@@ -37,11 +38,13 @@ func init(_fire_point: Node3D, _bodies_to_exclude: Array) -> void:
 	for weapon in weapons:
 		if weapon.has_method("init"):
 			weapon.init(_fire_point, _bodies_to_exclude)
-	# weapons[WeaponSlots.MACHINE_GUN].e_fired.connect(self.alert_nearby_enemies)
-	# weapons[WeaponSlots.SHOTGUN].e_fired.connect(self.alert_nearby_enemies)
-	# weapons[WeaponSlots.ROCKET_LAUNCHER].e_fired.connect(self.alert_nearby_enemies)
+			weapon.e_weapon_info.connect(self.update_weapon_info)
 	switch_to_weapon_slot(WeaponSlots.MACHETE)
 	print_debug("WeaponManager: setup complete")
+
+
+func update_weapon_info(weapon_name: String, ammo: int) -> void:
+	e_current_weapon.emit(weapon_name, ammo)
 
 
 func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:

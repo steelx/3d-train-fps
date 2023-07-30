@@ -13,6 +13,15 @@ func set_bodies_to_exclude(bodies: Array) -> void:
 
 
 func fire() -> void:
-	for body in get_overlapping_bodies():
+	var bodies := get_overlapping_bodies()
+	var hitboxes := get_overlapping_areas()
+	for body in bodies:
 		if body.has_method("hurt") and !bodies_to_exclude.has(body):
-			body.hurt(damage)
+			body.hurt(
+				damage, self.global_transform.origin.direction_to(body.global_transform.origin)
+			)
+	for hitbox in hitboxes:
+		if hitbox.has_method("hurt") and !bodies_to_exclude.has(hitbox):
+			hitbox.hurt(
+				damage, self.global_transform.origin.direction_to(hitbox.global_transform.origin)
+			)

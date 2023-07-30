@@ -1,10 +1,12 @@
-[gd_scene load_steps=18 format=3 uid="uid://cccv8irl2q7ib"]
+[gd_scene load_steps=20 format=3 uid="uid://cccv8irl2q7ib"]
 
-[ext_resource type="PackedScene" uid="uid://bmmycsng0udaj" path="res://resources/enemies/birdmonster.glb" id="1_f15wt"]
+[ext_resource type="PackedScene" uid="uid://bmmycsng0udaj" path="res://resources/enemies/birdmonster/birdmonster.glb" id="1_f15wt"]
 [ext_resource type="Script" path="res://scenes/enemies/melee/MonsterEnemy.gd" id="1_tixsm"]
 [ext_resource type="PackedScene" uid="uid://bdho2y5dmldub" path="res://scenes/enemies/Hitbox.tscn" id="2_71ybh"]
 [ext_resource type="PackedScene" uid="uid://bsk64cnglx6w4" path="res://scenes/components/HealthManager.tscn" id="4_64uyp"]
 [ext_resource type="Script" path="res://scenes/enemies/CharacterMover.gd" id="5_5m2ir"]
+[ext_resource type="Script" path="res://scenes/components/AimAtObject.gd" id="6_njw0l"]
+[ext_resource type="PackedScene" uid="uid://cldf3m78csky6" path="res://scenes/components/weapons/MeleeDamagePoint.tscn" id="7_b44sx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m053w"]
 radius = 0.3
@@ -51,21 +53,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_m053w")
 
 [node name="Model" parent="." instance=ExtResource("1_f15wt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.04817, 0)
 
 [node name="Skeleton3D" parent="Model/Armature" index="0"]
-bones/0/position = Vector3(0, 0.977051, 0)
-bones/1/rotation = Quaternion(0.00207342, 1.19209e-07, 1.0588e-09, 0.999997)
-bones/2/rotation = Quaternion(-0.0375738, 0.0894303, -0.934432, 0.342675)
-bones/3/rotation = Quaternion(0.416324, 0.0865359, -0.0252101, 0.904738)
-bones/4/rotation = Quaternion(-0.037574, -0.0894304, 0.934432, 0.342675)
-bones/5/rotation = Quaternion(0.416324, -0.0865359, 0.0252101, 0.904738)
-bones/6/rotation = Quaternion(0.000894943, 0.0236222, -0.999001, 0.0379165)
-bones/7/rotation = Quaternion(-0.0949577, 0.00199759, -0.0545639, 0.993983)
-bones/8/rotation = Quaternion(-0.00324683, 0.0855117, 0.995615, 0.0377876)
-bones/9/rotation = Quaternion(-0.534728, -0.0112492, 0.0463115, 0.843678)
+bones/1/rotation = Quaternion(0.273377, 0.0081362, -0.0830727, 0.958279)
+bones/2/rotation = Quaternion(-0.034091, -0.141423, -0.90731, 0.394494)
+bones/3/rotation = Quaternion(0.125918, -0.0713783, -0.146448, 0.978572)
+bones/4/rotation = Quaternion(0.251412, -0.423755, -0.865098, 0.0939689)
+bones/5/rotation = Quaternion(0.000968694, 0.00290092, 0.389404, 0.921062)
 
 [node name="ArmUpperL" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="1"]
-transform = Transform3D(-0.762324, 0.633693, 0.131512, -0.647166, -0.748346, -0.14545, 0.00624582, -0.19599, 0.980586, 0.176714, 1.57313, 0.0015408)
+transform = Transform3D(-0.797614, 0.602362, -0.031188, -0.575783, -0.775785, -0.258131, -0.179683, -0.187931, 0.965606, 0.235054, 1.42327, 0.183366)
 bone_name = "upper_arm.l"
 bone_idx = 2
 
@@ -77,7 +75,7 @@ transform = Transform3D(1, -3.8743e-07, -1.19209e-07, 1.49012e-08, 1, -2.98023e-
 shape = SubResource("CapsuleShape3D_pjfvb")
 
 [node name="ArmLowerL" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="2"]
-transform = Transform3D(-0.756538, 0.422012, -0.499556, -0.630606, -0.673069, 0.386412, -0.173165, 0.607359, 0.775325, 0.450458, 1.24986, -0.0831231)
+transform = Transform3D(-0.941957, 0.33481, -0.0248925, -0.335457, -0.941599, 0.0293212, -0.0136218, 0.0359696, 0.99926, 0.495263, 1.08815, 0.102183)
 bone_name = "lower_arm.l"
 bone_idx = 3
 
@@ -100,7 +98,7 @@ transform = Transform3D(0.385789, 0.296468, 0.0791366, -0.159649, 0.716409, 0.19
 shape = SubResource("CapsuleShape3D_pjfvb")
 
 [node name="ArmUpperR" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="3"]
-transform = Transform3D(-0.762324, -0.633693, -0.131512, 0.647166, -0.748346, -0.14545, -0.00624577, -0.19599, 0.980586, -0.176714, 1.57313, 0.0015408)
+transform = Transform3D(-0.894879, -0.175058, -0.410543, 0.0048075, -0.923592, 0.383346, -0.446283, 0.341075, 0.827345, -0.113449, 1.47797, 0.20493)
 bone_name = "upper_arm.r"
 bone_idx = 4
 
@@ -111,7 +109,7 @@ transform = Transform3D(1, 1.49012e-08, 0, 0, 1, 0, -5.96046e-08, 5.96046e-08, 1
 shape = SubResource("CapsuleShape3D_l7rd7")
 
 [node name="ArmLowerR" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="4"]
-transform = Transform3D(-0.756538, -0.422012, 0.499556, 0.630606, -0.673069, 0.386412, 0.173165, 0.607359, 0.775325, -0.450458, 1.24986, -0.0831232)
+transform = Transform3D(-0.747164, 0.518291, -0.416076, -0.660936, -0.64539, 0.38293, -0.070062, 0.561111, 0.82477, -0.189071, 1.079, 0.352268)
 bone_name = "lower_arm.r"
 bone_idx = 5
 
@@ -134,7 +132,7 @@ transform = Transform3D(0.613479, -0.376575, -0.10382, 0.203459, 1.13547, 0.3130
 shape = SubResource("CapsuleShape3D_qalac")
 
 [node name="Hip" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.977051, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.915201, 0)
 bone_name = "hip"
 bone_idx = 0
 
@@ -145,7 +143,7 @@ transform = Transform3D(0.386952, 0, 0, 0, 0.0977848, 0, 0, 0, 0.319341, 0, 0.09
 shape = SubResource("CapsuleShape3D_33ra6")
 
 [node name="Body" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="6"]
-transform = Transform3D(1, -1.62326e-09, 2.38422e-07, 2.61194e-09, 0.999991, -0.00414683, -2.38413e-07, 0.00414683, 0.999991, 0, 1.20162, 0)
+transform = Transform3D(0.986065, 0.163662, -0.0298268, -0.154765, 0.836728, -0.525294, -0.0610138, 0.522591, 0.850398, 0, 1.13977, 0)
 bone_name = "body"
 bone_idx = 1
 
@@ -165,7 +163,7 @@ transform = Transform3D(0.323995, -4.79616e-14, -1.91847e-13, 1.77636e-15, 0.367
 shape = SubResource("SphereShape3D_jhq0g")
 
 [node name="LegUpperL" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="7"]
-transform = Transform3D(-0.997108, 0.0757995, 3.24423e-06, -0.0757138, -0.996008, -0.0472646, -0.00357939, -0.0471293, 0.998873, 0.131876, 0.998151, 1.36788e-07)
+transform = Transform3D(-0.782999, 0.14838, 0.604046, 0.0548854, -0.95086, 0.304714, 0.619573, 0.271751, 0.736382, 0.131876, 0.936301, 1.36788e-07)
 bone_name = "upperleg.l"
 bone_idx = 6
 
@@ -176,7 +174,7 @@ transform = Transform3D(0.2, -2.98023e-08, -2.23517e-08, 2.6077e-08, 0.299518, 0
 shape = SubResource("CapsuleShape3D_l3kyw")
 
 [node name="LegLowerL" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="8"]
-transform = Transform3D(-0.999413, -0.0337985, 3.33192e-06, 0.0328515, -0.971367, -0.235299, 0.00795619, -0.235163, 0.971914, 0.163526, 0.582269, -0.0196787)
+transform = Transform3D(-0.786345, -0.178843, 0.591314, 0.0264683, -0.966051, -0.256987, 0.617196, -0.186426, 0.76439, 0.193832, 0.539271, 0.113469)
 bone_name = "lowerleg.l"
 bone_idx = 7
 
@@ -187,7 +185,7 @@ transform = Transform3D(0.2, -2.98023e-08, 2.98023e-08, 2.04891e-08, 0.3, -1.303
 shape = SubResource("CapsuleShape3D_025xf")
 
 [node name="LegUpperR" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="9"]
-transform = Transform3D(-0.997108, -0.0757991, -2.62165e-06, 0.0746874, -0.98252, 0.170517, -0.0129276, 0.170028, 0.985345, -0.131876, 0.998151, 1.36788e-07)
+transform = Transform3D(-0.782998, -0.148381, -0.604045, -0.0548847, -0.950859, 0.304716, -0.619573, 0.271751, 0.736382, -0.131876, 0.936301, 1.36788e-07)
 bone_name = "upperleg.r"
 bone_idx = 8
 
@@ -198,7 +196,7 @@ transform = Transform3D(0.2, -2.23517e-08, -5.96046e-08, 1.86265e-08, 0.3, -2.23
 shape = SubResource("CapsuleShape3D_yor1s")
 
 [node name="LegLowerR" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="10"]
-transform = Transform3D(-0.999414, 0.033798, -2.4703e-06, -0.0194591, -0.575402, -0.817639, -0.0276357, -0.817163, 0.575728, -0.163526, 0.587901, 0.0709952)
+transform = Transform3D(-0.786344, 0.178841, -0.591314, -0.0264676, -0.966051, -0.256985, -0.617197, -0.186425, 0.76439, -0.193832, 0.539271, 0.11347)
 bone_name = "lowerleg.r"
 bone_idx = 9
 
@@ -216,5 +214,12 @@ body_to_move = NodePath("..")
 ignore_rotation = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="AimAtObject" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16842, 0.71847)
+script = ExtResource("6_njw0l")
+
+[node name="MeleeDamagePoint" parent="AimAtObject" instance=ExtResource("7_b44sx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.354)
 
 [editable path="Model"]

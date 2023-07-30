@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+signal e_enemy_attack
+
 enum STATES { IDLE, WALK, CHASE, ATTACK, HURT, DEAD }
 var current_state := STATES.IDLE
 
@@ -19,6 +21,9 @@ var current_state := STATES.IDLE
 @export var attack_animation_speed: float = 1.0
 
 # Attack variables
+@export var damage: int = 33
+@onready var attack_area := $AimAtObject/MeleeDamagePoint
+@onready var aimer := $AimAtObject
 var can_attack := false
 @onready var attack_timer := Timer.new()
 var enemy_free_timer := Timer.new()
@@ -26,6 +31,8 @@ var enemy_free_timer := Timer.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	attack_area.set_damage(damage)
+	attack_area.set_bodies_to_exclude([self])
 	for bone in bone_attachments.get_children():
 		for child in bone.get_children():
 			if child is Hitbox:
@@ -40,7 +47,7 @@ func _ready() -> void:
 	self.add_child(attack_timer)
 
 
-func hurt(damage: int, dir: Vector3, _critical: bool = false) -> void:
+func hurt(damage: int, dir: Vector3) -> void:
 	if current_state == STATES.DEAD:
 		return
 	if current_state == STATES.IDLE:
@@ -211,6 +218,7 @@ func is_player_in_attack_range() -> bool:
 
 
 func start_attack() -> void:
+	aimer.aim_at_position(player.global_transform.origin + Vector3.UP * 1.5)
 	can_attack = false
 	anim_player.stop()
 	anim_player.play("attack", attack_animation_speed)
@@ -220,3 +228,7 @@ func start_attack() -> void:
 func finish_attack() -> void:
 	can_attack = true
 	attack_timer.stop()
+
+
+func emit_enemy_attack_signal() -> void:
+	e_enemy_attack.emit()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dn3ptli7s757c"]
+[gd_scene load_steps=37 format=3 uid="uid://dn3ptli7s757c"]
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cbp22ospyq0lq" path="res://scenes/components/RocketSpawner.tscn" id="10_7i5bi"]
 [ext_resource type="Texture2D" uid="uid://cmgnchq8d8af8" path="res://resources/weapons/crosshairs/crosshair066.png" id="11_i60v5"]
 [ext_resource type="Texture2D" uid="uid://d1yqmw4hkjcgc" path="res://resources/weapons/crosshairs/crosshair026.png" id="14_edej1"]
+[ext_resource type="Script" path="res://scenes/components/WeaponLabel.gd" id="15_ejioc"]
 
 [sub_resource type="Animation" id="Animation_lpjc4"]
 length = 0.001
@@ -437,10 +438,9 @@ libraries = {
 }
 
 [node name="BulletEmitters" type="Marker3D" parent="Weapons/Machete"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.921714, -0.140452)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.371952, 0.459099, -1.01963)
 
 [node name="MeleeDamagePoint" parent="Weapons/Machete/BulletEmitters" instance=ExtResource("3_5jwjw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.289994, 0)
 
 [node name="Crosshair" type="TextureRect" parent="Weapons/Machete"]
 anchors_preset = 8
@@ -517,8 +517,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0709423, -0.982846)
 [node name="HitScanBullterEmitter" parent="Weapons/Shotgun/BulletEmitters" instance=ExtResource("5_dl15m")]
 transform = Transform3D(0.999328, 0, -0.0366437, 0, 1, 0, 0.0366437, 0, 0.999328, 0, 0, 0)
 
+[node name="HitScanBullterEmitter4" parent="Weapons/Shotgun/BulletEmitters" instance=ExtResource("5_dl15m")]
+transform = Transform3D(0.999925, 0, -0.012217, 0, 1, 0, 0.012217, 0, 0.999925, 0, 0, 0)
+
 [node name="HitScanBullterEmitter2" parent="Weapons/Shotgun/BulletEmitters" instance=ExtResource("5_dl15m")]
-transform = Transform3D(0.999657, 0, 0.0261769, 0, 1, 0, -0.0261769, 0, 0.999657, 0, 0, 0)
+transform = Transform3D(0.999657, -0.000456851, 0.026173, 0, 0.999848, 0.0174524, -0.0261769, -0.0174464, 0.999505, 0, 0, 0)
 
 [node name="HitScanBullterEmitter3" parent="Weapons/Shotgun/BulletEmitters" instance=ExtResource("5_dl15m")]
 transform = Transform3D(0.999048, 0, 0.0436194, 0, 1, 0, -0.0436194, 0, 0.999048, 0, 0, 0)
@@ -581,9 +584,9 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("14_edej1")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="Weapons"]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="WeaponLabel" type="Label" parent="Weapons/CanvasLayer"]
+[node name="WeaponLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -591,6 +594,7 @@ anchor_bottom = 1.0
 offset_top = -23.0
 grow_horizontal = 2
 grow_vertical = 0
+script = ExtResource("15_ejioc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Weapons")
@@ -612,6 +616,7 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AlertAreaHearing"]
 shape = SubResource("SphereShape3D_pqbue")
 
+[connection signal="e_current_weapon" from="." to="CanvasLayer/WeaponLabel" method="_on_weapon_manager_e_current_weapon"]
 [connection signal="e_fired" from="Weapons/MachineGun" to="." method="alert_nearby_enemies"]
 [connection signal="e_fired" from="Weapons/MachineGun" to="Weapons/MachineGun/MuzzleFlash" method="flash"]
 [connection signal="e_fired" from="Weapons/Shotgun" to="." method="alert_nearby_enemies"]
