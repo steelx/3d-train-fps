@@ -24,7 +24,7 @@ var bodies_to_exclude: Array = []
 func _ready() -> void:
 	attack_timer = Timer.new()
 	attack_timer.set_wait_time(attack_rate)
-	attack_timer.set_one_shot(true)
+	attack_timer.one_shot = true
 	attack_timer.connect("timeout", self._on_attack_timer_timeout)
 	add_child(attack_timer)
 
