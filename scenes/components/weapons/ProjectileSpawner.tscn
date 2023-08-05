@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c1qymybub6q0r"]
+
+[ext_resource type="Script" path="res://scenes/components/weapons/ProjectileSpawner.gd" id="1_0e8ai"]
+
+[node name="ProjectileSpawner" type="Node3D"]
+script = ExtResource("1_0e8ai")

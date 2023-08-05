@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dn3ptli7s757c"]
+[gd_scene load_steps=38 format=3 uid="uid://dn3ptli7s757c"]
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
@@ -11,9 +11,10 @@
 [ext_resource type="Texture2D" uid="uid://cmftrwi4n47wn" path="res://resources/weapons/crosshairs/crosshair001.png" id="5_mgsjh"]
 [ext_resource type="PackedScene" uid="uid://c82gloipj7xqo" path="res://scenes/effects/MuzzleFlash.tscn" id="6_vjvj2"]
 [ext_resource type="Texture2D" uid="uid://o1pm0rpk2nkt" path="res://resources/weapons/crosshairs/crosshair065.png" id="9_0v8co"]
-[ext_resource type="PackedScene" uid="uid://cbp22ospyq0lq" path="res://scenes/components/RocketSpawner.tscn" id="10_7i5bi"]
 [ext_resource type="Texture2D" uid="uid://cmgnchq8d8af8" path="res://resources/weapons/crosshairs/crosshair066.png" id="11_i60v5"]
+[ext_resource type="PackedScene" uid="uid://c1qymybub6q0r" path="res://scenes/components/weapons/ProjectileSpawner.tscn" id="13_svxm3"]
 [ext_resource type="Texture2D" uid="uid://d1yqmw4hkjcgc" path="res://resources/weapons/crosshairs/crosshair026.png" id="14_edej1"]
+[ext_resource type="PackedScene" uid="uid://bga8nymr25n3k" path="res://scenes/components/weapons/FireballProjectile.tscn" id="14_xwsbe"]
 [ext_resource type="Script" path="res://scenes/components/WeaponLabel.gd" id="15_ejioc"]
 
 [sub_resource type="Animation" id="Animation_lpjc4"]
@@ -563,7 +564,8 @@ libraries = {
 [node name="BulletEmitters" type="Marker3D" parent="Weapons/RocketLauncher"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.294044, -2.10365)
 
-[node name="RocketSpawner" parent="Weapons/RocketLauncher/BulletEmitters" instance=ExtResource("10_7i5bi")]
+[node name="ProjectileSpawner" parent="Weapons/RocketLauncher/BulletEmitters" instance=ExtResource("13_svxm3")]
+projectile = ExtResource("14_xwsbe")
 
 [node name="MuzzleFlash" parent="Weapons/RocketLauncher" instance=ExtResource("6_vjvj2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0355501, -2.098)

@@ -1,9 +1,10 @@
 extends RigidBody3D
+class_name Rocket
 
 var explosion := preload("res://scenes/effects/Explosion.tscn")
 
 const speed = 15
-const impact_damage = 20
+const impact_damage = 5
 var exploded := false
 
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://c6ish8bm20e1n"]
 
-[ext_resource type="PackedScene" uid="uid://bvqub2gvffih3" path="res://resources/weapons/rocket.glb" id="1_61cob"]
-[ext_resource type="Script" path="res://scenes/components/weapons/Rocket.gd" id="1_pkbb4"]
-[ext_resource type="PackedScene" uid="uid://sd0usn70m285" path="res://resources/weapons/muzzleflash3.glb" id="2_0xj4f"]
-[ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="3_wybta"]
+[ext_resource type="Script" path="res://scenes/components/weapons/RocketProjectile.gd" id="1_4fmwe"]
+[ext_resource type="PackedScene" uid="uid://bvqub2gvffih3" path="res://resources/weapons/rocket.glb" id="2_awaut"]
+[ext_resource type="PackedScene" uid="uid://sd0usn70m285" path="res://resources/weapons/muzzleflash3.glb" id="3_wf7tk"]
+[ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="4_sp0xv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hnq47"]
 radius = 0.3
@@ -13,7 +13,7 @@ height = 0.804834
 transparency = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("3_wybta")
+albedo_texture = ExtResource("4_sp0xv")
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1
@@ -39,18 +39,20 @@ color_ramp = SubResource("GradientTexture1D_dqvec")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00252867, 0.0106196, -0.00799203)
 collision_layer = 0
 collision_mask = 7
-gravity_scale = 0.1
+axis_lock_angular_y = true
+gravity_scale = 0.2
 contact_monitor = true
-script = ExtResource("1_pkbb4")
+angular_damp = 2.0
+script = ExtResource("1_4fmwe")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.709711)
 shape = SubResource("CapsuleShape3D_hnq47")
 
-[node name="Model" parent="." instance=ExtResource("1_61cob")]
+[node name="Model" parent="." instance=ExtResource("2_awaut")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 
-[node name="muzzleflash3" parent="Model" instance=ExtResource("2_0xj4f")]
+[node name="muzzleflash3" parent="Model" instance=ExtResource("3_wf7tk")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 
 [node name="SmokeTrail" type="GPUParticles3D" parent="."]

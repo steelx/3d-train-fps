@@ -1,0 +1,135 @@
+[gd_scene load_steps=15 format=3 uid="uid://bga8nymr25n3k"]
+
+[ext_resource type="Script" path="res://scenes/components/weapons/FireballProjectile.gd" id="1_tfask"]
+[ext_resource type="Texture2D" uid="uid://dbbgrfpx4ljt6" path="res://resources/weapons/fire_spritesheet.png" id="2_ub88m"]
+[ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="3_qb8l6"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_43qc6"]
+radius = 0.3
+
+[sub_resource type="Animation" id="Animation_ytb33"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_bvgiw"]
+resource_name = "flicker"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fqepm"]
+_data = {
+"RESET": SubResource("Animation_ytb33"),
+"flicker": SubResource("Animation_bvgiw")
+}
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dabbt"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_qb8l6")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Gradient" id="Gradient_0ifxd"]
+offsets = PackedFloat32Array(0, 0.50411, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.60933, 0.60933, 0.60933, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bkg0f"]
+gradient = SubResource("Gradient_0ifxd")
+
+[sub_resource type="Curve" id="Curve_2s5ru"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_65log"]
+curve = SubResource("Curve_2s5ru")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o1v2x"]
+emission_shape = 1
+emission_sphere_radius = 0.2
+gravity = Vector3(0, 5, 0)
+scale_min = 0.1
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_65log")
+color_ramp = SubResource("GradientTexture1D_bkg0f")
+
+[sub_resource type="QuadMesh" id="QuadMesh_wnoxh"]
+
+[node name="Fireball" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00252867, 0.0106196, -0.00799203)
+collision_layer = 0
+collision_mask = 3
+axis_lock_angular_y = true
+gravity_scale = 0.2
+contact_monitor = true
+script = ExtResource("1_tfask")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("SphereShape3D_43qc6")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0)
+billboard = 1
+texture_filter = 0
+texture = ExtResource("2_ub88m")
+hframes = 2
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite3D"]
+autoplay = "flicker"
+libraries = {
+"": SubResource("AnimationLibrary_fqepm")
+}
+
+[node name="DestroyAfterHitTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[node name="ShowTimer" type="Timer" parent="."]
+wait_time = 0.08
+one_shot = true
+autostart = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_color = Color(1, 0.368627, 0.647059, 1)
+light_energy = 0.5
+
+[node name="SmokeParticle" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_dabbt")
+emitting = false
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.9
+process_material = SubResource("ParticleProcessMaterial_o1v2x")
+draw_pass_1 = SubResource("QuadMesh_wnoxh")
+
+[connection signal="timeout" from="DestroyAfterHitTimer" to="." method="explode"]
+[connection signal="timeout" from="ShowTimer" to="." method="show"]

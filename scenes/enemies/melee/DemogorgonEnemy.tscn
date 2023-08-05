@@ -63,7 +63,7 @@ bones/4/rotation = Quaternion(0.251412, -0.423755, -0.865098, 0.0939689)
 bones/5/rotation = Quaternion(0.000968694, 0.00290092, 0.389404, 0.921062)
 
 [node name="ArmUpperL" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="1"]
-transform = Transform3D(-0.797614, 0.602362, -0.031188, -0.575783, -0.775785, -0.258131, -0.179683, -0.187931, 0.965606, 0.235054, 1.42327, 0.183366)
+transform = Transform3D(-0.797613, 0.602362, -0.0311879, -0.575784, -0.775784, -0.258132, -0.179684, -0.187932, 0.965606, 0.235053, 1.42327, 0.183366)
 bone_name = "upper_arm.l"
 bone_idx = 2
 
@@ -75,7 +75,7 @@ transform = Transform3D(1, -3.8743e-07, -1.19209e-07, 1.49012e-08, 1, -2.98023e-
 shape = SubResource("CapsuleShape3D_pjfvb")
 
 [node name="ArmLowerL" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="2"]
-transform = Transform3D(-0.941957, 0.33481, -0.0248925, -0.335457, -0.941599, 0.0293212, -0.0136218, 0.0359696, 0.99926, 0.495263, 1.08815, 0.102183)
+transform = Transform3D(-0.941956, 0.334811, -0.0248926, -0.335459, -0.941598, 0.0293203, -0.013622, 0.0359689, 0.99926, 0.495263, 1.08815, 0.102183)
 bone_name = "lower_arm.l"
 bone_idx = 3
 
@@ -98,7 +98,7 @@ transform = Transform3D(0.385789, 0.296468, 0.0791366, -0.159649, 0.716409, 0.19
 shape = SubResource("CapsuleShape3D_pjfvb")
 
 [node name="ArmUpperR" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="3"]
-transform = Transform3D(-0.894879, -0.175058, -0.410543, 0.0048075, -0.923592, 0.383346, -0.446283, 0.341075, 0.827345, -0.113449, 1.47797, 0.20493)
+transform = Transform3D(-0.894879, -0.175058, -0.410544, 0.00480753, -0.923592, 0.383346, -0.446283, 0.341075, 0.827345, -0.113449, 1.47797, 0.20493)
 bone_name = "upper_arm.r"
 bone_idx = 4
 
@@ -109,7 +109,7 @@ transform = Transform3D(1, 1.49012e-08, 0, 0, 1, 0, -5.96046e-08, 5.96046e-08, 1
 shape = SubResource("CapsuleShape3D_l7rd7")
 
 [node name="ArmLowerR" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="4"]
-transform = Transform3D(-0.747164, 0.518291, -0.416076, -0.660936, -0.64539, 0.38293, -0.070062, 0.561111, 0.82477, -0.189071, 1.079, 0.352268)
+transform = Transform3D(-0.747165, 0.518291, -0.416077, -0.660936, -0.64539, 0.38293, -0.0700627, 0.561112, 0.82477, -0.189071, 1.079, 0.352268)
 bone_name = "lower_arm.r"
 bone_idx = 5
 
