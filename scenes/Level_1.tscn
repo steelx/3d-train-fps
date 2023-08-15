@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://c6e0m27wmiy7n"]
+[gd_scene load_steps=20 format=3 uid="uid://c6e0m27wmiy7n"]
 
 [ext_resource type="Script" path="res://scenes/Tracks.gd" id="1_2shtd"]
 [ext_resource type="Material" uid="uid://csfdcdo2s8jaw" path="res://addons/kenney_prototype_tools/materials/orange/material_04.tres" id="2_51qy6"]
 [ext_resource type="PackedScene" uid="uid://d2kvb4kiqg340" path="res://scenes/player/Player.tscn" id="2_glj7y"]
+[ext_resource type="PackedScene" uid="uid://bdn4sc2ee8tvn" path="res://scenes/enemies/ReptileMonster.tscn" id="3_ipx8n"]
 [ext_resource type="PackedScene" uid="uid://bihd5n7hpmbmu" path="res://scenes/objects/Brickwall.tscn" id="5_qjwvd"]
 [ext_resource type="PackedScene" uid="uid://drm75x25k4rtr" path="res://scenes/objects/Shed.tscn" id="6_88aai"]
 [ext_resource type="PackedScene" uid="uid://0fbmfl64jbyp" path="res://scenes/objects/Tree.tscn" id="7_agh6p"]
@@ -68,6 +69,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.133, 1.85318, -29.8833)
 [node name="DemogorgonEnemy" parent="." instance=ExtResource("8_nvdra")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 attack_animation_speed = 2.0
+
+[node name="ReptileMonster" parent="." instance=ExtResource("3_ipx8n")]
+transform = Transform3D(0.123168, 0, 0.992386, 0, 1, 0, -0.992386, 0, 0.123168, -7.54775, 1.84889, -18.9911)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_d4aml")

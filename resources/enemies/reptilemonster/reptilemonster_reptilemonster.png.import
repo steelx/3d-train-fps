@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://54q4p7pqdwx7"
-path.s3tc="res://.godot/imported/reptilemonster_reptilemonster.png-b780020bd8693672810030d637203946.s3tc.ctex"
+uid="uid://drlvqf1lr3ihw"
+path.s3tc="res://.godot/imported/reptilemonster_reptilemonster.png-591ed34edfca4d43e134a5057f886dc2.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ generator_parameters={}
 
 [deps]
 
-source_file="res://resources/enemies/reptilemonster_reptilemonster.png"
-dest_files=["res://.godot/imported/reptilemonster_reptilemonster.png-b780020bd8693672810030d637203946.s3tc.ctex"]
+source_file="res://resources/enemies/reptilemonster/reptilemonster_reptilemonster.png"
+dest_files=["res://.godot/imported/reptilemonster_reptilemonster.png-591ed34edfca4d43e134a5057f886dc2.s3tc.ctex"]
 
 [params]
 
