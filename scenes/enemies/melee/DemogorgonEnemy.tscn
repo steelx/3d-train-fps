@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cccv8irl2q7ib"]
+[gd_scene load_steps=21 format=3 uid="uid://cccv8irl2q7ib"]
 
 [ext_resource type="PackedScene" uid="uid://bmmycsng0udaj" path="res://resources/enemies/birdmonster/birdmonster.glb" id="1_f15wt"]
 [ext_resource type="Script" path="res://scenes/enemies/melee/MonsterEnemy.gd" id="1_tixsm"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scenes/enemies/CharacterMover.gd" id="5_5m2ir"]
 [ext_resource type="Script" path="res://scenes/components/AimAtObject.gd" id="6_njw0l"]
 [ext_resource type="PackedScene" uid="uid://cldf3m78csky6" path="res://scenes/components/weapons/MeleeDamagePoint.tscn" id="7_b44sx"]
+[ext_resource type="AudioStream" uid="uid://brmi2w33obwuo" path="res://sounds/weapons/enemyKill.wav" id="8_ot4wk"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m053w"]
 radius = 0.3
@@ -221,5 +222,10 @@ script = ExtResource("6_njw0l")
 
 [node name="MeleeDamagePoint" parent="AimAtObject" instance=ExtResource("7_b44sx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.354)
+
+[node name="AudioEnemyKill" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_ot4wk")
+max_distance = 40.0
+bus = &"SFX"
 
 [editable path="Model"]

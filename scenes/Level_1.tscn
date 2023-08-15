@@ -71,7 +71,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 attack_animation_speed = 2.0
 
 [node name="ReptileMonster" parent="." instance=ExtResource("3_ipx8n")]
-transform = Transform3D(0.123168, 0, 0.992386, 0, 1, 0, -0.992386, 0, 0.123168, -7.54775, 1.84889, -18.9911)
+transform = Transform3D(0.123168, 0, 0.992386, 0, 1, 0, -0.992386, 0, 0.123168, -11.3361, 4.6769, -23.6911)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_d4aml")

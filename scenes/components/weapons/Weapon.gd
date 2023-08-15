@@ -5,6 +5,7 @@ class_name Weapon
 @onready var bullet_emitters_marker: Marker3D = $BulletEmitters
 @onready var bullet_emitters: Array = $BulletEmitters.get_children()
 @onready var crosshair := $Crosshair
+@onready var audio_fire := $AudioFire
 
 @export var automatic := false
 @export var damage := 10
@@ -61,6 +62,7 @@ func attack(attack_input_just_pressed: bool, attack_input_held: bool) -> void:
 
 	if ammo > 0:
 		ammo -= 1
+		audio_fire.play()
 
 	var marker_transform := bullet_emitters_marker.global_transform
 	bullet_emitters_marker.global_transform = fire_point.global_transform

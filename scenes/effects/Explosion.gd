@@ -7,6 +7,7 @@ extends Area3D
 
 
 func explode() -> void:
+	$AudioFire.play()
 	partcle1.emitting = true
 	partcle2.emitting = true
 	var query := PhysicsShapeQueryParameters3D.new()

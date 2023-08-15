@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://bga8nymr25n3k"]
+[gd_scene load_steps=16 format=3 uid="uid://bga8nymr25n3k"]
 
 [ext_resource type="Script" path="res://scenes/components/weapons/FireballProjectile.gd" id="1_tfask"]
 [ext_resource type="Texture2D" uid="uid://dbbgrfpx4ljt6" path="res://resources/weapons/fire_spritesheet.png" id="2_ub88m"]
 [ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="3_qb8l6"]
+[ext_resource type="AudioStream" uid="uid://bbteefyqry8hp" path="res://sounds/weapons/fireball.wav" id="4_6cnks"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_43qc6"]
 radius = 0.3
@@ -131,5 +132,10 @@ explosiveness = 0.9
 process_material = SubResource("ParticleProcessMaterial_o1v2x")
 draw_pass_1 = SubResource("QuadMesh_wnoxh")
 
+[node name="AudioFire" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("4_6cnks")
+bus = &"SFX"
+
 [connection signal="timeout" from="DestroyAfterHitTimer" to="." method="explode"]
 [connection signal="timeout" from="ShowTimer" to="." method="show"]
+[connection signal="timeout" from="ShowTimer" to="." method="_on_show_timer_timeout"]

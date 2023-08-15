@@ -12,6 +12,7 @@ var current_state := STATES.IDLE
 @onready var player: Player = get_tree().get_first_node_in_group("player")
 @onready var character_mover: CharacterMover = $CharacterMover
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
+@onready var enemy_kill_sound := $AudioEnemyKill
 
 # Sight/View variables
 @export var sight_angle: float = 45.0
@@ -164,6 +165,7 @@ func process_state_hurt(delta: float) -> void:
 func process_state_dead(_delta: float) -> void:
 	if enemy_free_timer.time_left > 0:
 		return
+	enemy_kill_sound.play()
 	character_mover.freeze()
 	enemy_free_timer.set_wait_time(5)
 	enemy_free_timer.one_shot = true

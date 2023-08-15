@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bdn4sc2ee8tvn"]
+[gd_scene load_steps=22 format=3 uid="uid://bdn4sc2ee8tvn"]
 
 [ext_resource type="Script" path="res://scenes/enemies/RangedEnemy.gd" id="1_06lgv"]
 [ext_resource type="PackedScene" uid="uid://byl87dqpadm2s" path="res://resources/enemies/reptilemonster/reptilemonster.glb" id="1_c5nag"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://scenes/components/AimAtObject.gd" id="6_lvdju"]
 [ext_resource type="PackedScene" uid="uid://c1qymybub6q0r" path="res://scenes/components/weapons/ProjectileSpawner.tscn" id="7_88ngs"]
 [ext_resource type="PackedScene" uid="uid://bga8nymr25n3k" path="res://scenes/components/weapons/FireballProjectile.tscn" id="8_m7q8k"]
+[ext_resource type="AudioStream" uid="uid://brmi2w33obwuo" path="res://sounds/weapons/enemyKill.wav" id="9_grwoa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p5wqa"]
 radius = 0.25
@@ -207,5 +208,10 @@ script = ExtResource("6_lvdju")
 projectile = ExtResource("8_m7q8k")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="AudioEnemyKill" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_grwoa")
+max_distance = 40.0
+bus = &"SFX"
 
 [editable path="Model"]

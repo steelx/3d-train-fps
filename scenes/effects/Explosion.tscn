@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bi0maqw4hdffa"]
+[gd_scene load_steps=11 format=3 uid="uid://bi0maqw4hdffa"]
 
 [ext_resource type="Script" path="res://scenes/effects/Explosion.gd" id="1_iw65g"]
 [ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="1_pp4lp"]
+[ext_resource type="AudioStream" uid="uid://dijvv0i7gw71u" path="res://sounds/weapons/rocketExplode.wav" id="3_rp34k"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ds2h5"]
 radius = 3.0
@@ -81,5 +82,9 @@ draw_pass_1 = SubResource("QuadMesh_8667b")
 wait_time = 5.0
 one_shot = true
 autostart = true
+
+[node name="AudioFire" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_rp34k")
+bus = &"player_sfx"
 
 [connection signal="timeout" from="Timer" to="." method="queue_free"]

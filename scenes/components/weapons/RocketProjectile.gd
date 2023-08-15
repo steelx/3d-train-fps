@@ -36,3 +36,7 @@ func explode() -> void:
 func set_bodies_to_exclude(bodies: Array) -> void:
 	for body in bodies:
 		add_collision_exception_with(body)
+
+
+func _on_show_timer_timeout() -> void:
+	$AudioFire.play()

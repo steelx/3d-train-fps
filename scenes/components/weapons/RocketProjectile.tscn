@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://c6ish8bm20e1n"]
+[gd_scene load_steps=12 format=3 uid="uid://c6ish8bm20e1n"]
 
 [ext_resource type="Script" path="res://scenes/components/weapons/RocketProjectile.gd" id="1_4fmwe"]
 [ext_resource type="PackedScene" uid="uid://bvqub2gvffih3" path="res://resources/weapons/rocket.glb" id="2_awaut"]
 [ext_resource type="PackedScene" uid="uid://sd0usn70m285" path="res://resources/weapons/muzzleflash3.glb" id="3_wf7tk"]
 [ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="4_sp0xv"]
+[ext_resource type="AudioStream" uid="uid://dyx8tupsqtk61" path="res://sounds/weapons/fireRocket.wav" id="5_4bup7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hnq47"]
 radius = 0.3
@@ -75,5 +76,10 @@ autostart = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.147541)
 light_color = Color(1, 1, 0.647059, 1)
 
+[node name="AudioFire" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("5_4bup7")
+bus = &"player_sfx"
+
 [connection signal="timeout" from="ExplodeTimer" to="." method="explode"]
 [connection signal="timeout" from="ShowTimer" to="." method="show"]
+[connection signal="timeout" from="ShowTimer" to="." method="_on_show_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dn3ptli7s757c"]
+[gd_scene load_steps=40 format=3 uid="uid://dn3ptli7s757c"]
 
 [ext_resource type="Script" path="res://scenes/components/WeaponManager.gd" id="1_upckl"]
 [ext_resource type="PackedScene" uid="uid://bx7oo7t685qxp" path="res://resources/weapons/machete.glb" id="2_lfm1g"]
@@ -9,13 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://cp0r2j35f78js" path="res://scenes/effects/HitScanBulletEmitter.tscn" id="5_dl15m"]
 [ext_resource type="PackedScene" uid="uid://bg2tkmjk016dq" path="res://resources/weapons/rocketlauncher.glb" id="5_dukq6"]
 [ext_resource type="Texture2D" uid="uid://cmftrwi4n47wn" path="res://resources/weapons/crosshairs/crosshair001.png" id="5_mgsjh"]
+[ext_resource type="AudioStream" uid="uid://dc6pbhjate4lb" path="res://sounds/weapons/machinegun.wav" id="6_aj2ax"]
 [ext_resource type="PackedScene" uid="uid://c82gloipj7xqo" path="res://scenes/effects/MuzzleFlash.tscn" id="6_vjvj2"]
 [ext_resource type="Texture2D" uid="uid://o1pm0rpk2nkt" path="res://resources/weapons/crosshairs/crosshair065.png" id="9_0v8co"]
 [ext_resource type="Texture2D" uid="uid://cmgnchq8d8af8" path="res://resources/weapons/crosshairs/crosshair066.png" id="11_i60v5"]
 [ext_resource type="PackedScene" uid="uid://c1qymybub6q0r" path="res://scenes/components/weapons/ProjectileSpawner.tscn" id="13_svxm3"]
+[ext_resource type="PackedScene" uid="uid://c6ish8bm20e1n" path="res://scenes/components/weapons/RocketProjectile.tscn" id="14_5twyv"]
 [ext_resource type="Texture2D" uid="uid://d1yqmw4hkjcgc" path="res://resources/weapons/crosshairs/crosshair026.png" id="14_edej1"]
-[ext_resource type="PackedScene" uid="uid://bga8nymr25n3k" path="res://scenes/components/weapons/FireballProjectile.tscn" id="14_xwsbe"]
 [ext_resource type="Script" path="res://scenes/components/WeaponLabel.gd" id="15_ejioc"]
+[ext_resource type="AudioStream" uid="uid://dyx8tupsqtk61" path="res://sounds/weapons/fireRocket.wav" id="17_reic3"]
 
 [sub_resource type="Animation" id="Animation_lpjc4"]
 length = 0.001
@@ -457,12 +459,18 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_mgsjh")
 
+[node name="AudioFire" type="AudioStreamPlayer3D" parent="Weapons/Machete"]
+bus = &"player_sfx"
+
 [node name="MachineGun" type="Node3D" parent="Weapons"]
-visible = false
 script = ExtResource("3_wcgjg")
 automatic = true
 ammo = 150
 attack_rate = 0.1
+
+[node name="AudioFire" type="AudioStreamPlayer3D" parent="Weapons/MachineGun"]
+stream = ExtResource("6_aj2ax")
+bus = &"player_sfx"
 
 [node name="Model" parent="Weapons/MachineGun" instance=ExtResource("3_v72q0")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
@@ -546,6 +554,10 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("11_i60v5")
 
+[node name="AudioFire" type="AudioStreamPlayer3D" parent="Weapons/Shotgun"]
+stream = ExtResource("6_aj2ax")
+bus = &"player_sfx"
+
 [node name="RocketLauncher" type="Node3D" parent="Weapons"]
 visible = false
 script = ExtResource("3_wcgjg")
@@ -565,7 +577,7 @@ libraries = {
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.294044, -2.10365)
 
 [node name="ProjectileSpawner" parent="Weapons/RocketLauncher/BulletEmitters" instance=ExtResource("13_svxm3")]
-projectile = ExtResource("14_xwsbe")
+projectile = ExtResource("14_5twyv")
 
 [node name="MuzzleFlash" parent="Weapons/RocketLauncher" instance=ExtResource("6_vjvj2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0355501, -2.098)
@@ -585,6 +597,10 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("14_edej1")
+
+[node name="AudioFire" type="AudioStreamPlayer3D" parent="Weapons/RocketLauncher"]
+stream = ExtResource("17_reic3")
+bus = &"player_sfx"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
