@@ -1,0 +1,11 @@
+Model Information:
+* title:	Hyundai Pony PS1 style
+* source:	https://sketchfab.com/3d-models/hyundai-pony-ps1-style-43b95af835d3467bac25373234d412c9
+* author:	jsandwich96 (https://sketchfab.com/jsandwich96)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Hyundai Pony PS1 style" (https://sketchfab.com/3d-models/hyundai-pony-ps1-style-43b95af835d3467bac25373234d412c9) by jsandwich96 (https://sketchfab.com/jsandwich96) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

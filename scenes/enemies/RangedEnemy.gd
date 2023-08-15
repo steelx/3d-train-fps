@@ -19,7 +19,8 @@ var current_state := STATES.IDLE
 # Sight/View variables
 @export var sight_angle: float = 45.0
 @export var turn_speed: float = 300.0
-@export var attack_range: float = 50.5
+@export var attack_range: float = 20.0
+@export var visibility_range: float = 40.5
 @export var attack_rate: float = 1.5
 @export var attack_animation_speed: float = 1.5
 
@@ -117,10 +118,10 @@ func process_state_walk(delta: float) -> void:
 
 
 func process_state_chase(delta: float) -> void:
-	if is_player_in_attack_range() and has_line_of_sight_player():
+	if is_player_in_attack_range() and can_see_player():
 		set_state_attack()
 		return
-	if not has_line_of_sight_player():
+	if not can_see_player():
 		set_state_idle()
 		return
 
@@ -171,7 +172,11 @@ func set_free() -> void:
 func can_see_player() -> bool:
 	var dir_to_player := global_transform.origin.direction_to(player.global_transform.origin)
 	var forward := global_transform.basis.z
-	return has_line_of_sight_player() and rad_to_deg(forward.angle_to(dir_to_player)) <= sight_angle
+	return (
+		has_line_of_sight_player()
+		and is_player_in_visibility_range()
+		and rad_to_deg(forward.angle_to(dir_to_player)) <= sight_angle
+	)
 
 
 func has_line_of_sight_player() -> bool:
@@ -206,6 +211,12 @@ func is_player_in_attack_range() -> bool:
 	var our_pos := global_transform.origin
 	var player_pos := player.global_transform.origin
 	return our_pos.distance_to(player_pos) <= attack_range and can_see_player()
+
+
+func is_player_in_visibility_range() -> bool:
+	var our_pos := global_transform.origin
+	var player_pos := player.global_transform.origin
+	return our_pos.distance_to(player_pos) <= visibility_range
 
 
 func start_attack() -> void:

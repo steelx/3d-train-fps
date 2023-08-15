@@ -1,0 +1,11 @@
+Model Information:
+* title:	6TWELVE
+* source:	https://sketchfab.com/3d-models/6twelve-8c2c49cab08e402d8681434a4ade4ed0
+* author:	Elbolillo (https://sketchfab.com/Elbolilloduro)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "6TWELVE" (https://sketchfab.com/3d-models/6twelve-8c2c49cab08e402d8681434a4ade4ed0) by Elbolillo (https://sketchfab.com/Elbolilloduro) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dunjg4uytej5x"]
+
+[ext_resource type="PackedScene" uid="uid://c6xiq6jdtnqgg" path="res://resources/shop/shop.gltf" id="1_nb687"]
+
+[node name="shop" instance=ExtResource("1_nb687")]
+
+[node name="Chair" parent="Sketchfab_model/6twelve_fbx/RootNode" index="0"]
+transform = Transform3D(121.892, 0, 0, 0, -1.98587e-05, 121.892, 0, -121.892, -1.98587e-05, 344.706, 76.6222, -2406.05)
+
+[node name="Mostrator" parent="Sketchfab_model/6twelve_fbx/RootNode" index="9"]
+transform = Transform3D(100, 0, 0, 0, -1.62921e-05, 100, 0, -100, -1.62921e-05, -1319.1, 66.1654, -1189.26)

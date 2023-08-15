@@ -1,0 +1,664 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 245,
+      "max": [
+        1.3856418132781982,
+        3.006298065185547,
+        0.9478827118873596
+      ],
+      "min": [
+        -1.3856418132781982,
+        -3.952472686767578,
+        -1.1868523359298706
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 2940,
+      "componentType": 5126,
+      "count": 245,
+      "max": [
+        1.0,
+        0.9999158382415771,
+        0.9999967217445374
+      ],
+      "min": [
+        -1.0,
+        -0.9998659491539001,
+        -0.9998766183853149
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 245,
+      "max": [
+        0.9865323305130005,
+        0.9982659816741943
+      ],
+      "min": [
+        0.0008056461811065674,
+        -0.0017780051566660404
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 546,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 5880,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        0.866025447845459,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -0.866025447845459,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 6312,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        1.0,
+        0.866025447845459,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -0.866025447845459,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 1960,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        2.90000057220459,
+        1.0
+      ],
+      "min": [
+        -1.9000002145767212,
+        -0.006625115871429443
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 2184,
+      "componentType": 5125,
+      "count": 60,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 6744,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        0.866025447845459,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -0.866025447845459,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 7176,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        1.0,
+        0.866025447845459,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -0.866025447845459,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 2248,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        -8.940696716308594e-08,
+        0.01000000536441803
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 2424,
+      "componentType": 5125,
+      "count": 60,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 7608,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        0.866025447845459,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -0.866025447845459,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 8040,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        1.0,
+        0.866025447845459,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -0.866025447845459,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 2536,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        -8.940696716308594e-08,
+        0.01000000536441803
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 2664,
+      "componentType": 5125,
+      "count": 60,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 8472,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        0.866025447845459,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -0.866025447845459,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 8904,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        1.0,
+        0.866025447845459,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -0.866025447845459,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 2824,
+      "componentType": 5126,
+      "count": 36,
+      "max": [
+        1.0,
+        1.0
+      ],
+      "min": [
+        -8.940696716308594e-08,
+        0.01000000536441803
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 2904,
+      "componentType": 5125,
+      "count": 60,
+      "type": "SCALAR"
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "jsandwich96 (https://sketchfab.com/jsandwich96)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/hyundai-pony-ps1-style-43b95af835d3467bac25373234d412c9",
+      "title": "Hyundai Pony PS1 style"
+    },
+    "generator": "Sketchfab-15.32.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 3144,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 3112,
+      "byteOffset": 3144,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 9336,
+      "byteOffset": 6256,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 15592,
+      "uri": "scene.bin"
+    }
+  ],
+  "extensionsUsed": [
+    "KHR_materials_unlit"
+  ],
+  "images": [
+    {
+      "uri": "textures/material_baseColor.png"
+    },
+    {
+      "uri": "textures/Tyres_baseColor.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_unlit": {}
+      },
+      "name": "material",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicFactor": 0.0
+      }
+    },
+    {
+      "doubleSided": true,
+      "extensions": {
+        "KHR_materials_unlit": {}
+      },
+      "name": "Tyres",
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 1
+        },
+        "metallicFactor": 0.0
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "car_car_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "tyre_Tyres_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 5,
+            "POSITION": 4,
+            "TEXCOORD_0": 6
+          },
+          "indices": 7,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "tyre.001_Tyres_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 9,
+            "POSITION": 8,
+            "TEXCOORD_0": 10
+          },
+          "indices": 11,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "tyre.002_Tyres_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 13,
+            "POSITION": 12,
+            "TEXCOORD_0": 14
+          },
+          "indices": 15,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "tyre.003_Tyres_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 17,
+            "POSITION": 16,
+            "TEXCOORD_0": 18
+          },
+          "indices": 19,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.009999999776482582,
+        0.0,
+        0.0,
+        -0.009999999776482582,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "4c818c5dd0f549d3b141894b1786e367.fbx"
+    },
+    {
+      "children": [
+        3,
+        5,
+        7,
+        9,
+        11
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        4
+      ],
+      "matrix": [
+        46.686668395996094,
+        0.0,
+        0.0,
+        0.0,
+        -0.0,
+        -7.606223733616828e-06,
+        -46.686668395995476,
+        0.0,
+        0.0,
+        46.686668395995476,
+        -7.606223733616828e-06,
+        0.0,
+        -5.924915313720703,
+        74.06144714355469,
+        -26.90266990661621,
+        1.0
+      ],
+      "name": "car"
+    },
+    {
+      "mesh": 0,
+      "name": "car_car_0"
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        5.460283105732353e-06,
+        -28.043561935424275,
+        -7.954892383145215e-13,
+        0.0,
+        -7.911929264108556e-06,
+        -7.472305956770457e-13,
+        -28.04356193542369,
+        0.0,
+        10.292016983031623,
+        2.0039296940170892e-06,
+        -2.903686434065011e-06,
+        0.0,
+        46.64009094238281,
+        28.514484405517578,
+        105.13435363769531,
+        1.0
+      ],
+      "name": "tyre"
+    },
+    {
+      "mesh": 1,
+      "name": "tyre_Tyres_0"
+    },
+    {
+      "children": [
+        8
+      ],
+      "matrix": [
+        5.460283105732353e-06,
+        -28.043561935424275,
+        -7.954892383145215e-13,
+        0.0,
+        -7.911929264108556e-06,
+        -7.472305956770457e-13,
+        -28.04356193542369,
+        0.0,
+        10.292016983031623,
+        2.0039296940170892e-06,
+        -2.903686434065011e-06,
+        0.0,
+        46.64009094238281,
+        28.514484405517578,
+        -98.37644958496094,
+        1.0
+      ],
+      "name": "tyre.001"
+    },
+    {
+      "mesh": 2,
+      "name": "tyre.001_Tyres_0"
+    },
+    {
+      "children": [
+        10
+      ],
+      "matrix": [
+        -5.460283105732353e-06,
+        -28.043561935424258,
+        -8.357626774710846e-07,
+        -0.0,
+        -7.911929095981673e-06,
+        8.35764213963997e-07,
+        -28.04356193542367,
+        -0.0,
+        -10.29201698303162,
+        2.0039296048909023e-06,
+        2.9036864294944373e-06,
+        -0.0,
+        -58.35990905761719,
+        28.514484405517578,
+        105.13435363769531,
+        1.0
+      ],
+      "name": "tyre.002"
+    },
+    {
+      "mesh": 3,
+      "name": "tyre.002_Tyres_0"
+    },
+    {
+      "children": [
+        12
+      ],
+      "matrix": [
+        -5.460283105732353e-06,
+        -28.043561935424258,
+        -8.357626774710846e-07,
+        -0.0,
+        -7.911929095981673e-06,
+        8.35764213963997e-07,
+        -28.04356193542367,
+        -0.0,
+        -10.29201698303162,
+        2.0039296048909023e-06,
+        2.9036864294944373e-06,
+        -0.0,
+        -58.35990905761719,
+        28.514484405517578,
+        -98.37644958496094,
+        1.0
+      ],
+      "name": "tyre.003"
+    },
+    {
+      "mesh": 4,
+      "name": "tyre.003_Tyres_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    }
+  ]
+}
