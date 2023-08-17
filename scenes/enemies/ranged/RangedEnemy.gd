@@ -118,10 +118,10 @@ func process_state_walk(delta: float) -> void:
 
 
 func process_state_chase(delta: float) -> void:
-	if is_player_in_attack_range() and can_see_player():
+	if is_player_in_attack_range() and has_line_of_sight_player():
 		set_state_attack()
 		return
-	if not can_see_player():
+	if not has_line_of_sight_player():
 		set_state_idle()
 		return
 
@@ -142,8 +142,12 @@ func process_state_attack(delta: float) -> void:
 	var player_pos := player.global_transform.origin
 	face_to_direction(our_pos.direction_to(player_pos), delta)
 	if can_attack:
-		if !is_player_in_attack_range() and can_see_player():
+		if !is_player_in_attack_range() and !can_see_player():
 			set_state_chase()
+		elif !is_player_within_angle():
+			face_to_direction(
+				global_transform.origin.direction_to(player.global_transform.origin), delta
+			)
 		else:
 			start_attack()
 
@@ -170,13 +174,15 @@ func set_free() -> void:
 
 
 func can_see_player() -> bool:
+	return (
+		has_line_of_sight_player() and is_player_in_visibility_range() and is_player_within_angle()
+	)
+
+
+func is_player_within_angle() -> bool:
 	var dir_to_player := global_transform.origin.direction_to(player.global_transform.origin)
 	var forward := global_transform.basis.z
-	return (
-		has_line_of_sight_player()
-		and is_player_in_visibility_range()
-		and rad_to_deg(forward.angle_to(dir_to_player)) <= sight_angle
-	)
+	return rad_to_deg(forward.angle_to(dir_to_player)) <= sight_angle
 
 
 func has_line_of_sight_player() -> bool:
@@ -194,6 +200,7 @@ func alert(check_los: bool = true) -> void:
 	if check_los and !has_line_of_sight_player():
 		# that means enemy is alerted but player is not in sight
 		return
+	print_debug("alert!")
 	set_state_chase()
 
 
@@ -220,11 +227,11 @@ func is_player_in_visibility_range() -> bool:
 
 
 func start_attack() -> void:
-	aimer.aim_at_position(player.global_transform.origin + Vector3.UP * 1.5)
 	can_attack = false
 	anim_player.stop()
 	anim_player.play("attack", attack_animation_speed)
 	attack_timer.start()
+	aimer.aim_at_position(player.global_transform.origin + Vector3.UP * 1.5)
 
 
 func finish_attack() -> void:
@@ -232,5 +239,6 @@ func finish_attack() -> void:
 	attack_timer.stop()
 
 
+# this function is called from animation
 func emit_enemy_attack_signal() -> void:
 	e_enemy_attack.emit()

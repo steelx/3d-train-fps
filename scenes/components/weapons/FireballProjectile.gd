@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	var direction := global_transform.basis.z
+	var direction := -global_transform.basis.z
 	var motion_vector := direction * speed * delta
 	var collision := move_and_collide(motion_vector)
 	if collision:

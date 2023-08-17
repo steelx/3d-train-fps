@@ -87,7 +87,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00252867, 0.0106196, -0.007
 collision_layer = 0
 collision_mask = 3
 axis_lock_angular_y = true
-gravity_scale = 0.2
+gravity_scale = 0.1
 contact_monitor = true
 script = ExtResource("1_tfask")
 

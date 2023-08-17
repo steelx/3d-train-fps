@@ -1,6 +1,8 @@
 extends Node
 class_name HealthManager
 
+var blood_splash := preload("res://scenes/effects/BloodSplash.tscn")
+
 # Events
 signal e_health_changed(cur_health: int)
 signal e_dead
@@ -22,7 +24,8 @@ func init() -> void:
 	e_health_changed.emit(current_health)
 
 
-func hurt(damage: int, _dir: Vector3) -> void:
+func hurt(damage: int, dir: Vector3) -> void:
+	spawn_blood(dir)
 	if current_health <= 0:
 		return
 	current_health -= damage
@@ -44,3 +47,21 @@ func heal(amount: int):
 		current_health = max_health
 	e_healed.emit()
 	e_health_changed.emit(current_health)
+
+
+func spawn_blood(dir: Vector3) -> void:
+	var effect = blood_splash.instantiate()
+	var character = get_parent()
+	effect.global_transform.origin = character.global_transform.origin
+	get_tree().get_root().add_child(effect)
+	if dir.angle_to(Vector3.UP) < 0.008:
+		return
+	# Rotate effect
+	if dir.angle_to(Vector3.DOWN) < 0.008:
+		# effect.rotate_object_local(Vector3.RIGHT, PI)
+		effect.rotate(Vector3.RIGHT, PI)
+		return
+	var y: Vector3 = dir
+	var x: Vector3 = y.cross(Vector3.UP)
+	var z: Vector3 = x.cross(y)
+	effect.global_transform.basis = Basis(x, y, z)

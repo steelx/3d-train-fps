@@ -115,8 +115,9 @@ func update_animation(velocity: Vector3, is_on_ground: bool) -> void:
 		animationPlayer.play("moving")
 
 
+# Connecting from Weapon e_fired signal
+# called when weapon is fired
 func alert_nearby_enemies() -> void:
-	# Connecting from Weapon e_fired signal
 	if !is_player:
 		return
 	var enemies_los := alert_area_los.get_overlapping_bodies()

@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://h0snuojx6lcg"]
+
+[ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="1_8kjbk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g5yui"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_8kjbk")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_4u0wf"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.661483, 0.958246), -2.22129, -2.22129, 0, 0, Vector2(1, 0.0730689), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_i7ji7"]
+curve = SubResource("Curve_4u0wf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2ajrb"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_i7ji7")
+color = Color(0.352941, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_kua1h"]
+
+[node name="BloodSplash" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_g5yui")
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_2ajrb")
+draw_pass_1 = SubResource("QuadMesh_kua1h")
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+autostart = true
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="StartTimer" to="GPUParticles3D" method="set_emitting" binds= [true]]
+[connection signal="timeout" from="DestroyTimer" to="." method="queue_free"]

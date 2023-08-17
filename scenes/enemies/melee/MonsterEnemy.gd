@@ -48,12 +48,12 @@ func _ready() -> void:
 	self.add_child(attack_timer)
 
 
-func hurt(damage: int, dir: Vector3) -> void:
+func hurt(_damage: int, dir: Vector3) -> void:
 	if current_state == STATES.DEAD:
 		return
 	if current_state == STATES.IDLE:
 		set_state_chase()
-	health_manager.hurt(damage, dir)
+	health_manager.hurt(_damage, dir)
 
 
 func _process(delta: float) -> void:
@@ -152,8 +152,12 @@ func process_state_attack(delta: float) -> void:
 	var player_pos := player.global_transform.origin
 	face_to_direction(our_pos.direction_to(player_pos), delta)
 	if can_attack:
-		if !is_player_in_attack_range() and can_see_player():
+		if !is_player_in_attack_range() and !can_see_player():
 			set_state_chase()
+		elif !is_player_within_angle():
+			face_to_direction(
+				global_transform.origin.direction_to(player.global_transform.origin), delta
+			)
 		else:
 			start_attack()
 
@@ -180,9 +184,13 @@ func set_free() -> void:
 
 
 func can_see_player() -> bool:
+	return has_line_of_sight_player() and is_player_within_angle()
+
+
+func is_player_within_angle() -> bool:
 	var dir_to_player := global_transform.origin.direction_to(player.global_transform.origin)
 	var forward := global_transform.basis.z
-	return has_line_of_sight_player() and rad_to_deg(forward.angle_to(dir_to_player)) <= sight_angle
+	return rad_to_deg(forward.angle_to(dir_to_player)) <= sight_angle
 
 
 func has_line_of_sight_player() -> bool:

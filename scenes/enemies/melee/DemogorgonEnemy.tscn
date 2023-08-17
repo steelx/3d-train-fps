@@ -44,7 +44,7 @@ height = 1.07623
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83dgt"]
 
-[node name="DemogorgonEnemy" type="CharacterBody3D"]
+[node name="DemogorgonEnemy" type="CharacterBody3D" groups=["enemy", "melee"]]
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_tixsm")
