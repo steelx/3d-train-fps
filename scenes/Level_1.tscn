@@ -1,5 +1,6 @@
-[gd_scene load_steps=31 format=3 uid="uid://c6e0m27wmiy7n"]
+[gd_scene load_steps=32 format=3 uid="uid://c6e0m27wmiy7n"]
 
+[ext_resource type="PackedScene" uid="uid://c4p5jvc2281sb" path="res://scenes/effects/gibs.tscn" id="1_1ha2b"]
 [ext_resource type="Script" path="res://scenes/Tracks.gd" id="1_2shtd"]
 [ext_resource type="Material" uid="uid://csfdcdo2s8jaw" path="res://addons/kenney_prototype_tools/materials/orange/material_04.tres" id="2_51qy6"]
 [ext_resource type="PackedScene" uid="uid://d2kvb4kiqg340" path="res://scenes/player/Player.tscn" id="2_glj7y"]
@@ -145,6 +146,9 @@ shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_612hj")
+
+[node name="Gibs" parent="." instance=ExtResource("1_1ha2b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.0554, 5.87909, -2.35991)
 
 [node name="Player" parent="." instance=ExtResource("2_glj7y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.1835, 3.07102, 2.48628)

@@ -1,0 +1,55 @@
+[gd_scene load_steps=9 format=3 uid="uid://c4p5jvc2281sb"]
+
+[ext_resource type="Script" path="res://scenes/effects/gibs.gd" id="1_gv7go"]
+[ext_resource type="PackedScene" uid="uid://bwlp68lmyjsop" path="res://scenes/effects/Gib.tscn" id="1_muq5b"]
+[ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="2_qjmlg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tmadu"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_qjmlg")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_m0dop"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.661483, 0.958246), -2.22129, -2.22129, 0, 0, Vector2(1, 0.0730689), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sfdtn"]
+curve = SubResource("Curve_m0dop")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_st6jx"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_min = 0.05
+scale_max = 0.1
+scale_curve = SubResource("CurveTexture_sfdtn")
+color = Color(0.352941, 0, 0, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ci6uv"]
+
+[node name="Gibs" type="Node3D"]
+script = ExtResource("1_gv7go")
+
+[node name="Gib" parent="." instance=ExtResource("1_muq5b")]
+transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.3, 0)
+
+[node name="Gib2" parent="." instance=ExtResource("1_muq5b")]
+transform = Transform3D(0.917011, -0.303775, 0.258478, 0.398861, 0.698402, -0.59426, 0, 0.64804, 0.761606, -0.372472, 0, 0)
+
+[node name="Gib3" parent="." instance=ExtResource("1_muq5b")]
+transform = Transform3D(0.441909, 0.292638, 0.457252, 0, 0.589592, -0.377335, -0.542878, 0.238211, 0.372208, 0.317259, 0, 0)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_tmadu")
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.8
+process_material = SubResource("ParticleProcessMaterial_st6jx")
+draw_pass_1 = SubResource("QuadMesh_ci6uv")

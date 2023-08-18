@@ -2,6 +2,7 @@ extends Node
 class_name HealthManager
 
 var blood_splash := preload("res://scenes/effects/BloodSplash.tscn")
+var gibs := preload("res://scenes/effects/gibs.tscn")
 
 # Events
 signal e_health_changed(cur_health: int)
@@ -29,8 +30,9 @@ func hurt(damage: int, dir: Vector3) -> void:
 	if current_health <= 0:
 		return
 	current_health -= damage
+	if current_health - damage <= 0:
+		spawn_gibs()
 	if current_health - damage <= critical_at:
-		#TODO make gibs spawner
 		e_critical.emit()
 	if current_health <= 0:
 		e_dead.emit()
@@ -52,7 +54,7 @@ func heal(amount: int):
 func spawn_blood(dir: Vector3) -> void:
 	var effect = blood_splash.instantiate()
 	var character = get_parent()
-	effect.global_transform.origin = character.global_transform.origin
+	effect.global_transform.origin = character.global_transform.origin + 1.5 * Vector3.UP
 	get_tree().get_root().add_child(effect)
 	if dir.angle_to(Vector3.UP) < 0.008:
 		return
@@ -65,3 +67,11 @@ func spawn_blood(dir: Vector3) -> void:
 	var x: Vector3 = y.cross(Vector3.UP)
 	var z: Vector3 = x.cross(y)
 	effect.global_transform.basis = Basis(x, y, z)
+
+
+func spawn_gibs() -> void:
+	var effect = gibs.instantiate()
+	var character = get_parent()
+	effect.global_transform.origin = character.global_transform.origin + 1.5 * Vector3.UP
+	get_tree().get_root().add_child(effect)
+	effect.enable_gibs()
