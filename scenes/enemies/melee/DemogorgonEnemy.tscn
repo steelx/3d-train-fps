@@ -1,10 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://cccv8irl2q7ib"]
+[gd_scene load_steps=20 format=3 uid="uid://cccv8irl2q7ib"]
 
 [ext_resource type="PackedScene" uid="uid://bmmycsng0udaj" path="res://resources/enemies/birdmonster/birdmonster.glb" id="1_f15wt"]
-[ext_resource type="Script" path="res://scenes/enemies/melee/MonsterEnemy.gd" id="1_tixsm"]
 [ext_resource type="PackedScene" uid="uid://bdho2y5dmldub" path="res://scenes/enemies/Hitbox.tscn" id="2_71ybh"]
 [ext_resource type="PackedScene" uid="uid://bsk64cnglx6w4" path="res://scenes/components/HealthManager.tscn" id="4_64uyp"]
-[ext_resource type="Script" path="res://scenes/enemies/CharacterMover.gd" id="5_5m2ir"]
+[ext_resource type="Script" path="res://scenes/enemies/melee/EnemyV2.gd" id="4_oklms"]
 [ext_resource type="Script" path="res://scenes/components/AimAtObject.gd" id="6_njw0l"]
 [ext_resource type="PackedScene" uid="uid://cldf3m78csky6" path="res://scenes/components/weapons/MeleeDamagePoint.tscn" id="7_b44sx"]
 [ext_resource type="AudioStream" uid="uid://brmi2w33obwuo" path="res://sounds/weapons/enemyKill.wav" id="8_ot4wk"]
@@ -44,10 +43,12 @@ height = 1.07623
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83dgt"]
 
-[node name="DemogorgonEnemy" type="CharacterBody3D" groups=["enemy", "melee"]]
+[node name="DemogorgonEnemy" type="RigidBody3D" groups=["enemy", "melee"]]
 collision_layer = 2
 collision_mask = 3
-script = ExtResource("1_tixsm")
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+script = ExtResource("4_oklms")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -209,12 +210,8 @@ shape = SubResource("CapsuleShape3D_83dgt")
 
 [node name="HealthManager" parent="." instance=ExtResource("4_64uyp")]
 
-[node name="CharacterMover" type="Node" parent="." node_paths=PackedStringArray("body_to_move")]
-script = ExtResource("5_5m2ir")
-body_to_move = NodePath("..")
-ignore_rotation = true
-
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
 
 [node name="AimAtObject" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16842, 0.71847)

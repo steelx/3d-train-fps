@@ -197,6 +197,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 
 projectile = ExtResource("8_ms1q0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
 
 [node name="AudioEnemyKill" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("9_cf1u7")
