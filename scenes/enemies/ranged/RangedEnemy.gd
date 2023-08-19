@@ -49,6 +49,7 @@ func _ready() -> void:
 	attack_timer.one_shot = true
 	attack_timer.connect("timeout", self.finish_attack)
 	self.add_child(attack_timer)
+	health_manager.e_gibbed.connect(self.set_free)
 
 
 func hurt(damage: int, dir: Vector3) -> void:
@@ -200,7 +201,6 @@ func alert(check_los: bool = true) -> void:
 	if check_los and !has_line_of_sight_player():
 		# that means enemy is alerted but player is not in sight
 		return
-	print_debug("alert!")
 	set_state_chase()
 
 

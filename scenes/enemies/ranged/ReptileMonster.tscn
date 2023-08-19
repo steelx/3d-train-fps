@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bdn4sc2ee8tvn"]
+[gd_scene load_steps=21 format=3 uid="uid://bdn4sc2ee8tvn"]
 
 [ext_resource type="Script" path="res://scenes/enemies/ranged/RangedEnemy.gd" id="1_jtx2s"]
 [ext_resource type="PackedScene" uid="uid://byl87dqpadm2s" path="res://resources/enemies/reptilemonster/reptilemonster.glb" id="2_awv51"]
@@ -43,10 +43,6 @@ radius = 0.24
 radius = 0.08
 height = 0.535
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_fb35c"]
-radius = 0.08
-height = 0.535
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1ve25"]
 radius = 0.045
 height = 0.43
@@ -80,7 +76,6 @@ bone_name = "upper_arm.r"
 bone_idx = 4
 
 [node name="Hitbox" parent="Model/Armature/Skeleton3D/ArmUpperRight" instance=ExtResource("3_7oj0f")]
-weak_spot = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Model/Armature/Skeleton3D/ArmUpperRight/Hitbox"]
 transform = Transform3D(1, -5.26197e-08, 1.49012e-08, -2.09548e-08, 1, -7.45058e-09, -1.49012e-08, -3.72529e-09, 1, 8.29697e-05, 0.0614295, 0.0029238)
@@ -92,7 +87,6 @@ bone_name = "lower_arm.r"
 bone_idx = 5
 
 [node name="Hitbox" parent="Model/Armature/Skeleton3D/ArmLowerRight" instance=ExtResource("3_7oj0f")]
-weak_spot = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Model/Armature/Skeleton3D/ArmLowerRight/Hitbox"]
 transform = Transform3D(1, -2.71946e-07, 1.67638e-07, 8.56817e-08, 1, 2.98023e-08, 3.72529e-08, 0, 1, 0.00873303, 0.219204, -0.0036447)
@@ -163,12 +157,6 @@ shape = SubResource("CapsuleShape3D_s2q38")
 transform = Transform3D(-0.974353, -0.104195, -0.199445, 0.0552499, -0.969979, 0.236828, -0.218134, 0.219736, 0.950857, -0.123436, 0.961497, 1.56462e-07)
 bone_name = "upper_leg.r"
 bone_idx = 8
-
-[node name="Hitbox" parent="Model/Armature/Skeleton3D/LegUpperRight" instance=ExtResource("3_7oj0f")]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Model/Armature/Skeleton3D/LegUpperRight/Hitbox"]
-transform = Transform3D(1, 7.45058e-09, 0, -3.72529e-09, 1, 0, -5.96046e-08, -1.49012e-08, 1, -0.0134381, 0.265008, -0.0103356)
-shape = SubResource("CapsuleShape3D_fb35c")
 
 [node name="LegLowerLeft" type="BoneAttachment3D" parent="Model/Armature/Skeleton3D" index="9"]
 transform = Transform3D(-0.978013, -0.0485491, 0.20281, 0.0195293, -0.989571, -0.14271, 0.207624, -0.135611, 0.968761, 0.175063, 0.48088, 0.108877)

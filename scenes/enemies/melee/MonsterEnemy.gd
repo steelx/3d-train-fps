@@ -46,6 +46,7 @@ func _ready() -> void:
 	attack_timer.one_shot = true
 	attack_timer.connect("timeout", self.finish_attack)
 	self.add_child(attack_timer)
+	health_manager.e_gibbed.connect(self.set_free)
 
 
 func hurt(_damage: int, dir: Vector3) -> void:
