@@ -43,12 +43,11 @@ height = 1.07623
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_83dgt"]
 
-[node name="DemogorgonEnemy" type="RigidBody3D" groups=["enemy", "melee"]]
+[node name="DemogorgonEnemy" type="CharacterBody3D" groups=["enemy", "melee"]]
 collision_layer = 2
 collision_mask = 3
 axis_lock_angular_x = true
 axis_lock_angular_z = true
-mass = 2.0
 script = ExtResource("4_oklms")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -212,6 +211,11 @@ shape = SubResource("CapsuleShape3D_83dgt")
 [node name="HealthManager" parent="." instance=ExtResource("4_64uyp")]
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 2.0
+target_desired_distance = 2.0
+path_height_offset = 2.0
+avoidance_enabled = true
+debug_enabled = true
 
 [node name="AimAtObject" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16842, 0.71847)

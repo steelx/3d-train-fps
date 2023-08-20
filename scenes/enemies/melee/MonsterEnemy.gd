@@ -10,7 +10,7 @@ var current_state := STATES.IDLE
 @onready var anim_player := $Model/AnimationPlayer
 @onready var health_manager := $HealthManager
 @onready var player: Player = get_tree().get_first_node_in_group("player")
-@onready var character_mover: Enemy = $CharacterMover
+@onready var character_mover: CharacterMover = $CharacterMover
 @onready var nav: NavigationAgent3D = $NavigationAgent3D
 @onready var enemy_kill_sound := $AudioEnemyKill
 

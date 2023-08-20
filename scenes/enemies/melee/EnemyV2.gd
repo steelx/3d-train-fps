@@ -1,5 +1,5 @@
 # EnemyV2 deals with movement and state changes
-extends RigidBody3D
+extends CharacterBody3D
 class_name Enemy
 
 enum STATES {IDLE, ROAM, RETURN_TO_BASE, SPOT, FOLLOW, STAGGER, ATTACK, ATTACK_COOLDOWN, DIE, DEAD}
@@ -12,13 +12,13 @@ var target_position: Vector3 = Vector3.ZERO
 # Movement variables
 @onready var spawn_position: Vector3 = global_position
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
-var velocity: Vector3 = Vector3.ZERO
+# var velocity: Vector3 = Vector3.ZERO
 const MASS := 2.0
-@export var FOLLOW_RANGE := 10.0
-@export var MAX_FOLLOW_SPEED := 5.0
+@export var FOLLOW_RANGE := 15.0
+@export var MAX_FOLLOW_SPEED := 7.0
 @export var ARRIVE_DISTANCE := 3.0
 @export var SLOW_RADIUS := 5.0
-@export var MAX_ROAM_SPEED := 2.5
+@export var MAX_ROAM_SPEED := 3.0
 @export var ROAM_RADIUS := 10.0
 var roam_target_position := Vector3.ZERO
 var roam_slow_radius: float = 0.0
@@ -32,6 +32,11 @@ var roam_slow_radius: float = 0.0
 # Sight/View variables
 @export var sight_angle: float = 45.0
 @export var turn_speed: float = 360.0
+const AVOID_MAX_DISTANCE: float = 2.0
+const AVOID_FORCE: float = 200.0
+@onready var navigationAgent: NavigationAgent3D = $NavigationAgent3D
+
+# Attack variables
 @export var attack_range: float = 2.5
 @export var attack_rate: float = 0.5
 @export var attack_animation_speed: float = 1.0
@@ -43,7 +48,6 @@ func _ready() -> void:
 		print_debug("target not found")
 		return
 	has_target = true
-	target.e_position_changed.connect(self._on_target_position_changed)
 	target.e_died.connect(self._on_target_died)
 	change_state(STATES.IDLE)
 	roamTimer.connect("timeout", self._on_roam_timer_timeout)
@@ -83,29 +87,43 @@ func change_state(new_state: STATES) -> void:
 
 
 # follow: mutates velocity and return distance to target
-func follow(desired_position: Vector3, max_speed: float) -> float:
-	var dir: Vector3 = (desired_position - global_position).normalized()
-	var desired_velocity: Vector3 = dir * max_speed
-	var steering_force := (desired_velocity - velocity) / MASS
-	velocity += steering_force
+func follow(desired_position: Vector3, max_speed: float, delta: float) -> float:
+	var direction: Vector3 = Vector3.ZERO
+	navigationAgent.target_position = desired_position
+	direction = navigationAgent.get_next_path_position() - global_position
+	direction = direction.normalized()
+	velocity = velocity.lerp(direction * max_speed, delta)
 	return global_position.distance_to(desired_position)
 
 
-func arrive_to(desired_position: Vector3, slow_radius: float, max_speed: float) -> float:
+func arrive_to(
+	desired_position: Vector3, slow_radius: float, max_speed: float, delta: float
+) -> float:
 	var dir: Vector3 = (desired_position - global_position).normalized()
 	var desired_velocity: Vector3 = dir * max_speed
+	var push := calculate_avoid_force(desired_velocity)
 	var distance_to_target: float = global_position.distance_to(desired_position)
 	if distance_to_target < slow_radius:
 		desired_velocity *= ((distance_to_target / slow_radius) * 0.75) + 0.25
-	var steering_force := (desired_velocity - velocity) / MASS
+	var steering_force := (desired_velocity - velocity + push) / MASS
 	velocity += steering_force
+	add_gravity(delta)
 	return distance_to_target
+
+
+func add_gravity(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	else:
+		velocity.y = 0.0
 
 
 func _physics_process(delta: float) -> void:
 	var current_state := state
 	match current_state:
 		STATES.IDLE:
+			add_gravity(delta)
+			move_and_slide()
 			anim_player.play("idle")
 			var distance_to_target: float = global_position.distance_to(target.global_position)
 			if distance_to_target < FOLLOW_RANGE:
@@ -114,12 +132,12 @@ func _physics_process(delta: float) -> void:
 				change_state(STATES.FOLLOW)
 
 		STATES.ROAM:
-			anim_player.play("walk", 0.4)
+			anim_player.play("walk")
 			face_to_direction(roam_target_position, delta)
 			var distance_to_target := arrive_to(
-				roam_target_position, roam_slow_radius, MAX_ROAM_SPEED
+				roam_target_position, roam_slow_radius, MAX_ROAM_SPEED, delta
 			)
-			move_and_collide(velocity * delta)
+			move_and_slide()
 			if distance_to_target < ARRIVE_DISTANCE:
 				change_state(STATES.IDLE)
 				return
@@ -130,8 +148,8 @@ func _physics_process(delta: float) -> void:
 		STATES.RETURN_TO_BASE:
 			anim_player.play("walk", 0.4)
 			face_to_direction(spawn_position, delta)
-			var distance_to_target := arrive_to(spawn_position, ARRIVE_DISTANCE, MAX_ROAM_SPEED)
-			move_and_collide(velocity * delta)
+			var distance_to_target := follow(spawn_position, MAX_ROAM_SPEED, delta)
+			move_and_slide()
 			if distance_to_target < ARRIVE_DISTANCE:
 				change_state(STATES.IDLE)
 				return
@@ -142,15 +160,11 @@ func _physics_process(delta: float) -> void:
 		STATES.FOLLOW:
 			anim_player.play("walk", 0.4)
 			face_to_direction(target.global_position, delta)
-			var distance_to_target := follow(target.global_position, MAX_FOLLOW_SPEED)
-			move_and_collide(velocity * delta)
+			var distance_to_target := follow(target.global_position, MAX_FOLLOW_SPEED, delta)
+			move_and_slide()
 			if distance_to_target > FOLLOW_RANGE:
 				change_state(STATES.RETURN_TO_BASE)
 				return
-
-
-func _on_target_position_changed(new_position: Vector3) -> void:
-	target_position = new_position
 
 
 func _on_target_died() -> void:
@@ -162,6 +176,9 @@ func _on_target_died() -> void:
 func hurt(_damage: int, dir: Vector3) -> void:
 	if state == STATES.DEAD:
 		return
+	if state != STATES.DEAD and state != STATES.FOLLOW:
+		#TODO: set state in alert
+		pass
 	health_manager.hurt(_damage, dir)
 
 
@@ -198,6 +215,21 @@ func has_line_of_sight_player() -> bool:
 	var query := PhysicsRayQueryParameters3D.create(from, to, self.collision_mask)
 	var raycast := get_world_3d().direct_space_state.intersect_ray(query)
 	return raycast.has("collider") and raycast.collider is Player
+
+
+func calculate_avoid_force(desired_velocity: Vector3) -> Vector3:
+	# check if obstacle is in front of the enemy and return reflect vector
+	var from := global_transform.origin + Vector3.UP
+	var to := global_transform.origin + global_transform.basis.z * AVOID_MAX_DISTANCE
+	var query := PhysicsRayQueryParameters3D.create(from, to, self.collision_mask)
+	var raycast := get_world_3d().direct_space_state.intersect_ray(query)
+	if raycast.has("collider"):
+		var collider = raycast.collider
+		if collider is Player:
+			return Vector3.ZERO
+		var reflect = raycast.normal.reflect(desired_velocity)
+		return reflect.normalized() * AVOID_FORCE
+	return Vector3.ZERO
 
 
 func _on_roam_timer_timeout() -> void:
