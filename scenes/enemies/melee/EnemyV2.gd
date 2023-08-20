@@ -13,19 +13,21 @@ var target_position: Vector3 = Vector3.ZERO
 @onready var spawn_position: Vector3 = global_position
 @onready var gravity: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 var velocity: Vector3 = Vector3.ZERO
-var MASS := 2.0
-@export var FOLLOW_RANGE = 10.0
-@export var ARRIVE_DISTANCE = 3.0
-@export var SLOW_RADIUS = 5.0
-@export var MAX_FOLLOW_SPEED = 5.0
-@export var MAX_ROAM_SPEED = 2.5
-@onready var nav: NavigationAgent3D = $NavigationAgent3D
-@export var ignore_rotation := false
+const MASS := 2.0
+@export var FOLLOW_RANGE := 10.0
+@export var MAX_FOLLOW_SPEED := 5.0
+@export var ARRIVE_DISTANCE := 3.0
+@export var SLOW_RADIUS := 5.0
+@export var MAX_ROAM_SPEED := 2.5
+@export var ROAM_RADIUS := 10.0
+var roam_target_position := Vector3.ZERO
+var roam_slow_radius: float = 0.0
 
 # Animations
 @onready var bone_attachments := $Model/Armature/Skeleton3D
 @onready var anim_player := $Model/AnimationPlayer
 @onready var health_manager := $HealthManager
+@onready var roamTimer := $RoamTimer
 
 # Sight/View variables
 @export var sight_angle: float = 45.0
@@ -44,6 +46,7 @@ func _ready() -> void:
 	target.e_position_changed.connect(self._on_target_position_changed)
 	target.e_died.connect(self._on_target_died)
 	change_state(STATES.IDLE)
+	roamTimer.connect("timeout", self._on_roam_timer_timeout)
 	# Animations
 	for bone in bone_attachments.get_children():
 		for child in bone.get_children():
@@ -55,6 +58,27 @@ func _ready() -> void:
 
 
 func change_state(new_state: STATES) -> void:
+	if state == STATES.IDLE:
+		roamTimer.stop()
+
+	match new_state:
+		STATES.IDLE:
+			randomize()
+			var random_time := randf_range(1.0, 3.0)
+			roamTimer.set_wait_time(random_time)
+			roamTimer.start()
+		STATES.ROAM:
+			#random angle inside a circle
+			randomize()
+			var random_angle := randf() * PI * 2.0
+			var circle_offset := 0.5 * ROAM_RADIUS
+			var random_radius := randf() * ROAM_RADIUS * 0.5 + circle_offset
+			roam_target_position = (
+				spawn_position
+				+ Vector3(cos(random_angle) * random_radius, 0.0, sin(random_angle) * random_radius)
+			)
+			roam_slow_radius = spawn_position.distance_to(roam_target_position) * 0.5
+
 	state = new_state
 
 
@@ -89,16 +113,22 @@ func _physics_process(delta: float) -> void:
 					return
 				change_state(STATES.FOLLOW)
 
-		STATES.FOLLOW:
+		STATES.ROAM:
 			anim_player.play("walk", 0.4)
-			face_to_direction(target.global_position, delta)
-			var distance_to_target := follow(target.global_position, MAX_FOLLOW_SPEED)
+			face_to_direction(roam_target_position, delta)
+			var distance_to_target := arrive_to(
+				roam_target_position, roam_slow_radius, MAX_ROAM_SPEED
+			)
 			move_and_collide(velocity * delta)
-			if distance_to_target > FOLLOW_RANGE:
-				change_state(STATES.RETURN_TO_BASE)
+			if distance_to_target < ARRIVE_DISTANCE:
+				change_state(STATES.IDLE)
+				return
+			if global_position.distance_to(target.global_position) < FOLLOW_RANGE and has_target:
+				change_state(STATES.FOLLOW)
 				return
 
 		STATES.RETURN_TO_BASE:
+			anim_player.play("walk", 0.4)
 			face_to_direction(spawn_position, delta)
 			var distance_to_target := arrive_to(spawn_position, ARRIVE_DISTANCE, MAX_ROAM_SPEED)
 			move_and_collide(velocity * delta)
@@ -107,6 +137,15 @@ func _physics_process(delta: float) -> void:
 				return
 			if global_position.distance_to(target.global_position) < FOLLOW_RANGE and has_target:
 				change_state(STATES.FOLLOW)
+				return
+
+		STATES.FOLLOW:
+			anim_player.play("walk", 0.4)
+			face_to_direction(target.global_position, delta)
+			var distance_to_target := follow(target.global_position, MAX_FOLLOW_SPEED)
+			move_and_collide(velocity * delta)
+			if distance_to_target > FOLLOW_RANGE:
+				change_state(STATES.RETURN_TO_BASE)
 				return
 
 
@@ -159,3 +198,7 @@ func has_line_of_sight_player() -> bool:
 	var query := PhysicsRayQueryParameters3D.create(from, to, self.collision_mask)
 	var raycast := get_world_3d().direct_space_state.intersect_ray(query)
 	return raycast.has("collider") and raycast.collider is Player
+
+
+func _on_roam_timer_timeout() -> void:
+	change_state(STATES.ROAM)

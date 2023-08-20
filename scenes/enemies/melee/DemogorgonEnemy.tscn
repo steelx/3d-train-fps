@@ -225,4 +225,6 @@ stream = ExtResource("8_ot4wk")
 max_distance = 40.0
 bus = &"SFX"
 
+[node name="RoamTimer" type="Timer" parent="."]
+
 [editable path="Model"]
