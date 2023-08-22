@@ -158,11 +158,7 @@ environment = SubResource("Environment_612hj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.6138, 3.07102, 3.22949)
 
 [node name="DemogorgonEnemy" parent="." instance=ExtResource("8_nvdra")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.6346, 1.49969, -3.04004)
-attack_animation_speed = 2.0
-
-[node name="DemogorgonEnemy2" parent="." instance=ExtResource("8_nvdra")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24.8782, 1.49969, -14.7422)
+transform = Transform3D(-0.833307, 0, -0.55281, 0, 1, 0, 0.55281, 0, -0.833307, 34.596, 0, -4.307)
 attack_animation_speed = 2.0
 
 [node name="ReptileMonster" parent="." instance=ExtResource("3_ipx8n")]

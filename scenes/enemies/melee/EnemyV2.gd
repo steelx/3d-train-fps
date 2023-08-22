@@ -17,17 +17,17 @@ const MASS := 2.0
 @export var FOLLOW_RANGE := 15.0
 @export var MAX_FOLLOW_SPEED := 7.0
 @export var ARRIVE_DISTANCE := 3.0
-@export var SLOW_RADIUS := 5.0
-@export var MAX_ROAM_SPEED := 3.0
+@export var SLOW_RADIUS := 3.0
+@export var MAX_ROAM_SPEED := 4.0
 @export var ROAM_RADIUS := 10.0
 var roam_target_position := Vector3.ZERO
-var roam_slow_radius: float = 0.0
+var roam_slow_radius: float = 1.0
 
 # Animations
 @onready var bone_attachments := $Model/Armature/Skeleton3D
 @onready var anim_player := $Model/AnimationPlayer
 @onready var health_manager := $HealthManager
-@onready var roamTimer := $RoamTimer
+@onready var roamTimer: Timer = $RoamTimer
 
 # Sight/View variables
 @export var sight_angle: float = 45.0
@@ -35,11 +35,16 @@ var roam_slow_radius: float = 0.0
 const AVOID_MAX_DISTANCE: float = 2.0
 const AVOID_FORCE: float = 200.0
 @onready var navigationAgent: NavigationAgent3D = $NavigationAgent3D
+# idle timer will be used to check if self is in roam and reset to idle
+@onready var idleTimer: Timer = $IdleTimer
 
 # Attack variables
 @export var attack_range: float = 2.5
 @export var attack_rate: float = 0.5
 @export var attack_animation_speed: float = 1.0
+@export var damage: int = 30
+@onready var attack_area := $AimAtObject/MeleeDamagePoint
+@onready var aimer := $AimAtObject
 
 
 # Called when the node enters the scene tree for the first time.
@@ -51,6 +56,7 @@ func _ready() -> void:
 	target.e_died.connect(self._on_target_died)
 	change_state(STATES.IDLE)
 	roamTimer.connect("timeout", self._on_roam_timer_timeout)
+	idleTimer.connect("timeout", self._on_idle_timer_timeout)
 	# Animations
 	for bone in bone_attachments.get_children():
 		for child in bone.get_children():
@@ -64,14 +70,20 @@ func _ready() -> void:
 func change_state(new_state: STATES) -> void:
 	if state == STATES.IDLE:
 		roamTimer.stop()
+	if state == STATES.ROAM:
+		idleTimer.stop()
 
+	anim_player.stop()
 	match new_state:
 		STATES.IDLE:
+			anim_player.play("idle")
 			randomize()
 			var random_time := randf_range(1.0, 3.0)
 			roamTimer.set_wait_time(random_time)
 			roamTimer.start()
+
 		STATES.ROAM:
+			anim_player.play("walk")
 			#random angle inside a circle
 			randomize()
 			var random_angle := randf() * PI * 2.0
@@ -82,8 +94,82 @@ func change_state(new_state: STATES) -> void:
 				+ Vector3(cos(random_angle) * random_radius, 0.0, sin(random_angle) * random_radius)
 			)
 			roam_slow_radius = spawn_position.distance_to(roam_target_position) * 0.5
+			var random_time := randf_range(1.0, 3.0)
+			idleTimer.set_wait_time(random_time)
+			idleTimer.start()
+
+		STATES.SPOT:
+			$SpotIcon.on_spot(self._on_spot_tween_completed)
+
+		STATES.ATTACK:
+			aimer.aim_at_position(target.global_position + Vector3.UP * 1.5)
+			anim_player.play("attack", attack_animation_speed)
+			for child in aimer.get_children():
+				if child.has_method("set_damage"):
+					child.set_damage(damage)
+				if child.has_method("fire"):
+					child.fire()
+
+		STATES.RETURN_TO_BASE:
+			anim_player.play("walk", 0.4)
+
+		STATES.FOLLOW:
+			anim_player.play("walk", 0.4)
 
 	state = new_state
+
+
+func _physics_process(delta: float) -> void:
+	var current_state := state
+	# print_state(current_state)
+	match current_state:
+		STATES.IDLE:
+			add_gravity(delta)
+			# move_and_slide()
+			var distance_to_target: float = global_position.distance_to(target.global_position)
+			if distance_to_target < FOLLOW_RANGE:
+				if not has_target:
+					return
+				change_state(STATES.SPOT)
+
+		STATES.ROAM:
+			face_to_direction(roam_target_position, delta)
+			var distance_to_target := arrive_to(
+				roam_target_position, roam_slow_radius, MAX_ROAM_SPEED, delta
+			)
+			move_and_slide()
+			if distance_to_target <= ARRIVE_DISTANCE:
+				change_state(STATES.IDLE)
+				return
+			if global_position.distance_to(target.global_position) < FOLLOW_RANGE and has_target:
+				change_state(STATES.SPOT)
+				return
+			#TODO: upon colliding on wall return to base
+			#if get_slide_collision_count() > 0:
+			# 	change_state(STATES.IDLE)
+
+		STATES.RETURN_TO_BASE:
+			face_to_direction(spawn_position, delta)
+			var distance_to_target := follow(spawn_position, MAX_ROAM_SPEED, delta)
+			move_and_slide()
+			if distance_to_target < ARRIVE_DISTANCE:
+				change_state(STATES.IDLE)
+				return
+			if global_position.distance_to(target.global_position) < FOLLOW_RANGE and has_target:
+				change_state(STATES.SPOT)
+				return
+
+		STATES.FOLLOW:
+			anim_player.play("walk", 0.4)
+			face_to_direction(target.global_position, delta)
+			var distance_to_target := follow(target.global_position, MAX_FOLLOW_SPEED, delta)
+			move_and_slide()
+			if is_player_in_attack_range():
+				change_state(STATES.ATTACK)
+				return
+			if distance_to_target > FOLLOW_RANGE:
+				change_state(STATES.RETURN_TO_BASE)
+				return
 
 
 # follow: mutates velocity and return distance to target
@@ -116,55 +202,6 @@ func add_gravity(delta: float) -> void:
 		velocity.y -= gravity * delta
 	else:
 		velocity.y = 0.0
-
-
-func _physics_process(delta: float) -> void:
-	var current_state := state
-	match current_state:
-		STATES.IDLE:
-			add_gravity(delta)
-			move_and_slide()
-			anim_player.play("idle")
-			var distance_to_target: float = global_position.distance_to(target.global_position)
-			if distance_to_target < FOLLOW_RANGE:
-				if not has_target:
-					return
-				change_state(STATES.FOLLOW)
-
-		STATES.ROAM:
-			anim_player.play("walk")
-			face_to_direction(roam_target_position, delta)
-			var distance_to_target := arrive_to(
-				roam_target_position, roam_slow_radius, MAX_ROAM_SPEED, delta
-			)
-			move_and_slide()
-			if distance_to_target < ARRIVE_DISTANCE:
-				change_state(STATES.IDLE)
-				return
-			if global_position.distance_to(target.global_position) < FOLLOW_RANGE and has_target:
-				change_state(STATES.FOLLOW)
-				return
-
-		STATES.RETURN_TO_BASE:
-			anim_player.play("walk", 0.4)
-			face_to_direction(spawn_position, delta)
-			var distance_to_target := follow(spawn_position, MAX_ROAM_SPEED, delta)
-			move_and_slide()
-			if distance_to_target < ARRIVE_DISTANCE:
-				change_state(STATES.IDLE)
-				return
-			if global_position.distance_to(target.global_position) < FOLLOW_RANGE and has_target:
-				change_state(STATES.FOLLOW)
-				return
-
-		STATES.FOLLOW:
-			anim_player.play("walk", 0.4)
-			face_to_direction(target.global_position, delta)
-			var distance_to_target := follow(target.global_position, MAX_FOLLOW_SPEED, delta)
-			move_and_slide()
-			if distance_to_target > FOLLOW_RANGE:
-				change_state(STATES.RETURN_TO_BASE)
-				return
 
 
 func _on_target_died() -> void:
@@ -217,6 +254,12 @@ func has_line_of_sight_player() -> bool:
 	return raycast.has("collider") and raycast.collider is Player
 
 
+func is_player_in_attack_range() -> bool:
+	var our_pos := global_transform.origin
+	var player_pos := target.global_position
+	return our_pos.distance_to(player_pos) <= attack_range and can_see_player()
+
+
 func calculate_avoid_force(desired_velocity: Vector3) -> Vector3:
 	# check if obstacle is in front of the enemy and return reflect vector
 	var from := global_transform.origin + Vector3.UP
@@ -234,3 +277,36 @@ func calculate_avoid_force(desired_velocity: Vector3) -> Vector3:
 
 func _on_roam_timer_timeout() -> void:
 	change_state(STATES.ROAM)
+
+
+func _on_idle_timer_timeout() -> void:
+	change_state(STATES.IDLE)
+
+
+func _on_spot_tween_completed() -> void:
+	$SpotIcon.hide()
+	change_state(STATES.FOLLOW)
+
+
+func print_state(state: STATES) -> void:
+	match state:
+		STATES.IDLE:
+			print_debug("IDLE")
+		STATES.ROAM:
+			print_debug("ROAM")
+		STATES.RETURN_TO_BASE:
+			print_debug("RETURN_TO_BASE")
+		STATES.SPOT:
+			print_debug("SPOT")
+		STATES.FOLLOW:
+			print_debug("FOLLOW")
+		STATES.STAGGER:
+			print_debug("STAGGER")
+		STATES.ATTACK:
+			print_debug("ATTACK")
+		STATES.ATTACK_COOLDOWN:
+			print_debug("ATTACK_COOLDOWN")
+		STATES.DIE:
+			print_debug("DIE")
+		STATES.DEAD:
+			print_debug("DEAD")
