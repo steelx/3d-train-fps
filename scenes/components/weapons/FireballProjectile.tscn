@@ -137,5 +137,5 @@ stream = ExtResource("4_6cnks")
 bus = &"SFX"
 
 [connection signal="timeout" from="DestroyAfterHitTimer" to="." method="explode"]
-[connection signal="timeout" from="ShowTimer" to="." method="show"]
 [connection signal="timeout" from="ShowTimer" to="." method="_on_show_timer_timeout"]
+[connection signal="timeout" from="ShowTimer" to="." method="show"]

@@ -37,7 +37,7 @@ const AVOID_FORCE: float = 200.0
 @onready var navigationAgent: NavigationAgent3D = $NavigationAgent3D
 
 # Attack variables
-@export var attack_range: float = 2.5
+@export var attack_range: float = 2.0  #attack_range wrt aimer child Z position
 @export var attack_rate: float = 0.5
 @export var attack_animation_speed: float = 1.0
 @export var damage: int = 30
@@ -61,7 +61,7 @@ func _ready() -> void:
 				child.e_hurt.connect(self.hurt)
 
 	health_manager.init()
-	health_manager.e_dead.connect(self.set_state_dead)
+	health_manager.e_dead.connect(func(): self.change_state(STATES.DEAD))
 
 
 func change_state(new_state: STATES) -> void:
@@ -95,17 +95,27 @@ func change_state(new_state: STATES) -> void:
 		STATES.ATTACK:
 			aimer.aim_at_position(target.global_position + Vector3.UP * 1.5)
 			anim_player.play("attack", attack_animation_speed)
+			$AudioAttack.play()
 			for child in aimer.get_children():
 				if child.has_method("set_damage"):
 					child.set_damage(damage)
 				if child.has_method("fire"):
 					child.fire()
 
+		STATES.ATTACK_COOLDOWN:
+			randomize()
+			get_tree().create_timer(attack_rate).connect("timeout", func(): self.change_state(STATES.FOLLOW))
+
 		STATES.RETURN_TO_BASE:
 			anim_player.play("walk", 0.4)
 
 		STATES.FOLLOW:
 			anim_player.play("walk", 0.4)
+
+		STATES.DEAD:
+			anim_player.stop()
+			anim_player.play("die")
+			get_tree().create_timer(3).connect("timeout", func(): self.queue_free())
 
 	state = new_state
 
@@ -147,12 +157,13 @@ func _physics_process(delta: float) -> void:
 		STATES.FOLLOW:
 			anim_player.play("walk", 0.4)
 			face_to_direction(target.global_position, delta)
-			var distance_to_target := follow(target.global_position, MAX_FOLLOW_SPEED, delta)
-			add_gravity(delta)
-			move_and_slide()
 			if is_player_in_attack_range():
 				change_state(STATES.ATTACK)
 				return
+			var distance_to_target := follow(target.global_position, MAX_FOLLOW_SPEED, delta)
+			add_gravity(delta)
+			move_and_slide()
+
 			if distance_to_target > FOLLOW_RANGE:
 				change_state(STATES.RETURN_TO_BASE)
 				return
@@ -199,12 +210,6 @@ func hurt(_damage: int, dir: Vector3) -> void:
 		#TODO: set state in alert
 		pass
 	health_manager.hurt(_damage, dir)
-
-
-func set_state_dead() -> void:
-	state = STATES.DEAD
-	anim_player.stop()
-	anim_player.play("die")
 
 
 func face_to_direction(desired_position: Vector3, delta: float) -> void:
@@ -254,6 +259,11 @@ func hit_the_wall(desired_velocity: Vector3) -> Vector3:
 			var reflect: Vector3 = desired_velocity - 2 * desired_velocity.dot(normal) * normal
 			return reflect
 	return Vector3.ZERO
+
+
+# call this func from AnimationPlayer
+func _on_attack_anim_end() -> void:
+	change_state(STATES.ATTACK_COOLDOWN)
 
 
 func _on_roam_timer_timeout() -> void:
