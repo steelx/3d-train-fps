@@ -46,6 +46,7 @@ func _ready() -> void:
 	attack_timer.one_shot = true
 	attack_timer.connect("timeout", self.finish_attack)
 	self.add_child(attack_timer)
+	health_manager.e_gibbed.connect(self.set_free)
 
 
 func hurt(_damage: int, dir: Vector3) -> void:
@@ -105,20 +106,6 @@ func process_state_idle(_delta: float) -> void:
 	if can_see_player():
 		set_state_chase()
 		return
-	character_mover.set_move_vec(Vector3.ZERO)
-	# add random movement
-	# var dir := Vector3.ZERO
-	# dir.x = randf_range(-1, 1)
-	# dir.z = randf_range(-1, 1)
-	# dir = dir.normalized()
-	# character_mover.set_move_vec(dir)
-	# # add a Raycast to check if path is walkable
-	# var from := global_transform.origin + Vector3.UP
-	# var to := from + dir * 2
-	# var query := PhysicsRayQueryParameters3D.create(from, to, self.collision_mask)
-	# var raycast := get_world_3d().direct_space_state.intersect_ray(query)
-	# if raycast.has("collider"):
-	# 	set_state_walk()
 
 
 func process_state_walk(delta: float) -> void:
@@ -143,11 +130,11 @@ func process_state_chase(delta: float) -> void:
 	var dir: Vector3 = nav.get_next_path_position() - our_pos
 	dir = dir.normalized()
 	dir.y = 0
-	character_mover.set_move_vec(dir)
+	#character_mover.set_move_vec(dir)
 
 
 func process_state_attack(delta: float) -> void:
-	character_mover.set_move_vec(Vector3.ZERO)
+	#character_mover.set_move_vec(Vector3.ZERO)
 	var our_pos := global_transform.origin
 	var player_pos := player.global_transform.origin
 	face_to_direction(our_pos.direction_to(player_pos), delta)

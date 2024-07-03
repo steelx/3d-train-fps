@@ -37,7 +37,7 @@ color = Color(0.352941, 0, 0, 1)
 script = ExtResource("1_gv7go")
 
 [node name="Gib" parent="." instance=ExtResource("1_muq5b")]
-transform = Transform3D(0.6, 0, 0, 0, 0.6, 0, 0, 0, 0.6, 0, 0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 
 [node name="Gib2" parent="." instance=ExtResource("1_muq5b")]
 transform = Transform3D(0.917011, -0.303775, 0.258478, 0.398861, 0.698402, -0.59426, 0, 0.64804, 0.761606, -0.372472, 0, 0)

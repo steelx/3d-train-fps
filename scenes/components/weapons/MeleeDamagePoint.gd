@@ -17,11 +17,7 @@ func fire() -> void:
 	var hitboxes := get_overlapping_areas()
 	for body in bodies:
 		if body.has_method("hurt") and !bodies_to_exclude.has(body):
-			body.hurt(
-				damage, self.global_transform.origin.direction_to(body.global_transform.origin)
-			)
+			body.hurt(damage, self.global_transform.origin.direction_to(body.global_transform.origin))
 	for hitbox in hitboxes:
 		if hitbox.has_method("hurt") and !bodies_to_exclude.has(hitbox):
-			hitbox.hurt(
-				damage, self.global_transform.origin.direction_to(hitbox.global_transform.origin)
-			)
+			hitbox.hurt(damage, self.global_transform.origin.direction_to(hitbox.global_transform.origin))

@@ -1,6 +1,9 @@
 extends RigidBody3D
 class_name Player
 
+signal e_position_changed(pos: Vector3)
+signal e_died
+
 const FIRE = "fire"
 const RELOAD = "reload"
 const JUMP = "jump"
@@ -9,7 +12,7 @@ const MOVE_BACKWARD = "move_backward"
 const MOVE_LEFT = "move_left"
 const MOVE_RIGHT = "move_right"
 const CANCEL = "ui_cancel"
-const SPEED = 12.0
+const SPEED = 15.0
 const JUMP_FORCE = 8.0
 
 const hotkeys := {
@@ -95,6 +98,7 @@ func handle_camera_rotation() -> void:
 func handle_movement(input: Vector3, delta: float) -> void:
 	var move_direction: Vector3 = twist_pivot.basis * input
 	apply_central_force(move_direction * SPEED * delta * 100)
+	e_position_changed.emit(transform.origin)
 
 
 func handle_character_rotation(input: Vector3, delta: float) -> void:
@@ -122,6 +126,7 @@ func heal(amt: int) -> void:
 
 
 func kill() -> void:
+	e_died.emit()
 	is_dead = true
 	self.freeze = true
 

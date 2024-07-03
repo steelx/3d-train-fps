@@ -10,8 +10,10 @@ signal e_dead
 signal e_hurt
 signal e_healed
 signal e_critical
+signal e_gibbed
 
 @export var critical_at: int = 20
+@export var gib_at: int = -20
 @export var max_health: int = 100
 var current_health: int = 1
 
@@ -30,7 +32,8 @@ func hurt(damage: int, dir: Vector3) -> void:
 	if current_health <= 0:
 		return
 	current_health -= damage
-	if current_health - damage <= 0:
+	if current_health - damage <= gib_at:
+		e_gibbed.emit()
 		spawn_gibs()
 	if current_health - damage <= critical_at:
 		e_critical.emit()

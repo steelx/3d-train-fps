@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://evbw5r2li62p"]
+
+[ext_resource type="PackedScene" uid="uid://b6armblvbp7yg" path="res://scenes/objects/PickupInheritable.tscn" id="1_e0jp7"]
+[ext_resource type="PackedScene" uid="uid://dnnffin7mekc7" path="res://resources/pickups/healthpack.glb" id="2_5vxwm"]
+
+[sub_resource type="Animation" id="Animation_xyvbf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphic:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_16h2l"]
+resource_name = "spin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Graphic:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_13145"]
+_data = {
+"RESET": SubResource("Animation_xyvbf"),
+"spin": SubResource("Animation_16h2l")
+}
+
+[node name="HealthPickup" instance=ExtResource("1_e0jp7")]
+amount = 50
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "spin"
+libraries = {
+"": SubResource("AnimationLibrary_13145")
+}
+
+[node name="healthpack" parent="Graphic" index="0" instance=ExtResource("2_5vxwm")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)

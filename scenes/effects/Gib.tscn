@@ -5,8 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://caywkikfqp875" path="res://resources/effects/circle32.png" id="2_thmsa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_yihoh"]
-radius = 0.193611
-height = 0.627409
+radius = 0.0687124
+height = 0.214627
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ruscv"]
 transparency = 1
@@ -47,7 +47,7 @@ transform = Transform3D(0.459364, 0.872479, 0.166631, -0.884849, 0.465877, 0, -0
 shape = SubResource("CapsuleShape3D_yihoh")
 
 [node name="Model" parent="." instance=ExtResource("1_yi3td")]
-transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 material_override = SubResource("StandardMaterial3D_ruscv")

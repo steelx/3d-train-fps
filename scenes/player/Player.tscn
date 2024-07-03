@@ -72,6 +72,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.5, -0.3)
 
 [node name="WeaponManager" parent="TwistPivot/PitchPivot/Camera3D/Hand" instance=ExtResource("4_udfso")]
 
+[node name="Shotgun" parent="TwistPivot/PitchPivot/Camera3D/Hand/WeaponManager/Weapons" index="2"]
+damage = 10
+
 [node name="Character" parent="." instance=ExtResource("2_iwhi1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.263587, 0)
 
@@ -79,11 +82,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.263587, 0)
 transform = Transform3D(-0.8, 0, -1.20797e-07, 0, 0.8, 0, 1.20797e-07, 0, -0.8, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Character/KayKit Animated Character2" index="0"]
-bones/0/rotation = Quaternion(-0.0163736, 0, 1.12055e-18, 0.999866)
-bones/1/rotation = Quaternion(0.0683101, 0, -9.89175e-18, 0.997664)
-bones/2/rotation = Quaternion(-0.679434, -0.198847, 0.677572, -0.199314)
+bones/0/rotation = Quaternion(-0.00017514, 0, 0, 1)
+bones/1/rotation = Quaternion(0.0448008, -6.8904e-26, -9.89167e-18, 0.998996)
+bones/2/rotation = Quaternion(-0.68582, -0.17222, 0.685806, -0.172223)
 bones/3/rotation = Quaternion(0.606617, -0.606617, 0.36334, 0.36334)
-bones/4/rotation = Quaternion(-0.69721, 0.303449, 0.645799, 0.0689958)
+bones/4/rotation = Quaternion(-0.705026, 0.286106, 0.646715, 0.0533056)
 bones/5/rotation = Quaternion(0.300506, -0.376591, 0.679877, 0.55285)
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
